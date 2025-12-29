@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Mark Daniel Saddlery</title>
 
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="index.css" />
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 
@@ -17,46 +17,65 @@
   <!-- HERO VIDEO -->
   <section class="stack hero">
     <div class="media-wrapper">
-     <video autoplay muted loop playsinline>
-     <source src="assets/banner1mobile.mp4" media="(max-width: 768px)">
-     <source src="assets/banner1.mp4" type="video/mp4">
-     </video>
+      <video id="heroVideo" autoplay muted loop playsinline></video>
     </div>
   </section>
 
-  <!-- STACKS -->
+  <!-- STACK 2 -->
   <section class="stack">
     <div class="media-wrapper">
-      <img src="assets/banner2.jpg">
+      <picture>
+        <source srcset="assets/banner2mobile.jpg" media="(max-width: 768px)">
+        <img src="assets/banner2.jpg" alt="Banner 2">
+      </picture>
     </div>
   </section>
 
+  <!-- STACK 3 -->
   <section class="stack">
     <div class="media-wrapper">
-      <img src="assets/banner3.jpg">
+      <picture>
+        <source srcset="assets/banner3mobile.jpg" media="(max-width: 768px)">
+        <img src="assets/banner3.jpg" alt="Banner 3">
+      </picture>
     </div>
   </section>
 
+  <!-- STACK 4 -->
   <section class="stack">
     <div class="media-wrapper">
-      <img src="assets/banner4.jpg">
+      <picture>
+        <source srcset="assets/banner4mobile.jpg" media="(max-width: 768px)">
+        <img src="assets/banner4.jpg" alt="Banner 4">
+      </picture>
     </div>
   </section>
 
+  <!-- HEADER INJECTION + VIDEO LOGIC -->
   <script>
+    // inject header
     fetch('header.html')
       .then(res => res.text())
       .then(data => {
         document.getElementById('header-placeholder').innerHTML = data;
       });
 
-    // scroll behavior
+    // header scroll behavior
     window.addEventListener('scroll', () => {
       const header = document.querySelector('.site-header');
       if (!header) return;
-
       header.classList.toggle('scrolled', window.scrollY > 40);
     });
+
+    // reliable mobile / desktop video switch
+    const heroVideo = document.getElementById('heroVideo');
+    const isMobile = window.matchMedia('(max-width: 768px)').matches;
+
+    heroVideo.src = isMobile
+      ? 'assets/banner1mobile.mp4'
+      : 'assets/banner1.mp4';
+
+    heroVideo.load();
   </script>
 
 </body>
