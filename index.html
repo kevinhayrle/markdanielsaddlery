@@ -7,77 +7,6 @@
 
   <link rel="stylesheet" href="index.css" />
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-<!-- ================= PRELOAD HERO VIDEO ================= -->
-
-<!-- Desktop hero video -->
-<link
-  rel="preload"
-  as="video"
-  href="assets/banner1.mp4"
-  type="video/mp4"
-  media="(min-width: 769px)"
->
-
-<!-- Mobile hero video -->
-<link
-  rel="preload"
-  as="video"
-  href="assets/banner1mobile.mp4"
-  type="video/mp4"
-  media="(max-width: 768px)"
->
-
-<!-- ================= PRELOAD BANNER 2 (MOST IMPORTANT) ================= -->
-
-<!-- Desktop -->
-<link
-  rel="preload"
-  as="image"
-  href="assets/banner2.JPG"
-  media="(min-width: 769px)"
-  fetchpriority="high"
->
-
-<!-- Mobile -->
-<link
-  rel="preload"
-  as="image"
-  href="assets/banner2mobile.PNG"
-  media="(max-width: 768px)"
-  fetchpriority="high"
->
-
-<!-- ================= PRELOAD BANNER 3 ================= -->
-
-<link
-  rel="preload"
-  as="image"
-  href="assets/banner3.jpg"
-  media="(min-width: 769px)"
->
-
-<link
-  rel="preload"
-  as="image"
-  href="assets/banner3mobile.jpg"
-  media="(max-width: 768px)"
->
-
-<!-- ================= PRELOAD BANNER 4 ================= -->
-
-<link
-  rel="preload"
-  as="image"
-  href="assets/banner4.jpg"
-  media="(min-width: 769px)"
->
-
-<link
-  rel="preload"
-  as="image"
-  href="assets/banner4mobile.jpg"
-  media="(max-width: 768px)"
->
 
 </head>
 
@@ -88,13 +17,30 @@
 
   <!-- HERO VIDEO -->
   <section class="stack hero">
-    <div class="media-wrapper">
-      <video id="heroVideo" autoplay muted loop playsinline></video>
+  <div class="media-wrapper">
+
+    <video
+      id="heroVideo"
+      class="hero-video"
+      autoplay
+      muted
+      loop
+      playsinline
+    ></video>
+
+    <!-- TEXT OVERLAY -->
+    <div class="hero-overlay">
+      <h1 class="hero-title">MARK DANIEL SADDLERY</h1>
+      <h2 class="hero-subtitle">CRAFTED FOR THE RIDE</h2>
+      <a href="home.html" class="hero-cta">SHOP NOW</a>
     </div>
-  </section>
+
+  </div>
+</section>
+
 
   <!-- STACK 2 -->
-   <section class="stack animate-on-scroll">
+   <section class="stack">
     <div class="media-wrapper">
       <picture>
         <source srcset="assets/banner2mobile.PNG" media="(max-width: 768px)">
@@ -104,7 +50,7 @@
   </section>
 
   <!-- STACK 3 -->
-  <section class="stack animate-on-scroll">
+  <section class="stack">
     <div class="media-wrapper">
       <picture>
         <source srcset="assets/banner3mobile.jpg" media="(max-width: 768px)">
@@ -114,7 +60,7 @@
   </section>
 
   <!-- STACK 4 -->
-  <section class="stack animate-on-scroll">
+  <section class="stack">
     <div class="media-wrapper">
       <picture>
         <source srcset="assets/banner4mobile.jpg" media="(max-width: 768px)">
@@ -123,8 +69,7 @@
     </div>
   </section>
 
-  <!-- HEADER INJECTION + VIDEO LOGIC -->
-<!-- HEADER INJECTION + VIDEO + SCROLL ANIMATIONS -->
+  
 <script>
   /* ================= HEADER INJECTION ================= */
   fetch('header.html')
@@ -150,27 +95,10 @@
 
   heroVideo.load();
 
-  /* ================= BANNER SCROLL ANIMATION ================= */
-  const animatedBanners = document.querySelectorAll('.animate-on-scroll');
-
-  const observer = new IntersectionObserver(
-    (entries, observer) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('animate');
-          observer.unobserve(entry.target); // animate once only
-        }
-      });
-    },
-    {
-      threshold: 0.3
-    }
-  );
-
-  animatedBanners.forEach(banner => {
-    observer.observe(banner);
-  });
+  /* ================= ANIMATIONS REMOVED ================= */
+  // IntersectionObserver and animation logic intentionally removed
 </script>
+
 
 
 </body>

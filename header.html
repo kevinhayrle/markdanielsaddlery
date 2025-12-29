@@ -32,15 +32,19 @@
   top: 0;
   width: 100%;
   z-index: 1000;
-  background:white;
+  background: #fff;
+
+  /* 👇 shadow ALWAYS present */
+  box-shadow: 0 1px 8px rgba(0,0,0,0.08);
+
   transition: background 0.35s ease, box-shadow 0.35s ease;
 }
 
-/* SOLID STATE ON SCROLL */
+/* STRONGER SHADOW ON SCROLL (OPTIONAL) */
 .site-header.scrolled {
-  background: #fff;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  box-shadow: 0 4px 14px rgba(0,0,0,0.12);
 }
+
 
 /* HEADER GRID */
 .header-inner {
