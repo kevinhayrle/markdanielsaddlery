@@ -22,17 +22,17 @@
   </section>
 
   <!-- STACK 2 -->
-  <section class="stack">
+   <section class="stack animate-on-scroll">
     <div class="media-wrapper">
       <picture>
-        <source srcset="assets/banner2mobile.jpg" media="(max-width: 768px)">
-        <img src="assets/banner2.jpg" alt="Banner 2">
+        <source srcset="assets/banner2mobile.PNG" media="(max-width: 768px)">
+        <img src="assets/banner2.JPG" alt="Banner 2">
       </picture>
     </div>
   </section>
 
   <!-- STACK 3 -->
-  <section class="stack">
+  <section class="stack animate-on-scroll">
     <div class="media-wrapper">
       <picture>
         <source srcset="assets/banner3mobile.jpg" media="(max-width: 768px)">
@@ -42,7 +42,7 @@
   </section>
 
   <!-- STACK 4 -->
-  <section class="stack">
+  <section class="stack animate-on-scroll">
     <div class="media-wrapper">
       <picture>
         <source srcset="assets/banner4mobile.jpg" media="(max-width: 768px)">
@@ -52,31 +52,54 @@
   </section>
 
   <!-- HEADER INJECTION + VIDEO LOGIC -->
-  <script>
-    // inject header
-    fetch('header.html')
-      .then(res => res.text())
-      .then(data => {
-        document.getElementById('header-placeholder').innerHTML = data;
-      });
-
-    // header scroll behavior
-    window.addEventListener('scroll', () => {
-      const header = document.querySelector('.site-header');
-      if (!header) return;
-      header.classList.toggle('scrolled', window.scrollY > 40);
+<!-- HEADER INJECTION + VIDEO + SCROLL ANIMATIONS -->
+<script>
+  /* ================= HEADER INJECTION ================= */
+  fetch('header.html')
+    .then(res => res.text())
+    .then(data => {
+      document.getElementById('header-placeholder').innerHTML = data;
     });
 
-    // reliable mobile / desktop video switch
-    const heroVideo = document.getElementById('heroVideo');
-    const isMobile = window.matchMedia('(max-width: 768px)').matches;
+  /* ================= HEADER SCROLL BEHAVIOR ================= */
+  window.addEventListener('scroll', () => {
+    const header = document.querySelector('.site-header');
+    if (!header) return;
+    header.classList.toggle('scrolled', window.scrollY > 40);
+  });
 
-    heroVideo.src = isMobile
-      ? 'assets/banner1mobile.mp4'
-      : 'assets/banner1.mp4';
+  /* ================= HERO VIDEO (MOBILE / DESKTOP) ================= */
+  const heroVideo = document.getElementById('heroVideo');
+  const isMobile = window.matchMedia('(max-width: 768px)').matches;
 
-    heroVideo.load();
-  </script>
+  heroVideo.src = isMobile
+    ? 'assets/banner1mobile.mp4'
+    : 'assets/banner1.mp4';
+
+  heroVideo.load();
+
+  /* ================= BANNER SCROLL ANIMATION ================= */
+  const animatedBanners = document.querySelectorAll('.animate-on-scroll');
+
+  const observer = new IntersectionObserver(
+    (entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('animate');
+          observer.unobserve(entry.target); // animate once only
+        }
+      });
+    },
+    {
+      threshold: 0.3
+    }
+  );
+
+  animatedBanners.forEach(banner => {
+    observer.observe(banner);
+  });
+</script>
+
 
 </body>
 </html>
