@@ -1,0 +1,150 @@
+<!-- ================= HEADER ================= -->
+<header class="site-header">
+  <div class="header-inner">
+    <div class="left">
+      <span class="material-icons icon">menu</span>
+    </div>
+
+    <div class="center">
+      <img src="assets/logo.png" alt="Mark Daniel Saddlery" class="logo">
+    </div>
+
+    <div class="right">
+      <span class="material-icons icon">search</span>
+      <span class="material-icons icon">person</span>
+      <span class="material-icons icon">shopping_cart</span>
+    </div>
+  </div>
+</header>
+
+<!-- ================= HEADER STYLES ================= -->
+<style>
+/* RESET ONLY FOR HEADER */
+.site-header, .site-header * {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* HEADER WRAPPER */
+.site-header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+  background:white;
+  transition: background 0.35s ease, box-shadow 0.35s ease;
+}
+
+/* SOLID STATE ON SCROLL */
+.site-header.scrolled {
+  background: #fff;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+}
+
+/* HEADER GRID */
+.header-inner {
+  display: grid;
+  grid-template-columns: 48px 1fr 48px;
+  align-items: center;
+  height: 70px;
+  padding: 0 25px;
+}
+
+/* SECTIONS */
+.left {
+  justify-self: start;
+}
+
+.center {
+  justify-self: center;
+}
+
+.right {
+  justify-self: end;
+  display: flex;
+  align-items: center;
+  gap: 25px;
+}
+
+/* LOGO */
+.logo {
+  height: 70px;
+  opacity: 0;
+  animation: logoDrop 0.8s ease forwards;
+}
+
+/* ICONS */
+.icon {
+  font-size: 25px;
+  cursor: pointer;
+  opacity: 0;
+  transform: translateY(-6px);
+  animation: iconFade 0.6s ease forwards;
+}
+
+.left .icon { animation-delay: 0.1s; }
+.right .icon:nth-child(2) { animation-delay: 0.2s; }
+.right .icon:nth-child(3) { animation-delay: 0.3s; }
+
+.icon:hover {
+  transform: scale(1.15);
+  transition: transform 0.25s ease;
+}
+
+/* SEARCH */
+.search {
+  display: flex;
+  flex-direction: column;
+  font-size: 12px;
+  letter-spacing: 3px;
+}
+
+.search .line {
+  width: 110px;
+  height: 1px;
+  background: #000;
+  margin-top: 4px;
+}
+
+/* ANIMATIONS */
+@keyframes logoDrop {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes iconFade {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+
+  .logo {
+    height: 50px;
+  }
+
+  .header-inner{
+height: 50px;
+padding: 0 14px;  
+gap: 16px;
+}
+
+.right {
+  gap: 15px;
+}
+
+  .icon {
+    font-size: 25px;
+  }
+}
+</style>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mark Daniel Saddlery</title>
+
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+
+<body>
+
+  <!-- HEADER WILL BE INJECTED -->
+  <div id="header-placeholder"></div>
+
+  <!-- HERO VIDEO -->
+  <section class="stack hero">
+    <div class="media-wrapper">
+      <video autoplay muted loop playsinline>
+        <source src="assets/banner1.mp4" type="video/mp4">
+      </video>
+    </div>
+  </section>
+
+  <!-- STACKS -->
+  <section class="stack">
+    <div class="media-wrapper">
+      <img src="assets/banner2.jpg">
+    </div>
+  </section>
+
+  <section class="stack">
+    <div class="media-wrapper">
+      <img src="assets/banner3.jpg">
+    </div>
+  </section>
+
+  <section class="stack">
+    <div class="media-wrapper">
+      <img src="assets/banner4.jpg">
+    </div>
+  </section>
+
+  <script>
+    fetch('header.html')
+      .then(res => res.text())
+      .then(data => {
+        document.getElementById('header-placeholder').innerHTML = data;
+      });
+
+    // scroll behavior
+    window.addEventListener('scroll', () => {
+      const header = document.querySelector('.site-header');
+      if (!header) return;
+
+      header.classList.toggle('scrolled', window.scrollY > 40);
+    });
+  </script>
+
+</body>
+</html>
