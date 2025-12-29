@@ -135,16 +135,19 @@ html, body {
 
 
 /* ================= SCROLL ANIMATION ================= */
-.animate-on-scroll {
+/* initial hidden state */
+.animate-on-scroll .media-wrapper {
   opacity: 0;
-  transform: translateY(60px);
-  transition: opacity 0.9s ease, transform 0.9s ease;
+  transform: translateY(40px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+  will-change: transform, opacity;
 }
 
-/* when banner becomes visible */
-.animate-on-scroll.animate {
+/* animate when visible */
+.animate-on-scroll.animate .media-wrapper {
   opacity: 1;
   transform: translateY(0);
 }
+
 
 
