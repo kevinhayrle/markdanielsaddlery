@@ -30,21 +30,21 @@
 
     <!-- TEXT OVERLAY -->
     <div class="hero-overlay">
-      <h1 class="hero-title">MARK DANIEL SADDLERY</h1>
-      <h2 class="hero-subtitle">CRAFTED FOR THE RIDE</h2>
+    <h1 class="hero-subtitle">CRAFTED FOR THE RIDE</h1>
+        <h1 class="hero-title">MARK DANIEL SADDLERY</h1>
+    
       <a href="home.html" class="hero-cta">SHOP NOW</a>
     </div>
 
   </div>
 </section>
 
-
   <!-- STACK 2 -->
    <section class="stack">
     <div class="media-wrapper">
       <picture>
-        <source srcset="assets/banner2mobile.PNG" media="(max-width: 768px)">
-        <img src="assets/banner2.JPG" alt="Banner 2">
+            <source media="(hover: none) and (pointer: coarse)" srcset="assets/banner2mobile.PNG">
+            <img src="assets/banner2.JPG" alt="Banner 2">
       </picture>
     </div>
   </section>
@@ -53,8 +53,8 @@
   <section class="stack">
     <div class="media-wrapper">
       <picture>
-        <source srcset="assets/banner3mobile.jpg" media="(max-width: 768px)">
-        <img src="assets/banner3.jpg" alt="Banner 3">
+            <source media="(hover: none) and (pointer: coarse)" srcset="assets/banner2mobile.PNG">
+            <img src="assets/banner2.JPG" alt="Banner 2">
       </picture>
     </div>
   </section>
@@ -63,40 +63,61 @@
   <section class="stack">
     <div class="media-wrapper">
       <picture>
-        <source srcset="assets/banner4mobile.jpg" media="(max-width: 768px)">
-        <img src="assets/banner4.jpg" alt="Banner 4">
+            <source media="(hover: none) and (pointer: coarse)" srcset="assets/banner2mobile.PNG">
+            <img src="assets/banner2.JPG" alt="Banner 2">
       </picture>
     </div>
   </section>
 
-  
-<script>
+ <script>
+
   /* ================= HEADER INJECTION ================= */
   fetch('header.html')
     .then(res => res.text())
     .then(data => {
       document.getElementById('header-placeholder').innerHTML = data;
+
+      const header = document.querySelector('.site-header');
+
+      window.addEventListener('scroll', () => {
+        header.classList.toggle('scrolled', window.scrollY > 40);
+      });
     });
 
-  /* ================= HEADER SCROLL BEHAVIOR ================= */
-  window.addEventListener('scroll', () => {
-    const header = document.querySelector('.site-header');
-    if (!header) return;
-    header.classList.toggle('scrolled', window.scrollY > 40);
-  });
+  /* ================= DIMENSION SWITCH ================= */
 
-  /* ================= HERO VIDEO (MOBILE / DESKTOP) ================= */
   const heroVideo = document.getElementById('heroVideo');
-  const isMobile = window.matchMedia('(max-width: 768px)').matches;
+  const phoneQuery = window.matchMedia(
+    '(hover: none) and (pointer: coarse)'
+  );
 
-  heroVideo.src = isMobile
-    ? 'assets/banner1mobile.mp4'
-    : 'assets/banner1.mp4';
+  function setHeroVideo() {
+    const isPhone = phoneQuery.matches;
 
-  heroVideo.load();
+    const newSrc = isPhone
+      ? 'assets/banner1mobile.mp4'
+      : 'assets/banner1.mp4';
 
-  /* ================= ANIMATIONS REMOVED ================= */
-  // IntersectionObserver and animation logic intentionally removed
+    if (heroVideo.dataset.src === newSrc) return;
+
+    heroVideo.dataset.src = newSrc;
+
+    const wasPlaying = !heroVideo.paused;
+
+    heroVideo.src = newSrc;
+    heroVideo.load();
+
+    if (wasPlaying) {
+      heroVideo.play().catch(() => {});
+    }
+  }
+
+  // initial
+  setHeroVideo();
+
+  // listen ONLY to device capability change (rare)
+  phoneQuery.addEventListener('change', setHeroVideo);
+
 </script>
 
 

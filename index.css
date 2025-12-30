@@ -1,14 +1,26 @@
+/* ================= CUSTOM FONTS ================= */
 @font-face {
   font-family: 'horizon';
   src: url('horizon.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
 }
 
 @font-face {
-  font-family: 'horizon_outlined';
+  font-family: 'horizonoutlined';
   src: url('horizon_outlined.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
 }
 
-/* ================= DESKTOP ================= */
+@font-face {
+  font-family: 'sf';
+  src: url('sf.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* ================= RESET ================= */
 
 * {
   margin: 0;
@@ -21,15 +33,24 @@ html, body {
   overflow-x: hidden;
   font-family: Arial, Helvetica, sans-serif;
 }
+body {
+  padding-top: 92px;
+}
+
+/* ================= HERO ================= */
 
 .hero {
+  position: relative;
   width: 100%;
 }
 
-/* ================= HERO OVERLAY ================= */
-.hero {
-  position: relative;
+.hero-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
+
+/* ================= HERO OVERLAY ================= */
 
 .hero-overlay {
   position: absolute;
@@ -40,35 +61,42 @@ html, body {
   align-items: center;
   text-align: center;
   color: #fff;
+  margin-top: -100px;
   pointer-events: none;
 }
 
 /* MAIN TITLE */
 .hero-title {
-  font-family: "Horizon";
-  font-size: 40px;
+  font-family: 'horizon';
+  font-size: 50px;
   letter-spacing: 2px;
 }
 
 /* OUTLINE SUBTITLE */
 .hero-subtitle {
-  font-family: "horizon_outlined";
-  font-size: 20px;
-  letter-spacing: 5px;
-  margin-bottom: -40px;
+  font-family: 'horizonoutlined';
+  font-size: 50px;
+  letter-spacing: 2px;
+  margin-top: 8px;
 }
 
-/* CTA */
+/* SHOP NOW */
 .hero-cta {
-  font-family: Arial, Helvetica, sans-serif;
+  font-family:'sf';
   font-size: 12px;
   letter-spacing: 5px;
-  text-decoration: none;
+  text-decoration:none;
   color: #fff;
-  margin-top: 100px;
-  margin-bottom: -70px;
+  margin-top: 48px;
   pointer-events: auto;
+  transition: opacity 0.3s ease;
 }
+
+.hero-cta:hover {
+  opacity: 0.7;
+}
+
+/* ================= STACK SECTIONS ================= */
 
 .stack {
   width: 100%;
@@ -98,53 +126,25 @@ html, body {
 
 /* ================= MOBILE ================= */
 
-@media (max-width: 768px) {
-
-   .hero-video {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
+@media (hover: none) and (pointer: coarse) {
 
   .hero-title {
-  font-family: "Horizon";
-  font-size: clamp(28px, 5vw, 64px);
+    font-size: 20px;
+    letter-spacing: 2px;
+    color: #000;
+  }
 
-  margin-bottom: 12px;
-  color: black;
-}
+  .hero-subtitle {
+    font-size: 10px;
+    letter-spacing: 4px;
+    color: #000;
+  }
 
-/* OUTLINE SUBTITLE */
-
-/* MAIN TITLE */
-.hero-title {
-  font-family: "Horizon";
-  font-size: 20px;
-  letter-spacing: 2px;
-  color: black;
-}
-
-/* OUTLINE SUBTITLE */
-.hero-subtitle {
-  font-family: "horizon_outlined";
-  font-size: 10px;
-  letter-spacing: 5px;
-  margin-bottom: 70px;
-  color: black;
-}
-
-/* CTA */
-.hero-cta {
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 8px;
-  letter-spacing: 5px;
-  text-decoration: none;
-  color: #fff;
-  
-  margin-top: 40px;
-  pointer-events: auto;
-  color: black;
-}
+  .hero-cta {
+    font-size: 8px;
+    letter-spacing: 5px;
+    color: #000;
+  }
 
   .stack {
     min-height: 100vh;
@@ -157,9 +157,8 @@ html, body {
     aspect-ratio: auto;
   }
 
-  .media-wrapper img {
-    width: 100%;
-    height: 100%;
+  .media-wrapper img,
+  .hero-video {
     object-fit: cover;
   }
 }
