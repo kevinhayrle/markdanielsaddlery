@@ -1,23 +1,18 @@
-<!-- ================= HEADER ================= -->
 <header class="site-header">
   <div class="header-inner">
 
-    <!-- MENU (LEFT ON SCROLL) -->
     <div class="menu-wrap">
       <span class="material-icons icon">menu</span>
     </div>
 
-    <!-- LOGO (CENTER ON SCROLL) -->
     <div class="logo-wrap">
       <img src="assets/logo.png" alt="Mark Daniel Saddlery" class="brand-logo">
     </div>
 
-    <!-- BRAND TEXT (CENTER INITIALLY) -->
     <div class="brand-center">
       <span class="brand-line-top">MARK DANIEL SADDLERY</span>
     </div>
 
-    <!-- CART (RIGHT ON SCROLL) -->
     <div class="cart-wrap">
       <span class="material-icons icon">shopping_cart</span>
     </div>
@@ -25,125 +20,19 @@
   </div>
 </header>
 
-<style>
-/* ================= RESET ================= */
-.site-header, .site-header * {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
+<!-- SIDEBAR -->
+<div id="sidebar-overlay"></div>
 
-/* ================= HEADER BASE ================= */
-.site-header {
-  position: fixed;
-  top: 0;
-  width: 100%;
-  z-index: 1000;
-  background: #111111;    /* darker black */
-  backdrop-filter: blur(10px);
-  transition: background 0.4s ease;
-}
+<aside id="sidebar">
+  <nav class="sidebar-nav">
+    <a href="home.html">Home</a>
+    <a href="login.html">Account</a>
+    <a href="privacy.html">Privacy Policy</a>
+    <a href="contact.html">Contact Us</a>
+  </nav>
 
+   <div class="sidebar-brand">
+    cortex²
+  </div>
 
-/* SCROLLED → TRANSPARENT DARK GREY */
-.site-header.scrolled {
-  background: rgba(0,0,0,0.35);   /* lighter grey */
-  backdrop-filter: blur(6px);
-}
-
-
-/* ================= LAYOUT ================= */
-.header-inner {
-  position: relative;
-  height: 92px;
-  padding: 0 32px;
-}
-
-/* ================= LOGO ================= */
-.logo-wrap {
-  position: absolute;
-  left: 32px;
-  top: 50%;
-  transform: translateY(-50%);
-  transition: all 0.45s ease;
-}
-
-.brand-logo {
-  height: 52px;
-  transition: all 0.45s ease;
-}
-
-/* ================= BRAND TEXT ================= */
-.brand-center {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  transition: opacity 0.35s ease, transform 0.35s ease;
-}
-
-.brand-line-top {
-  font-family: 'Franklin Gothic Medium', Arial, sans-serif;
-  font-size: 20px;
-  letter-spacing: 3px;
-  color: #fff;
-}
-
-/* ================= MENU & CART ================= */
-.menu-wrap,
-.cart-wrap {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-}
-
-.menu-wrap {
-  right: 80px;
-  transition: all 0.45s ease;
-}
-
-.cart-wrap {
-  right: 32px;
-  transition: all 0.45s ease;
-}
-
-.icon {
-  font-size: 26px;
-  color: #fff;
-  cursor: pointer;
-  transition: transform 0.2s ease, opacity 0.2s ease;
-}
-
-.icon:hover {
-  transform: scale(1.1);
-  opacity: 0.75;
-}
-
-/* ================= SCROLLED STATE ================= */
-.site-header.scrolled .logo-wrap {
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-
-.site-header.scrolled .brand-logo {
-  height: 46px;
-}
-
-.site-header.scrolled .brand-center {
-  opacity: 0;
-  transform: translate(-50%, -60%);
-  pointer-events: none;
-}
-
-/* MENU → LEFT */
-.site-header.scrolled .menu-wrap {
-  left: 32px;
-  right: auto;
-}
-
-/* CART → RIGHT */
-.site-header.scrolled .cart-wrap {
-  right: 32px;
-}
-
-</style>
+</aside>

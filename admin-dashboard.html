@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin Dashboard | Mark Daniel Saddlery</title>
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+
+  <!-- PREMIUM FONT -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Playfair Display', serif;
+      background: #f6f4f1;
+      display: flex;
+      min-height: 100vh;
+      color: #111;
+    }
+
+    /* SIDEBAR */
+    .sidebar {
+      width: 220px;
+      background: #0b0b0b;
+      color: #fff;
+      padding: 1.5rem 1rem;
+      position: fixed;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .sidebar h2 {
+      text-align: center;
+      letter-spacing: 3px;
+      font-size: 1.1rem;
+      margin-bottom: 2rem;
+    }
+
+    .logout-btn {
+      padding: 0.7rem;
+      background: #a00000;
+      border: none;
+      border-radius: 6px;
+      color: white;
+      cursor: pointer;
+      font-family: inherit;
+      letter-spacing: 1px;
+    }
+
+    .logout-btn:hover {
+      background: #c00000;
+    }
+
+    /* MAIN */
+    .main {
+      margin-left: 220px;
+      padding: 2.5rem;
+      width: calc(100% - 220px);
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 2rem;
+      letter-spacing: 2px;
+    }
+
+    .container {
+      background: #fff;
+      padding: 2rem;
+      margin-bottom: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    }
+
+    .container h2 {
+      margin-bottom: 1.2rem;
+      font-size: 1.2rem;
+      letter-spacing: 1px;
+    }
+
+    .form-group {
+      margin-bottom: 1rem;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 0.7rem;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-family: inherit;
+    }
+
+    input:focus, select:focus {
+      outline: none;
+      border-color: #000;
+    }
+
+    .btn {
+      padding: 0.7rem 1.5rem;
+      background: #000;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      letter-spacing: 1px;
+    }
+
+    .btn:hover {
+      background: #1a1a1a;
+    }
+
+    /* PRODUCTS */
+    .product {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 0;
+      border-bottom: 1px solid #ddd;
+      cursor: grab;
+    }
+
+    .product.dragging {
+      opacity: 0.4;
+    }
+
+    .product-actions button {
+      margin-left: 6px;
+      padding: 6px 12px;
+      border-radius: 5px;
+      border: none;
+      color: #fff;
+      cursor: pointer;
+    }
+
+    .edit-btn {
+      background: #1f4fd8;
+    }
+
+    .delete-btn {
+      background: #b00020;
+    }
+
+    /* COUPONS */
+    .coupon-item {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.6rem;
+    }
+
+    .coupon-item button {
+      background: #b00020;
+      border: none;
+      color: white;
+      padding: 5px 10px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+  <div>
+    <h2>ADMIN</h2>
+  </div>
+  <button class="logout-btn" onclick="logout()">Logout</button>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+  <h1>MARK DANIEL SADDLERY</h1>
+
+  <!-- PRODUCT FORM -->
+  <div class="container">
+    <h2>Add / Edit Product</h2>
+    <form id="productForm">
+      <input type="hidden" id="editingId">
+
+      <div class="form-group"><input id="name" placeholder="Product Name"></div>
+      <div class="form-group"><input id="price" type="number" placeholder="Price"></div>
+      <div class="form-group"><input id="discounted_price" type="number" placeholder="Discounted Price"></div>
+      <div class="form-group"><input id="sort_order" type="number" placeholder="Sort Order"></div>
+      <div class="form-group"><input id="category" placeholder="Category"></div>
+      <div class="form-group"><input id="description" placeholder="Description"></div>
+      <div class="form-group"><input id="image" placeholder="Main Image URL"></div>
+      <div class="form-group"><input id="sizes" placeholder="Sizes (S,M,L)"></div>
+      <div class="form-group"><input id="extraImages" placeholder="Extra Image URLs (comma separated)"></div>
+
+      <button class="btn" type="submit">Save Product</button>
+    </form>
+  </div>
+
+  <!-- PRODUCTS LIST -->
+  <div class="container">
+    <h2>All Products (Drag to Reorder)</h2>
+    <div id="productList"></div>
+  </div>
+
+  <!-- COUPONS -->
+  <div class="container">
+    <h2>Coupon Management</h2>
+    <form id="couponForm">
+      <div class="form-group"><input id="coupon_code" placeholder="Coupon Code"></div>
+      <div class="form-group">
+        <select id="discount_type">
+          <option value="percentage">Percentage</option>
+          <option value="flat">Flat</option>
+        </select>
+      </div>
+      <div class="form-group"><input id="discount_value" type="number" placeholder="Discount Value"></div>
+      <div class="form-group"><input id="min_cart_value" type="number" placeholder="Minimum Cart Value"></div>
+      <div class="form-group"><input id="max_discount" type="number" placeholder="Max Discount"></div>
+      <div class="form-group"><input id="expiry_date" type="date"></div>
+
+      <button class="btn" type="submit">Add Coupon</button>
+    </form>
+  </div>
+
+  <div class="container">
+    <h2>All Coupons</h2>
+    <div id="couponList"></div>
+  </div>
+</div>
+<script src="js/config.js"></script>
+
+<script>
+  // ===== STEP 2: AUTO LOGOUT ENFORCEMENT =====
+  const MAX_SESSION_TIME = 2 * 60 * 60 * 1000;
+
+  const token = localStorage.getItem("adminToken");
+  const loginTime = localStorage.getItem("adminLoginTime");
+
+  if (!token || !loginTime) {
+    localStorage.removeItem("adminToken");
+    localStorage.removeItem("adminLoginTime");
+    window.location.href = "admin-login.html";
+  } else if (Date.now() - Number(loginTime) > MAX_SESSION_TIME) {
+    localStorage.removeItem("adminToken");
+    localStorage.removeItem("adminLoginTime");
+    alert("Session expired. Please login again.");
+    window.location.href = "admin-login.html";
+  }
+</script>
+<script>
+const API = API_BASE;
+
+let draggedItem = null;
+
+/* PRODUCTS */
+async function fetchProducts() {
+  const res = await fetch(`${API}/admin/products`, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  const data = await res.json();
+
+  const list = document.getElementById("productList");
+  list.innerHTML = "";
+
+  data.forEach(p => {
+    const div = document.createElement("div");
+    div.className = "product";
+    div.draggable = true;
+    div.dataset.id = p._id;
+
+    div.innerHTML = `
+      <div>
+        <b>${p.name}</b><br>
+        ${p.discountedPrice ? `<s>₹${p.price}</s> ₹${p.discountedPrice}` : `₹${p.price}`}
+      </div>
+      <div>
+        <button class="edit-btn" onclick='editProduct(
+          ${JSON.stringify(p._id)},
+          ${JSON.stringify(p.name)},
+          ${JSON.stringify(p.price)},
+          ${JSON.stringify(p.discountedPrice)},
+          ${JSON.stringify(p.category)},
+          ${JSON.stringify(p.sortOrder)},
+          ${JSON.stringify(p.imageUrl)},
+          ${JSON.stringify(p.description)},
+          ${JSON.stringify(p.sizes)},
+          ${JSON.stringify(p.extra_images)}
+        )'>Edit</button>
+        <button class="delete-btn" onclick="deleteProduct('${p._id}')">Delete</button>
+      </div>
+    `;
+
+    list.appendChild(div);
+  });
+}
+
+/* DRAG & DROP */
+document.addEventListener("dragstart", e => {
+  if (e.target.classList.contains("product")) {
+    draggedItem = e.target;
+    e.target.classList.add("dragging");
+  }
+});
+
+document.addEventListener("dragend", e => {
+  if (e.target.classList.contains("product")) {
+    e.target.classList.remove("dragging");
+    saveOrder();
+  }
+});
+
+document.addEventListener("dragover", e => {
+  e.preventDefault();
+  const target = e.target.closest(".product");
+  if (target && target !== draggedItem) {
+    const list = document.getElementById("productList");
+    list.insertBefore(draggedItem, target);
+  }
+});
+
+/* SAVE ORDER */
+async function saveOrder() {
+  const items = [...document.querySelectorAll(".product")];
+
+  const payload = items.map((item, index) => ({
+    id: item.dataset.id,
+    sort_order: index + 1
+  }));
+
+  await fetch(`${API}/admin/products/reorder`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`
+    },
+    body: JSON.stringify(payload)
+  });
+}
+
+/* ADD / UPDATE PRODUCT */
+document.getElementById("productForm").addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  const payload = {
+    name: document.getElementById("name").value,
+    price: Number(document.getElementById("price").value),
+    discounted_price: document.getElementById("discounted_price").value || null,
+    sort_order: document.getElementById("sort_order").value || 0,
+    category: document.getElementById("category").value,
+    description: document.getElementById("description").value,
+    image_url: document.getElementById("image").value,
+    sizes: document.getElementById("sizes").value,
+    extra_images: document.getElementById("extraImages").value
+      ? document.getElementById("extraImages").value.split(",").map(s => s.trim())
+      : []
+  };
+
+  const id = document.getElementById("editingId").value;
+  const url = id
+    ? `${API}/admin/products/${id}`
+    : `${API}/admin/products`;
+
+  const method = id ? "PUT" : "POST";
+
+  await fetch(url, {
+    method,
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`
+    },
+    body: JSON.stringify(payload)
+  });
+
+  document.getElementById("productForm").reset();
+  document.getElementById("editingId").value = "";
+  fetchProducts();
+});
+
+function editProduct(
+  id,
+  nameVal,
+  priceVal,
+  discountedPrice,
+  categoryVal,
+  sortOrder,
+  imageUrl,
+  descriptionVal,
+  sizesVal,
+  extraImagesVal
+) {
+  document.getElementById("editingId").value = id;
+  document.getElementById("name").value = nameVal || "";
+  document.getElementById("price").value = priceVal || "";
+  document.getElementById("discounted_price").value = discountedPrice || "";
+  document.getElementById("sort_order").value = sortOrder || 0;
+  document.getElementById("category").value = categoryVal || "";
+  document.getElementById("description").value = descriptionVal || "";
+  document.getElementById("image").value = imageUrl || "";
+  document.getElementById("sizes").value =
+    Array.isArray(sizesVal) ? sizesVal.join(",") : sizesVal || "";
+  document.getElementById("extraImages").value =
+    Array.isArray(extraImagesVal) ? extraImagesVal.join(",") : "";
+}
+
+/* COUPONS */
+async function fetchCoupons() {
+  const res = await fetch(`${API}/admin/coupons`, {
+    headers: { Authorization: `Bearer ${token}` }
+  });
+
+  const data = await res.json();
+  const list = document.getElementById("couponList");
+  list.innerHTML = "";
+
+  data.forEach(c => {
+    list.innerHTML += `
+      <div style="margin-bottom:8px">
+        <b>${c.coupon_code}</b>
+        <button onclick="deleteCoupon(${c.id})">Delete</button>
+      </div>
+    `;
+  });
+}
+
+async function deleteCoupon(id) {
+  await fetch(`${API}/admin/coupons/delete/${id}`, {
+    method: "DELETE",
+    headers: { Authorization: `Bearer ${token}` }
+  });
+
+  fetchCoupons();
+}
+
+document.getElementById("couponForm").addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  await fetch(`${API}/admin/coupons/add`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`
+    },
+    body: JSON.stringify({
+      coupon_code: coupon_code.value,
+      discount_type: discount_type.value,
+      discount_value: Number(discount_value.value),
+      min_cart_value: Number(min_cart_value.value),
+      max_discount: Number(max_discount.value),
+      expiry_date: expiry_date.value
+    })
+  });
+
+  couponForm.reset();
+  fetchCoupons();
+});
+async function deleteProduct(id) {
+  if (!confirm("Delete this product?")) return;
+
+  await fetch(`${API}/admin/products/${id}`, {
+    method: "DELETE",
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  });
+
+  fetchProducts();
+}
+
+function logout() {
+  localStorage.removeItem("adminToken");
+  localStorage.removeItem("adminLoginTime");
+  window.location.href = "admin-login.html";
+}
+
+
+/* EXISTING CALLS */
+fetchProducts();
+fetchCoupons();
+</script>
+</body>
+</html>

@@ -1,21 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Mark Daniel Saddlery</title>
-
-  <link rel="stylesheet" href="index.css" />
+  <link rel="stylesheet" href="css/index.css" />
+  <link rel="stylesheet" href="css/header.css">
+  <link rel="stylesheet" href="css/preloader.css" />
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
 </head>
 
 <body>
 
-  <!-- HEADER WILL BE INJECTED -->
+<div id="preloader">
+  <img src="assets/blacklogo.png" alt="Mark Daniel Saddlery" class="preloader-logo">
+</div>
   <div id="header-placeholder"></div>
-
-  <!-- HERO VIDEO -->
   <section class="stack hero">
   <div class="media-wrapper">
 
@@ -71,17 +74,17 @@
 
  <script>
 
-  /* ================= HEADER INJECTION ================= */
   fetch('header.html')
     .then(res => res.text())
     .then(data => {
       document.getElementById('header-placeholder').innerHTML = data;
-
       const header = document.querySelector('.site-header');
-
       window.addEventListener('scroll', () => {
         header.classList.toggle('scrolled', window.scrollY > 40);
       });
+      const script = document.createElement('script');
+      script.src = 'js/header.js';
+      document.body.appendChild(script);
     });
 
   /* ================= DIMENSION SWITCH ================= */
@@ -121,6 +124,6 @@
 </script>
 
 
-
+<script src="js/preloader.js"></script>
 </body>
 </html>

@@ -1,0 +1,233 @@
+/* ================= FONTS ================= */
+
+@font-face {
+  font-family: 'sf';
+  src: url('../fonts/sf.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* ================= PC ================= */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'sf';
+  background-color: #f5f5f5;
+  color: #111;
+  padding-top: 100px;
+}
+
+/* ================= CONTAINER ================= */
+
+.profile-container {
+  width: 90%;
+  max-width: 900px;
+  margin: 50px auto;
+  display: grid;
+  padding-top: 10px;
+  gap: 40px;
+}
+
+/* ================= CARD ================= */
+
+.card {
+  background: #fff;
+  padding: 35px;
+}
+
+.card h2 {
+  font-family: 'sf';
+  font-size: 22px;
+  margin-bottom: 25px;
+}
+
+/* ================= FORM FIELDS ================= */
+
+.field {
+  margin-bottom: 20px;
+}
+
+.field label {
+  display: block;
+  font-size: 13px;
+  margin-bottom: 6px;
+  color: #555;
+}
+
+.locked-text {
+    display: none;
+  font-size: 12px;
+  margin-top: 5px;
+  color: #555;
+}
+
+.field input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+  background: #fff;
+}
+
+.field input:disabled {
+  background: #eee;
+  cursor: not-allowed;
+}
+
+.edit-note {
+  font-size: 11px;
+  color: #888;
+  margin-top: 5px;
+  display: inline-block;
+}
+
+.edit-note.locked {
+  color: #b00000;
+}
+
+/* ================= FORGOT PASSWORD ================= */
+
+.forgot-link {
+  display: inline-block;
+  margin-top: 15px;
+  font-size: 13px;
+  color: #000;
+  text-decoration: underline;
+}
+
+/* ================= ORDERS ================= */
+
+.order {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 0;
+  border-bottom: 1px solid #ddd;
+}
+
+.order:last-child {
+  border-bottom: none;
+}
+
+.product-name {
+  font-weight: 500;
+}
+
+.order-meta {
+  display: block;
+  font-size: 12px;
+  color: #777;
+  margin-top: 4px;
+}
+
+.price {
+  font-weight: 500;
+}
+
+/* ================= PROFILE ACTION BUTTONS ================= */
+
+.profile-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 18px;
+  flex-wrap: wrap;
+}
+
+.profile-actions button {
+  padding: 12px 18px;
+  font-size: 13px;
+  letter-spacing: 2px;
+  border: none;
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  transition: all 0.25s ease;
+}
+
+  .form-message {
+      margin-top: 14px;
+      font-size: 14px;
+      display: none;
+    }
+
+    .form-message.success {
+      color: #2c7a3f;
+    }
+
+    .form-message.error {
+      color: #c0392b;
+    }
+
+.edit-btn {
+  background: #111;
+  color: #fff;
+}
+
+.edit-btn:hover {
+  opacity: 0.85;
+}
+
+.save-btn {
+  background: #2c7a3f;
+  color: #fff;
+}
+
+.save-btn:hover {
+  opacity: 0.85;
+}
+
+.delete-btn {
+  color: #c0392b;
+  border: 1px solid #c0392b;
+}
+
+.delete-btn:hover {
+  background: #c0392b;
+  color: white;
+}
+
+.delete-btn:focus,
+.delete-btn.confirm {
+  background: #c0392b;
+  color: white;
+  border-color: #c0392b;
+}
+
+  /* ================= PHONE ================= */
+
+   @media (hover: none) and (pointer: coarse) {
+   * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+ body {
+  margin-top: -77px;
+}
+  
+  .card {
+    padding: 25px;
+  }
+
+  .order {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+    .profile-actions {
+    flex-direction: column;
+  }
+
+  .profile-actions button {
+    width: 100%;
+  }
+
+}
+
+

@@ -1,21 +1,21 @@
 /* ================= CUSTOM FONTS ================= */
 @font-face {
   font-family: 'horizon';
-  src: url('horizon.otf') format('opentype');
+  src: url('../fonts/horizon.otf') format('opentype');
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
   font-family: 'horizonoutlined';
-  src: url('horizon_outlined.otf') format('opentype');
+  src: url('../fonts/horizon_outlined.otf') format('opentype');
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
   font-family: 'sf';
-  src: url('sf.otf') format('opentype');
+  src: url('../fonts/sf.otf') format('opentype');
   font-weight: normal;
   font-style: normal;
 }
@@ -31,13 +31,16 @@
 html, body {
   width: 100%;
   overflow-x: hidden;
-  font-family: Arial, Helvetica, sans-serif;
-}
-body {
-  padding-top: 92px;
+  font-family: 'sf';
 }
 
-/* ================= HERO ================= */
+body {
+  padding-top: 60px;
+}
+
+/* ================= PC ================= */
+
+/* ================= STACK 1 VIDEO ================= */
 
 .hero {
   position: relative;
@@ -49,8 +52,6 @@ body {
   height: 100%;
   object-fit: cover;
 }
-
-/* ================= HERO OVERLAY ================= */
 
 .hero-overlay {
   position: absolute;
@@ -65,14 +66,12 @@ body {
   pointer-events: none;
 }
 
-/* MAIN TITLE */
 .hero-title {
   font-family: 'horizon';
   font-size: 50px;
   letter-spacing: 2px;
 }
 
-/* OUTLINE SUBTITLE */
 .hero-subtitle {
   font-family: 'horizonoutlined';
   font-size: 50px;
@@ -80,7 +79,6 @@ body {
   margin-top: 8px;
 }
 
-/* SHOP NOW */
 .hero-cta {
   font-family:'sf';
   font-size: 12px;
@@ -108,7 +106,7 @@ body {
 
 .media-wrapper {
   width: 100%;
-  max-width: 1200px;
+  max-width: none;
   aspect-ratio: 16 / 9;
   overflow: hidden;
   display: flex;
@@ -124,33 +122,69 @@ body {
   display: block;
 }
 
-/* ================= MOBILE ================= */
+/* ================= PHONE ================= */
 
 @media (hover: none) and (pointer: coarse) {
 
-  .hero-title {
+/* ================= STACK 1 VIDEO ================= */
+
+.hero {
+  position: relative;
+  width: 100%;
+}
+
+.hero-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: #fff;
+  margin-top: -100px;
+  pointer-events: none;
+}
+
+ .hero-title {
     font-size: 20px;
     letter-spacing: 2px;
+    margin-top: -20px;
     color: #000;
   }
 
-  .hero-subtitle {
-    font-size: 10px;
-    letter-spacing: 4px;
-    color: #000;
+.hero-subtitle {
+   display: none;
   }
 
-  .hero-cta {
-    font-size: 8px;
-    letter-spacing: 5px;
-    color: #000;
-  }
+.hero-cta {
+  font-family:'sf';
+  font-size: 8px;
+  letter-spacing: 5px;
+  text-decoration:none;
+  color: #000;
+  margin-top: 48px;
+  pointer-events: auto;
+  transition: opacity 0.3s ease;
+}
+
+.hero-cta:hover {
+  opacity: 0.7;
+}
+
+/* ================= STACK SECTIONS ================= */
 
   .stack {
     min-height: 100vh;
   }
 
-  .media-wrapper {
+.media-wrapper {
     width: 100vw;
     height: 100vh;
     max-width: none;

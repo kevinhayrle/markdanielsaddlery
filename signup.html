@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sign Up | Mark Daniel Saddlery</title>
+
+   <link rel="stylesheet" href="css/signup.css" />
+   <link rel="stylesheet" href="css/header.css">
+   <link rel="stylesheet" href="css/preloader.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+</head>
+
+<body>
+
+  <div id="preloader">
+  <img src="assets/blacklogo.png" alt="Mark Daniel Saddlery" class="preloader-logo">
+  </div>
+  <div id="header-placeholder"></div>
+  <main class="signup-wrapper">
+    <section class="signup-card">
+      <h1>Create Account</h1>
+      <p class="subtitle">Join Mark Daniel Saddlery</p>
+      <div id="formMessage" class="form-message"></div>
+      <form id="signupForm">
+        <div class="field">
+          <label>Full Name</label>
+          <input id="name" type="text" placeholder="Enter your full name">
+        </div>
+        <div class="field">
+          <label>Email</label>
+          <input id="email" type="email" placeholder="Enter your email">
+          <p class="hint">
+            Email cannot be changed later.
+          </p>
+        </div>
+        <div class="field">
+          <label>Phone Number</label>
+          <input id="phone" type="text" placeholder="Enter your phone number">
+        </div>
+        <div class="field">
+          <label>Password</label>
+          <input id="password" type="password" placeholder="Create a password">
+        </div>
+        <div class="field">
+          <label>Confirm Password</label>
+          <input id="confirmPassword" type="password" placeholder="Re-enter your password">
+        </div>
+        <button type="submit" class="signup-btn">SIGN UP</button>
+      </form>
+      <p class="login-link">
+        Already have an account?
+        <a href="login.html">Sign in</a>
+      </p>
+    </section>
+  </main>
+
+   <script>
+  fetch('header.html')
+    .then(res => res.text())
+    .then(data => {
+      document.getElementById('header-placeholder').innerHTML = data;
+      const header = document.querySelector('.site-header');
+      window.addEventListener('scroll', () => {
+        header.classList.toggle('scrolled', window.scrollY > 40);
+      });
+      const script = document.createElement('script');
+      script.src = 'js/header.js';
+      document.body.appendChild(script);
+    });
+  </script>
+
+<script src="js/config.js"></script>
+<script src="js/preloader.js"></script>
+<script src="js/signup.js"></script>
+

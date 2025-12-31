@@ -1,0 +1,150 @@
+
+    @font-face {
+    font-family: 'sf';
+    src: url('../fonts/sf.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+    }
+    
+/* ================= PC ================= */
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'sf';
+      background: #f5f5f5;
+      color: #111;
+      padding-top: 100px;
+    }
+
+    @media (hover: none) and (pointer: coarse) {
+       * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      padding-top: 33px;
+    }}
+    
+    .login-wrapper {
+      min-height: calc(100vh - 120px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+    }
+
+    .login-card {
+      background: #fff;
+      width: 100%;
+      max-width: 420px;
+      padding: 46px 42px;
+      text-align: center;
+    }
+
+    .login-card h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 26px;
+      letter-spacing: 1px;
+      margin-bottom: 6px;
+    }
+
+    .login-card .subtitle {
+      font-size: 14px;
+      color: #777;
+      margin-bottom: 24px;
+    }
+
+    .form-message {
+      font-size: 12px;
+      margin-bottom: 18px;
+      display: none;
+    }
+
+    .form-message.error {
+      color: #c0392b;
+    }
+
+    .form-message.success {
+      color: #2c7a3f;
+    }
+
+    .field {
+      text-align: left;
+      margin-bottom: 18px;
+    }
+
+    label {
+      display: block;
+      font-size: 13px;
+      margin-bottom: 6px;
+      color: #555;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ccc;
+      font-size: 14px;
+    }
+
+    input:focus {
+      outline: none;
+      border-color: #000;
+    }
+
+    .form-actions {
+      text-align: right;
+      margin-bottom: 26px;
+    }
+
+    .forgot {
+      font-size: 13px;
+      color: #000;
+      text-decoration: underline;
+    }
+
+    .login-btn {
+      width: 100%;
+      padding: 14px;
+      background: #000;
+      color: #fff;
+      border: none;
+      font-size: 14px;
+      letter-spacing: 2px;
+      cursor: pointer;
+    }
+
+    .login-btn:hover {
+      opacity: 0.9;
+    }
+
+    .signup-link {
+      margin-top: 26px;
+      font-size: 14px;
+    }
+
+    .signup-link a {
+      color: #000;
+      text-decoration: underline;
+    }
+
+    /* ================= PHONE ================= */
+
+   @media (hover: none) and (pointer: coarse) {
+       * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      padding-top: 45px;
+    }}
+

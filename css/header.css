@@ -1,0 +1,342 @@
+@font-face {
+  font-family: 'sf';
+  src: url('../fonts/sf.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+.site-header, .site-header * {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* ================= PC ================= */
+
+.site-header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+  background: #111111;    
+  backdrop-filter: blur(10px);
+  transition: background 0.4s ease;
+}
+
+.site-header.scrolled {
+  background: rgba(0,0,0,0.35);  
+  backdrop-filter: blur(6px);
+}
+
+.header-inner {
+  position: relative;
+  height: 92px;
+  padding: 0 32px;
+}
+
+/* ================= LOGO ================= */
+
+.logo-wrap {
+  position: absolute;
+  left: 32px;
+  top: 50%;
+  transform: translateY(-50%);
+  transition: all 0.45s ease;
+}
+
+.brand-logo {
+  height: 52px;
+  transition: all 0.45s ease;
+}
+
+/* ================= BRAND TEXT ================= */
+
+.brand-center {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+
+.brand-line-top {
+  font-family: 'Franklin Gothic Medium', Arial, sans-serif;
+  font-size: 20px;
+  letter-spacing: 3px;
+  color: #fff;
+}
+
+/* ================= MENU & CART ================= */
+
+.menu-wrap,
+.cart-wrap {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.menu-wrap {
+  right: 32px;
+  transition: all 0.45s ease;
+}
+
+.cart-wrap {
+  right: 80px;
+  transition: all 0.45s ease;
+}
+
+.icon {
+  font-size: 26px;
+  color: #fff;
+  cursor: pointer;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.icon:hover {
+  transform: scale(1.1);
+  opacity: 0.75;
+}
+
+/* ================= SCROLLED STATE ================= */
+
+.site-header.scrolled .logo-wrap {
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.site-header.scrolled .brand-logo {
+  height: 46px;
+}
+
+.site-header.scrolled .brand-center {
+  opacity: 0;
+  transform: translate(-50%, -60%);
+  pointer-events: none;
+}
+
+.site-header.scrolled .menu-wrap {
+  right: 32px;
+  left: auto;
+}
+
+.site-header.scrolled .cart-wrap {
+  left: 32px;
+  right: auto;
+}
+
+/* ================= SIDEBAR ================= */
+
+#sidebar-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.4);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.35s ease;
+  z-index: 998;
+}
+
+#sidebar {
+  position: fixed;
+  top: 0;
+  right: -320px;
+  width: 250px;
+  height: 100vh;
+  background: #fff;
+  padding: 150px 40px;
+  transition: right 0.45s cubic-bezier(.4,0,.2,1);
+  z-index: 999;
+}
+
+.sidebar-brand {
+  position: absolute;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0.35;   
+  pointer-events: none; 
+  font-size: 15px;
+  font-family: 'sf';
+  font-weight:bold;  
+}
+
+#sidebar.active {
+  right: 0;
+}
+
+#sidebar-overlay.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.sidebar-nav a {
+  font-size: 14px;
+  font-family: 'sf';
+  letter-spacing: 1.5px;
+  text-decoration: none;
+  color: #111;
+  font-weight: 400;
+  text-transform: uppercase;
+}
+
+.sidebar-nav a:hover {
+  opacity: 0.6;
+}
+
+
+/* ================= PHONE ================= */
+
+@media (hover: none) and (pointer: coarse) {
+
+.site-header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+  background: #111111;    
+  backdrop-filter: blur(10px);
+  transition: background 0.4s ease;
+}
+
+.site-header.scrolled {
+  background: rgba(0,0,0,0.35);
+  backdrop-filter: blur(6px);
+}
+
+.header-inner {
+  position: relative;
+  height: 60px;
+  padding: 0 32px;
+}
+
+/* ================= LOGO ================= */
+
+.logo-wrap {
+  position: absolute;
+  left: 10px;
+  top: 53%;
+  transform: translateY(-50%);
+  transition: all 0.45s ease;
+}
+
+.brand-logo {
+  height: 40px;
+  transition: all 0.45s ease;
+}
+
+/* ================= BRAND TEXT ================= */
+
+.brand-center {
+  position: absolute;
+  left: 50%;
+  top: 45%;
+  transform: translate(-50%, -50%);
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+
+.brand-line-top {
+  font-family: 'Franklin Gothic Medium', Arial, sans-serif;
+  font-size: 10px;
+  letter-spacing: 3px;
+  color: #fff;
+}
+
+/* ================= MENU & CART ================= */
+
+.menu-wrap,
+.cart-wrap {
+  position: absolute;
+  top: 53%;
+  transform: translateY(-50%);
+}
+
+.menu-wrap {
+  right: 50px;
+  transition: all 0.45s ease;
+}
+
+.cart-wrap {
+  right: 15px;
+  transition: all 0.45s ease;
+}
+
+.icon {
+  font-size: 20px;
+  color: #fff;
+  cursor: pointer;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.icon:hover {
+  transform: scale(1.1);
+  opacity: 0.75;
+}
+
+/* ================= SIDE BAR ================= */
+
+#sidebar {
+  position: fixed;
+  top: 0;
+  right: -320px;
+  width: 190px;
+  height: 100vh;
+  background: #fff;
+  padding: 150px 40px;
+  transition: right 0.45s cubic-bezier(.4,0,.2,1);
+  z-index: 999;
+}
+
+.sidebar-nav a {
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  text-decoration: none;
+  color: #111;
+  font-weight: 400;
+  text-transform: uppercase;
+}
+
+.sidebar-brand {
+  position: absolute;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0.35;   
+  pointer-events: none; 
+  font-size: 12px;
+  font-family: 'sf';
+  font-weight: bold;  
+}
+
+/* ================= SCROLLED STATE ================= */
+
+.site-header.scrolled .logo-wrap {
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.site-header.scrolled .brand-logo {
+  height: 40px;
+}
+
+.site-header.scrolled .brand-center {
+  opacity: 0;
+  transform: translate(-50%, -60%);
+  pointer-events: none;
+}
+
+.site-header.scrolled .menu-wrap {
+  right: 20px;
+  left: auto;
+}
+
+.site-header.scrolled .cart-wrap {
+  left: 20px;
+  right: auto;
+}
+}

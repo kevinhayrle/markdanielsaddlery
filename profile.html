@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Profile | Mark Daniel Saddlery</title>
+  <link rel="stylesheet" href="css/profile.css" />
+  <link rel="stylesheet" href="css/header.css">
+  <link rel="stylesheet" href="css/preloader.css" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+</head>
+
+<body>
+
+  <div id="preloader">
+  <img src="assets/blacklogo.png" alt="Mark Daniel Saddlery" class="preloader-logo">
+  </div>
+  <div id="header-placeholder"></div>
+  <main class="profile-container">
+    <section class="card">
+      <h2>Account Details</h2>
+      <div id="formMessage" class="form-message"></div>
+      <div class="field">
+        <label>Name</label>
+        <input id="name" type="text" disabled>
+      </div>
+      <div class="field">
+        <label>Email</label>
+        <input id="email" type="email" disabled>
+        <span class="locked-text">
+          Email cannot be changed. To use a different email, please delete your account and sign up again.
+        </span>
+      </div>
+      <div class="field">
+        <label>Phone Number</label>
+        <input id="phone" type="text" disabled>
+      </div>
+      <div class="profile-actions">
+        <button id="editBtn" class="edit-btn">EDIT PROFILE</button>
+        <button id="saveBtn" class="save-btn" style="display:none;">SAVE CHANGES</button>
+        <button id="deleteBtn" class="delete-btn">DELETE ACCOUNT</button>
+      </div>
+      <a href="forgotpassword.html" class="forgot-link">Forgot Password?</a>
+    </section>
+    <section class="card">
+      <h2>My Orders</h2>
+      <div class="order">
+        <div>
+          <p class="product-name">Classic Riding Boots</p>
+          <span class="order-meta">Order #MDS1021 • Delivered</span>
+        </div>
+        <span class="price">₹18,500</span>
+      </div>
+      <div class="order">
+        <div>
+          <p class="product-name">Leather Jodhpur Boots</p>
+          <span class="order-meta">Order #MDS1034 • Shipped</span>
+        </div>
+        <span class="price">₹12,800</span>
+      </div>
+    </section>
+  </main>
+
+<script>
+  fetch('header.html')
+    .then(res => res.text())
+    .then(data => {
+      document.getElementById('header-placeholder').innerHTML = data;
+      const header = document.querySelector('.site-header');
+      window.addEventListener('scroll', () => {
+        header.classList.toggle('scrolled', window.scrollY > 40);
+      });
+      const script = document.createElement('script');
+      script.src = 'js/header.js';
+      document.body.appendChild(script);
+    });
+</script>
+
+  <script>
+    const token = localStorage.getItem('authToken');
+    if (!token) window.location.href = 'login.html';
+
+    const nameInput = document.getElementById('name');
+    const phoneInput = document.getElementById('phone');
+    const editBtn = document.getElementById('editBtn');
+    const saveBtn = document.getElementById('saveBtn');
+    const messageBox = document.getElementById('formMessage');
+
+    const showMessage = (msg, type) => {
+      messageBox.textContent = msg;
+      messageBox.className = `form-message ${type}`;
+      messageBox.style.display = 'block';
+    };
+
+    async function loadProfile() {
+      const res = await fetch('http://localhost:5000/api/users/profile', {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+
+      if (!res.ok) {
+        localStorage.removeItem('authToken');
+        window.location.href = 'login.html';
+        return;
+      }
+
+      const user = await res.json();
+      nameInput.value = user.name || '';
+      document.getElementById('email').value = user.email || '';
+      phoneInput.value = user.phone || '';
+    }
+
+  editBtn.addEventListener('click', () => {
+  nameInput.disabled = false;
+  phoneInput.disabled = false;
+
+  document.querySelector('.locked-text').style.display = 'block';
+
+  editBtn.style.display = 'none';
+  saveBtn.style.display = 'inline-block';
+
+  showMessage('You can now edit your profile details.', 'success');
+});
+
+    saveBtn.addEventListener('click', async () => {
+      const updatedData = {
+        name: nameInput.value.trim(),
+        phone: phoneInput.value.trim()
+      };
+
+      const res = await fetch('http://localhost:5000/api/users/profile', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify(updatedData)
+      });
+
+      if (!res.ok) {
+        showMessage('Failed to update profile', 'error');
+        return;
+      }
+
+      nameInput.disabled = true;
+      phoneInput.disabled = true;
+
+      document.querySelector('.locked-text').style.display = 'none';
+
+      saveBtn.style.display = 'none';
+      editBtn.style.display = 'inline-block';
+
+      showMessage('Profile updated successfully.', 'success');
+    });
+
+    loadProfile();
+  </script>
+
+
+<script>
+  const deleteBtn = document.getElementById('deleteBtn');
+
+  deleteBtn.addEventListener('click', async () => {
+    showMessage(
+      'Click DELETE again to permanently remove your account.',
+      'error'
+    );
+
+    deleteBtn.textContent = 'CONFIRM DELETE';
+    deleteBtn.style.background = '#c0392b';
+
+    deleteBtn.onclick = async () => {
+      try {
+        const res = await fetch('http://localhost:5000/api/users/profile', {
+          method: 'DELETE',
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
+
+        if (!res.ok) {
+          showMessage('Failed to delete account. Try again.', 'error');
+          return;
+        }
+
+        localStorage.removeItem('authToken');
+        window.location.href = 'signup.html';
+
+      } catch (err) {
+        console.error(err);
+        showMessage('Something went wrong.', 'error');
+      }
+    };
+  });
+</script>
+
+<script src="js/preloader.js"></script>
+
+</body>
+</html>
