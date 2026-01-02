@@ -263,7 +263,7 @@ body {
 .editorial-text {
   position: absolute;
   top: 0;
-  margin-top: calc(30% + 120px);
+  margin-top: calc(30% + 100px);
   left: 50%;
   transform: translateX(-50%);
   align-items: center;
