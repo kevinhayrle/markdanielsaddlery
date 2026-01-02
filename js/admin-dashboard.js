@@ -58,8 +58,8 @@ async function fetchProducts() {
         <b>${p.name}</b><br>
         ${
           p.discountedPrice
-            ? `<s>₹${p.price}</s> ₹${p.discountedPrice}`
-            : `₹${p.price}`
+            ? `<s>$${p.price}</s> $${p.discountedPrice}`
+            : `$${p.price}`
         }
       </div>
       <div>

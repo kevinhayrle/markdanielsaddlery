@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Mark Daniel Saddlery</title>
@@ -8,21 +9,29 @@
   <link rel="icon" href="assets/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="css/home.css" />
   <link rel="stylesheet" href="css/header.css">
+  <link rel="stylesheet" href="css/footer.css">
   <link rel="stylesheet" href="css/preloader.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
 </head>
 
 <body>
 
-    <div id="preloader">
-  <img src="assets/blacklogo.png" alt="Mark Daniel Saddlery" class="preloader-logo">
-    </div>
+  <!---------------------------------------------------->
 
-    <div id="header-placeholder"></div>
+  <!-- PRELOADER -->
 
-<!-- ================= HERO / EDITORIAL ================= -->
+  <div id="preloader">
+    <img src="assets/blacklogo.png" alt="Mark Daniel Saddlery" class="preloader-logo">
+  </div>
+
+  <!-- HEADER -->
+
+  <div id="header-placeholder"></div>
+
+  <!---------------------------------------------------->
+
+  <!-- HERO -->
 
 <section class="hero-editorial">
 
@@ -37,20 +46,26 @@
 
 </section>
 
+<!-- PROMO STRAP -->
 
-<!-- ================= PROMO STRAP ================= -->
 <div class="promo-strap dark">
   Begin your journey with a 10% discount on your purchase
 </div>
 
+<!-- PRODUCTS -->
 
-<!-- ================= PRODUCTS ================= -->
 <section id="products-section">
-  <h2 class="section-title">New Arrivals</h2>
+  <h2 class="section-title">The Essential Collection</h2>
   <div id="product-container" class="product-grid"></div>
 </section>
 
-<div id="footer-placeholder"></div>
+<!---------------------------------------------------->
+
+<!-- FOOTER -->
+
+  <div id="footer-placeholder"></div>
+
+<!---------------------------------------------------->
 
    <script>
   fetch('header.html')
@@ -67,9 +82,17 @@
     });
   </script>
 
+    <script>
+  fetch('footer.html')
+  .then(res => res.text())
+  .then(data => {
+    document.getElementById('footer-placeholder').innerHTML = data;
+   });
+  </script>
+
 <script src="js/config.js"></script>
-<script src="js/preloader.js"></script>
 <script src="js/home.js"></script>
+<script src="js/preloader.js"></script>
 
 </body>
 </html>

@@ -15,12 +15,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
       if (product.discounted_price) {
         priceEl.innerHTML = `
-          <span class="old-price">₹${parseFloat(product.price).toLocaleString()}</span>
-          <span class="new-price">₹${parseFloat(product.discounted_price).toLocaleString()}</span>
+          <span class="old-price">$${parseFloat(product.price).toLocaleString()}</span>
+          <span class="new-price">$${parseFloat(product.discounted_price).toLocaleString()}</span>
         `;
       } else {
         priceEl.innerHTML = `
-          <span class="new-price">₹${parseFloat(product.price).toLocaleString()}</span>
+          <span class="new-price">$${parseFloat(product.price).toLocaleString()}</span>
         `;
       }
 

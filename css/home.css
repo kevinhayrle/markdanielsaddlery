@@ -1,29 +1,52 @@
+/* =============== FONTS ====================*/
+
+@font-face {
+  font-family: 'horizon';
+  src: url('../fonts/horizon.otf') format('opentype');
+}
+
 @font-face {
   font-family: 'horizonoutlined';
   src: url('../fonts/horizon_outlined.otf') format('opentype');
 }
 
-/* RESET */
+@font-face {
+  font-family: 'sf';
+  src: url('../fonts/sf.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'Playfair Display';
+  src: url('../fonts/PlayfairDisplay.ttf') format('opentype');
+}
+
+/* =============== PC ====================*/
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
+html,
 body {
-  font-family: 'horizon', serif;
-  background: #ffffff;
-  color: #111;
+  width: 100%;
+  overflow-x: hidden;
+  font-family: 'sf', sans-serif;
+  background: #f3f1ed;
 }
 
-/* ================= HERO EDITORIAL ================= */
+body {
+  padding-top: 60px;
+}
+
+/*================ BANNER ============= */
 
 .hero-outline {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-
   font-family: 'horizonoutlined';
   font-size: 110px;
   letter-spacing: 12px;
@@ -57,11 +80,10 @@ body {
   opacity: 0.85;
 }
 
-
 .hero-copy h2 {
   font-size: clamp(1.8rem, 3vw, 2.4rem);
-  font-weight: 400;
   margin-top: 10px;
+  font-family: 'horizon';
 }
 
 /* ================= PROMO STRAP ================= */
@@ -69,17 +91,13 @@ body {
 .promo-strap.dark {
   background: #111;
   color: #fff;
-
   font-family: 'sf', sans-serif;
   font-size: 0.6rem;
   letter-spacing: 4px;
   text-transform: uppercase;
-
   padding: 20px 0;
   text-align: center;
 }
-
-
 
 /* ================= PRODUCTS ================= */
 
@@ -89,15 +107,14 @@ body {
 
 .section-title {
   text-align: center;
-  font-family: 'sf', sans-serif;
-  font-size: 0.7rem;
+  font-family: 'sf';
+  font-size: 1rem;
   letter-spacing: 5px;
   text-transform: uppercase;
-  margin-bottom: 90px;
+  margin-bottom: 70px;
+  margin-top: -50px;
   opacity: 0.8;
 }
-
-/* ================= GRID ================= */
 
 .product-grid {
   display: grid;
@@ -105,14 +122,19 @@ body {
   gap: 70px 40px;
   max-width: 1400px;
   margin: 0 auto;
+  row-gap: 110px;
 }
-
-/* ================= PRODUCT ================= */
 
 .product-card {
   background: transparent;
   border: none;
   cursor: pointer;
+  transition: transform 0.4s ease;
+  box-shadow: inset 0 -1px 0 rgba(0,0,0,0.06);
+}
+
+.product-card:hover {
+  transform: translateY(-6px);
 }
 
 .product-image {
@@ -120,27 +142,33 @@ body {
   aspect-ratio: 3 / 4;
   object-fit: cover;
   display: block;
-  background: #f4f4f4;
+  background: #f1efec;
 }
-
-/* ================= INFO ================= */
 
 .product-info {
   margin-top: 18px;
   text-align: center;
 }
 
+.product-info::after {
+  content: "";
+  display: block;
+  margin-top: 10px;
+  height: 1px;
+  background: #f3f1ed;
+}
+
 .product-name {
-  font-family: 'sf', sans-serif;
-  font-size: 0.65rem;
+  font-family: 'sf';
+  font-size: 0.8rem;
   letter-spacing: 2px;
   text-transform: uppercase;
   margin-bottom: 6px;
 }
 
 .product-price {
-  font-family: 'sf', sans-serif;
-  font-size: 0.6rem;
+  font-family: 'sf';
+  font-size: 0.8rem;
   letter-spacing: 2px;
   color: #555;
 }
@@ -155,42 +183,99 @@ body {
   display:none;
 }
 
-.hero-vertical {
-  position: absolute;
-  top: 50%;
-  right: 2%;
-  transform: translateY(-50%) rotate(90deg);
-  font-family: 'sf', sans-serif;
-  font-size: 0.55rem;
-  letter-spacing: 5px;
-  text-transform: uppercase;
-  color: rgba(255,255,255,0.6);
-}
+/* ================= PHONE ================= */
 
+@media (hover: none) and (pointer: coarse), (max-width: 768px) {
 
-/* ================= MOBILE ================= */
+  body {
+    padding-top: 54px;
+  }
 
-@media (max-width: 768px) {
+  /* ================= BANNER ================= */
 
   .hero-editorial {
-    height: 70vh;
+    height: 100vh;
+  }
+
+  .hero-outline {
+    font-size: 30px;
+    letter-spacing: 6px;
+    padding: 0 12px;
+    text-align: center;
+    margin-top: -70px;
   }
 
   .hero-copy {
     left: 6%;
+    right: 6%;
     bottom: 10%;
   }
 
-  .hero-copy h2 {
-    font-size: 1.6rem;
+  .hero-eyebrow {
+    font-size: 0.55rem;
+    letter-spacing: 3px;
   }
+
+  .hero-copy h2 {
+    font-size: 1.4rem;
+    line-height: 1.3;
+  }
+
+  /* ================= PROMO STRAP ================= */
+
+  .promo-strap.dark {
+    font-size: 0.55rem;
+    letter-spacing: 3px;
+    padding: 16px 10px;
+  }
+
+  /* ================= PRODUCTS ================= */
 
   #products-section {
     padding: 80px 6vw;
   }
 
+  .section-title {
+    font-size: 0.75rem;
+    letter-spacing: 4px;
+    margin-bottom: 48px;
+    margin-top: -30px;
+  }
+
   .product-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 40px 20px;
+    row-gap: 70px;
   }
+
+  .product-card {
+    transform: none !important;
+    box-shadow: inset 0 -1px 0 rgba(0,0,0,0.05);
+  }
+
+  .product-card:hover {
+    transform: none;
+  }
+
+  .product-image {
+    aspect-ratio: 3 / 4;
+    background: #f1efec;
+  }
+
+  .product-info {
+    margin-top: 14px;
+  }
+
+  .product-name {
+    font-size: 0.5rem;
+    letter-spacing: 1.5px;
+  }
+
+  .product-price {
+    font-size: 0.55rem;
+  }
+
 }
+
+
+

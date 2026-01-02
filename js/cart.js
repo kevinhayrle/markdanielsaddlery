@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
         <img src="${product.image_url}" />
         <div class="cart-details">
           <h3>${product.name}</h3>
-          <p>₹${product.price}</p>
+          <p>$${product.price}</p>
           <button class="remove-btn">Remove</button>
         </div>
       `;
@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     finalTotal = originalTotal;
-    grandTotalEl.textContent = `Grand Total: ₹${originalTotal}`;
+    grandTotalEl.textContent = `Grand Total: $${originalTotal}`;
     checkoutBtn.style.display = 'block';
   }
 
@@ -84,9 +84,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
       finalTotal = data.final_total;
       couponMessage.style.color = 'green';
-      couponMessage.textContent = `Coupon Applied! You saved ₹${data.discount}`;
+      couponMessage.textContent = `Coupon Applied! You saved $${data.discount}`;
 
-      grandTotalEl.textContent = `Grand Total: ₹${finalTotal}`;
+      grandTotalEl.textContent = `Grand Total: $${finalTotal}`;
     } catch (err) {
       couponMessage.style.color = 'red';
       couponMessage.textContent = 'Failed to apply coupon';

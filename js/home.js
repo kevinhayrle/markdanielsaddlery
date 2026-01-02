@@ -24,9 +24,9 @@ document.addEventListener('DOMContentLoaded', () => {
             <div class="product-price">
               ${
                 product.discountedPrice
-                  ? `<span class="old-price">₹${product.price}</span>
-                     <span class="new-price">₹${product.discountedPrice}</span>`
-                  : `<span class="new-price">₹${product.price}</span>`
+                  ? `<span class="old-price">$${product.price}</span>
+                     <span class="new-price">$${product.discountedPrice}</span>`
+                  : `<span class="new-price">$${product.price}</span>`
               }
             </div>
           </div>
