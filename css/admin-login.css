@@ -1,0 +1,86 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #0a0a0a, #151515);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Playfair Display', serif;
+}
+
+.login-container {
+  background: #f7f5f2;
+  width: 100%;
+  max-width: 420px;
+  padding: 3rem 2.5rem;
+  border-radius: 14px;
+  box-shadow:
+    0 30px 60px rgba(0, 0, 0, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  text-align: center;
+}
+
+.brand {
+  font-size: 1.4rem;
+  letter-spacing: 2px;
+  margin-bottom: 0.3rem;
+}
+
+.brand-sub {
+  font-size: 0.75rem;
+  letter-spacing: 3px;
+  color: #777;
+  margin-bottom: 2.2rem;
+}
+
+h1 {
+  font-size: 1.6rem;
+  margin-bottom: 1.6rem;
+}
+
+input {
+  width: 100%;
+  padding: 0.85rem;
+  margin-bottom: 1rem;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+input:focus {
+  outline: none;
+  border-color: #000;
+}
+
+button {
+  width: 100%;
+  padding: 0.85rem;
+  border-radius: 8px;
+  border: none;
+  background: #000;
+  color: #fff;
+  letter-spacing: 1px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #1b1b1b;
+}
+
+.error {
+  margin-top: 0.8rem;
+  font-size: 0.85rem;
+  color: #b00020;
+  min-height: 1em;
+}
+
+.footer-text {
+  margin-top: 2rem;
+  font-size: 0.65rem;
+  letter-spacing: 1.5px;
+  color: #999;
+}

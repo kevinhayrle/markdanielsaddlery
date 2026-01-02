@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Product | Mark Daniel Saddlery</title>
+
+  <link rel="icon" href="assets/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="css/product.css" />
+  <link rel="stylesheet" href="css/header.css">
+  <link rel="stylesheet" href="css/preloader.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+
+<body>
+
+<div id="preloader">
+  <img src="assets/blacklogo.png" alt="Mark Daniel Saddlery" class="preloader-logo">
+</div>
+
+<!-- GLOBAL HEADER -->
+<div id="header-placeholder"></div>
+
+<main class="product-detail-container">
+  <div class="left-column">
+    <img id="product-image" class="main-product-image" />
+    <div id="extra-images" class="extra-images"></div>
+  </div>
+
+  <div class="right-column">
+    <h1 id="product-name"></h1>
+    <p id="product-price" class="product-detail-price"></p>
+    <p id="product-description"></p>
+
+    <div class="size-section">
+      <label for="sizeSelect">Size:</label>
+      <select id="sizeSelect" required>
+        <option value="">Select Size</option>
+      </select>
+    </div>
+
+    <button class="add-to-cart">Add to Cart</button>
+  </div>
+</main>
+
+<script>
+  fetch('header.html')
+    .then(res => res.text())
+    .then(data => {
+      document.getElementById('header-placeholder').innerHTML = data;
+
+      const header = document.querySelector('.site-header');
+      window.addEventListener('scroll', () => {
+        header.classList.toggle('scrolled', window.scrollY > 40);
+      });
+
+      const script = document.createElement('script');
+      script.src = 'js/header.js';
+      document.body.appendChild(script);
+    });
+</script>
+
+<script src="js/config.js"></script>
+<script src="js/preloader.js"></script>
+<script src="js/product.js"></script>
+
+</body>
+</html>

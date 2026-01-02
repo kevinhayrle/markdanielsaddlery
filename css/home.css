@@ -13,16 +13,24 @@ body {
 
 /* HERO */
 .hero {
-  height: 60vh;
-  background: linear-gradient(
-    rgba(0,0,0,0.45),
-    rgba(0,0,0,0.45)
-  ),
-  url("../hero.jpg") center/cover no-repeat;
+  height: 160vh;
+  position: relative;
+  background-image:
+    linear-gradient(
+      rgba(0, 0, 0, 0.55),
+      rgba(0, 0, 0, 0.35)
+    ),
+    url("../assets/k.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
   display: flex;
   align-items: center;
   justify-content: center;
+  text-align: center;
 }
+
 
 .brand-name {
   color: white;

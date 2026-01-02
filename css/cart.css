@@ -1,0 +1,206 @@
+/* =========================
+   ROOT THEME
+========================= */
+:root {
+  --black: #0b0b0b;
+  --off-white: #f6f4f1;
+  --soft-grey: #d9d6d1;
+  --muted-grey: #8c8c8c;
+  --accent: #b89b5e; /* luxury gold */
+  --danger: #b00020;
+  --font-primary: 'Playfair Display', serif;
+  --font-secondary: 'Inter', sans-serif;
+}
+
+/* =========================
+   PAGE BASE
+========================= */
+body {
+  margin: 0;
+  background: var(--off-white);
+  color: var(--black);
+  font-family: var(--font-secondary);
+}
+
+/* =========================
+   CART CONTAINER
+========================= */
+.cart-container {
+  max-width: 900px;
+  margin: 120px auto 40px;
+  padding: 0 20px;
+}
+
+/* =========================
+   CART ITEM
+========================= */
+.cart-item {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 20px 0;
+  border-bottom: 1px solid var(--soft-grey);
+}
+
+.cart-item img {
+  width: 90px;
+  height: 110px;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+/* =========================
+   ITEM DETAILS
+========================= */
+.cart-details {
+  flex: 1;
+}
+
+.cart-details h3 {
+  margin: 0;
+  font-family: var(--font-primary);
+  font-size: 1.05rem;
+  letter-spacing: 0.5px;
+}
+
+.cart-details p {
+  margin: 6px 0 10px;
+  font-size: 0.95rem;
+  color: var(--muted-grey);
+}
+
+/* =========================
+   REMOVE BUTTON
+========================= */
+.remove-btn {
+  background: transparent;
+  border: 1px solid var(--danger);
+  color: var(--danger);
+  padding: 6px 14px;
+  font-size: 0.75rem;
+  letter-spacing: 1px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.remove-btn:hover {
+  background: var(--danger);
+  color: #fff;
+}
+
+/* =========================
+   EMPTY CART
+========================= */
+.cart-container p {
+  text-align: center;
+  font-size: 1rem;
+  color: var(--muted-grey);
+  margin-top: 60px;
+}
+
+/* =========================
+   COUPON BOX
+========================= */
+.coupon-box {
+  max-width: 900px;
+  margin: 30px auto 0;
+  padding: 0 20px;
+  display: flex;
+  gap: 10px;
+}
+
+.coupon-box input {
+  flex: 1;
+  padding: 12px 14px;
+  border-radius: 6px;
+  border: 1px solid var(--soft-grey);
+  font-family: var(--font-secondary);
+}
+
+.coupon-box input:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.coupon-box button {
+  padding: 12px 20px;
+  background: var(--black);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  letter-spacing: 1.2px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.coupon-box button:hover {
+  background: #1a1a1a;
+}
+
+/* =========================
+   COUPON MESSAGE
+========================= */
+.coupon-message {
+  text-align: center;
+  margin-top: 12px;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+/* =========================
+   GRAND TOTAL
+========================= */
+.grand-total {
+  text-align: center;
+  margin-top: 30px;
+  font-family: var(--font-primary);
+  font-size: 1.3rem;
+  letter-spacing: 1px;
+}
+
+/* =========================
+   CHECKOUT BUTTON
+========================= */
+#checkout-btn {
+  display: block;
+  margin: 25px auto 60px;
+  padding: 14px 36px;
+  background: var(--black);
+  color: #fff;
+  border: none;
+  border-radius: 30px;
+  font-size: 0.8rem;
+  letter-spacing: 2px;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+#checkout-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+@media (max-width: 600px) {
+  .cart-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .cart-item img {
+    width: 100%;
+    height: auto;
+  }
+
+  .coupon-box {
+    flex-direction: column;
+  }
+
+  #checkout-btn {
+    width: 100%;
+  }
+}

@@ -1,0 +1,138 @@
+/* ================= FONTS ================= */
+
+@font-face {
+  font-family: 'horizon';
+  src: url('../fonts/horizon.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'sf';
+  src: url('../fonts/sf.otf') format('opentype');
+}
+
+/* ================= PC ================= */
+
+.site-footer {
+  background: #111111;
+  padding: 60px 0 110px;
+}
+
+.footer-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 38px;
+}
+
+/* ================= BRAND ================= */
+
+.footer-brand {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  font-family: 'sf';
+}
+
+.footer-logo-img {
+  width: 72px;
+  height: auto;
+  margin-bottom: 18px;
+  display: block;
+}
+
+.footer-logo {
+  font-family: 'horizon';
+  font-size: 0.9rem;
+  color: #ffffff;
+}
+
+.footer-tagline {
+  margin-top: 10px;
+  font-size: 0.6rem;
+  letter-spacing: 3px;
+  font-family: 'sf';
+  text-transform: uppercase;
+  color: #b0b0b0;
+}
+
+.footer-address {
+  margin-top: 18px;
+  font-size: 0.55rem;
+  letter-spacing: 2px;
+  line-height: 1.8;
+  font-family: 'sf';
+  text-transform: uppercase;
+  color: #a0a0a0;
+  max-width: 320px;
+}
+
+/* ================= LINKS ================= */
+
+.footer-links {
+  display: flex;
+  justify-content: center;
+  font-family: 'sf';
+  align-items: center;
+  gap: 36px;
+}
+
+.footer-links a {
+  font-size: 0.6rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  font-family: 'sf';
+  text-decoration: none;
+  color: #ffffff;
+  transition: opacity 0.3s ease;
+}
+
+.footer-links a:hover {
+  opacity: 0.6;
+}
+
+/* ================= COPYRIGHT ================= */
+
+.footer-copy {
+  font-size: 0.55rem;
+  font-family: 'sf';
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #ffffff;
+}
+
+/* ================= PHONE ================= */
+
+@media (max-width: 600px) {
+
+  .site-footer {
+    padding: 30px 0 70px;
+  }
+
+  .footer-inner {
+    gap: 22px;
+  }
+
+  .footer-logo-img {
+    width: 50px;
+    margin-bottom: 10px;
+  }
+
+  .footer-address {
+    max-width: 220px;
+    font-size: 0.40rem;
+  }
+
+  .footer-links {
+    gap: 14px;
+  }
+
+  .footer-copy {
+    font-size: 0.40rem;
+    margin-top: 10px;
+  }
+}

@@ -1,3 +1,5 @@
+/* ================= FONTS ================= */
+
 @font-face {
   font-family: 'sf';
   src: url('../fonts/sf.otf') format('opentype');
@@ -5,13 +7,18 @@
   font-style: normal;
 }
 
+@font-face {
+  font-family: 'horizon';
+  src: url('../fonts/horizon.otf') format('opentype');
+}
+
+/* ================= PC ================= */
+
 .site-header, .site-header * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
-
-/* ================= PC ================= */
 
 .site-header {
   position: fixed;
@@ -60,9 +67,8 @@
 }
 
 .brand-line-top {
-  font-family: 'Franklin Gothic Medium', Arial, sans-serif;
+  font-family: 'horizon';
   font-size: 20px;
-  letter-spacing: 3px;
   color: #fff;
 }
 
@@ -189,7 +195,6 @@
   opacity: 0.6;
 }
 
-
 /* ================= PHONE ================= */
 
 @media (hover: none) and (pointer: coarse) {
@@ -241,9 +246,8 @@
 }
 
 .brand-line-top {
-  font-family: 'Franklin Gothic Medium', Arial, sans-serif;
-  font-size: 10px;
-  letter-spacing: 3px;
+  font-family: 'horizon';
+  font-size: 9px;
   color: #fff;
 }
 

@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Mark Daniel Saddlery</title>
+
+  <link rel="icon" href="assets/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="css/index.css" />
   <link rel="stylesheet" href="css/header.css">
+  <link rel="stylesheet" href="css/footer.css">
   <link rel="stylesheet" href="css/preloader.css" />
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
@@ -15,65 +17,130 @@
 
 <body>
 
-<div id="preloader">
-  <img src="assets/blacklogo.png" alt="Mark Daniel Saddlery" class="preloader-logo">
-</div>
+  <!---------------------------------------------------->
+
+  <!-- PRELOADER -->
+
+  <div id="preloader">
+    <img src="assets/blacklogo.png" alt="Mark Daniel Saddlery" class="preloader-logo">
+  </div>
+
+  <!-- FOOTER -->
+
   <div id="header-placeholder"></div>
+
+  <!---------------------------------------------------->
+
+  <!-- VIDEO -->
+
   <section class="stack hero">
-  <div class="media-wrapper">
+    <div class="media-wrapper">
 
-    <video
-      id="heroVideo"
-      class="hero-video"
-      autoplay
-      muted
-      loop
-      playsinline
-    ></video>
+      <video
+        id="heroVideo"
+        class="hero-video"
+        autoplay
+        muted
+        loop
+        playsinline
+      ></video>
 
-    <!-- TEXT OVERLAY -->
-    <div class="hero-overlay">
-    <h1 class="hero-subtitle">CRAFTED FOR THE RIDE</h1>
+      <div class="hero-overlay">
+        <h1 class="hero-subtitle">CRAFTED FOR THE RIDE</h1>
         <h1 class="hero-title">MARK DANIEL SADDLERY</h1>
-    
-      <a href="home.html" class="hero-cta">SHOP NOW</a>
+        <a href="home.html" class="hero-cta">SHOP NOW</a>
+      </div>
+
+    </div>
+  </section>
+
+<!-- SLIDER -->
+
+<section class="stack banner-slider">
+  <div class="slides">
+
+    <div class="slide active">
+      <img src="assets/stack1.jpg" alt="">
+      <div class="slide-content">
+        <h2 class="slide-slogan">Handcrafted for the Ride</h2>
+        <a href="home.html" class="lux-btn">DISCOVER</a>
+      </div>
     </div>
 
+    <div class="slide">
+      <img src="assets/stack2.jpg" alt="">
+      <div class="slide-content">
+        <h2 class="slide-slogan">
+          Where Leather Meets Legacy
+        </h2>
+        <a href="home.html" class="lux-btn">SHOP NOW</a>
+      </div>
+    </div>
+
+    <div class="slide">
+      <img src="assets/stack3.jpg" alt="">
+      <div class="slide-content">
+        <h2 class="slide-slogan">The Art of Saddlery</h2>
+        <a href="home.html" class="lux-btn">EXPLORE</a>
+      </div>
+    </div>
+
+    <div class="slide">
+      <img src="assets/stack4.jpg" alt="">
+      <div class="slide-content">
+        <h2 class="slide-slogan">Made for the Rider’s Bond</h2>
+        <a href="home.html" class="lux-btn">SHOP THE COLLECTION</a>
+      </div>
+    </div>
+
+    <div class="slide">
+      <img src="assets/stack5.jpg" alt="">
+      <div class="slide-content">
+        <h2 class="slide-slogan">Precision. Power. Prestige.</h2>
+        <a href="home.html" class="lux-btn">EXPLORE</a>
+      </div>
+    </div>
+  </div>
+
+  <button class="nav prev">‹</button>
+  <button class="nav next">›</button>
+</section>
+
+<!-- EDITORIAL ICONS -->
+
+<section class="editorial-stack">
+  <img src="assets/background.jpg" class="editorial-bg" alt="">
+
+  <div class="editorial-strip">
+    <img src="assets/icon1.jpg" />
+    <img src="assets/icon2.png" />
+    <img src="assets/icon3.png" />
+    <img src="assets/icon4.png" />
+     <img src="assets/icon5.png" />
+    <img src="assets/icon6.png" />
+  </div>
+
+  <div class="editorial-text">
+    <h2>Heritage Icons</h2>
+    <a href="home.html">DISCOVER</a>
   </div>
 </section>
 
-  <!-- STACK 2 -->
-   <section class="stack">
-    <div class="media-wrapper">
-      <picture>
-            <source media="(hover: none) and (pointer: coarse)" srcset="assets/banner2mobile.PNG">
-            <img src="assets/banner2.JPG" alt="Banner 2">
-      </picture>
-    </div>
-  </section>
+<section class="home-redirect">
+  <a href="home.html" class="home-redirect-link">
+    <span>View the Collection on Home</span>
+  </a>
+</section>
 
-  <!-- STACK 3 -->
-  <section class="stack">
-    <div class="media-wrapper">
-      <picture>
-            <source media="(hover: none) and (pointer: coarse)" srcset="assets/banner2mobile.PNG">
-            <img src="assets/banner2.JPG" alt="Banner 2">
-      </picture>
-    </div>
-  </section>
+<!---------------------------------------------------->
 
-  <!-- STACK 4 -->
-  <section class="stack">
-    <div class="media-wrapper">
-      <picture>
-            <source media="(hover: none) and (pointer: coarse)" srcset="assets/banner2mobile.PNG">
-            <img src="assets/banner2.JPG" alt="Banner 2">
-      </picture>
-    </div>
-  </section>
+<!-- FOOTER -->
 
- <script>
+  <div id="footer-placeholder"></div>
 
+<!---------------------------------------------------->
+
+  <script>
   fetch('header.html')
     .then(res => res.text())
     .then(data => {
@@ -86,44 +153,18 @@
       script.src = 'js/header.js';
       document.body.appendChild(script);
     });
+  </script>
 
-  /* ================= DIMENSION SWITCH ================= */
+  <script>
+  fetch('footer.html')
+  .then(res => res.text())
+  .then(data => {
+    document.getElementById('footer-placeholder').innerHTML = data;
+   });
+  </script>
 
-  const heroVideo = document.getElementById('heroVideo');
-  const phoneQuery = window.matchMedia(
-    '(hover: none) and (pointer: coarse)'
-  );
+  <script src="js/index.js"></script>
+  <script src="js/preloader.js"></script>
 
-  function setHeroVideo() {
-    const isPhone = phoneQuery.matches;
-
-    const newSrc = isPhone
-      ? 'assets/banner1mobile.mp4'
-      : 'assets/banner1.mp4';
-
-    if (heroVideo.dataset.src === newSrc) return;
-
-    heroVideo.dataset.src = newSrc;
-
-    const wasPlaying = !heroVideo.paused;
-
-    heroVideo.src = newSrc;
-    heroVideo.load();
-
-    if (wasPlaying) {
-      heroVideo.play().catch(() => {});
-    }
-  }
-
-  // initial
-  setHeroVideo();
-
-  // listen ONLY to device capability change (rare)
-  phoneQuery.addEventListener('change', setHeroVideo);
-
-</script>
-
-
-<script src="js/preloader.js"></script>
 </body>
 </html>

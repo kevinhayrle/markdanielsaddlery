@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>OTP Verification | Mark Daniel Saddlery</title>
+
+  <link rel="icon" href="assets/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="css/otp.css" />
   <link rel="stylesheet" href="css/header.css">
   <link rel="stylesheet" href="css/preloader.css" />
@@ -16,17 +17,22 @@
 
 <body>
 
-<div id="preloader">
-  <img src="assets/blacklogo.png" alt="Mark Daniel Saddlery" class="preloader-logo">
-</div>
+  <div id="preloader">
+    <img src="assets/blacklogo.png" alt="Mark Daniel Saddlery" class="preloader-logo">
+  </div>
+
   <div id="header-placeholder"></div>
+
   <main class="otp-wrapper">
     <section class="otp-card">
       <h1>Verify OTP</h1>
+
       <p class="subtitle" id="subtitleText">
         Enter the 6-digit verification code sent to your email
       </p>
+
       <div id="formMessage" class="form-message"></div>
+
       <form id="otpForm">
         <input
           id="otp"
@@ -37,6 +43,7 @@
         />
         <button type="submit" class="verify-btn">VERIFY</button>
       </form>
+
       <p class="resend">
         Didn’t receive the code?
         <a id="resendOtp">Resend OTP</a>
@@ -44,107 +51,24 @@
     </section>
   </main>
 
-<script>
-  fetch('header.html')
-    .then(res => res.text())
-    .then(data => {
-      document.getElementById('header-placeholder').innerHTML = data;
-      const header = document.querySelector('.site-header');
-      window.addEventListener('scroll', () => {
-        header.classList.toggle('scrolled', window.scrollY > 40);
-      });
-      const script = document.createElement('script');
-      script.src = 'js/header.js';
-      document.body.appendChild(script);
-    });
-</script>
-
   <script>
-    const params = new URLSearchParams(window.location.search);
-    const email = params.get('email');
-    const type = params.get('type') || 'signup';
-    const form = document.getElementById('otpForm');
-    const resendBtn = document.getElementById('resendOtp');
-    const otpInput = document.getElementById('otp');
-    const messageBox = document.getElementById('formMessage');
-    const subtitle = document.getElementById('subtitleText');
-
-    if (type === 'reset') {
-      subtitle.textContent =
-        'Enter the OTP sent to your email to reset your password';
-    }
-
-    const showMessage = (msg, type) => {
-      messageBox.textContent = msg;
-      messageBox.className = `form-message ${type}`;
-      messageBox.style.display = 'block';
-    };
-
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-
-      const otp = otpInput.value.trim();
-
-      if (otp.length !== 6) {
-        showMessage('Please enter a valid 6-digit OTP', 'error');
-        return;
-      }
-
-      try {
-        const res = await fetch('http://localhost:5000/api/users/verify-otp', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email, otp, type })
+    fetch('header.html')
+      .then(res => res.text())
+      .then(data => {
+        document.getElementById('header-placeholder').innerHTML = data;
+        const header = document.querySelector('.site-header');
+        window.addEventListener('scroll', () => {
+          header.classList.toggle('scrolled', window.scrollY > 40);
         });
-
-        const data = await res.json();
-
-        if (!res.ok) {
-          showMessage(data.message || 'OTP verification failed', 'error');
-          return;
-        }
-
-        showMessage('OTP verified successfully', 'success');
-
-        setTimeout(() => {
-          if (type === 'reset') {
-            window.location.href =
-              `reset-password.html?email=${encodeURIComponent(email)}`;
-          } else {
-            window.location.href = 'login.html';
-          }
-        }, 900);
-
-      } catch (err) {
-        console.error(err);
-        showMessage('Something went wrong. Please try again.', 'error');
-      }
-    });
-
-    resendBtn.addEventListener('click', async () => {
-      try {
-        const endpoint =
-          type === 'reset'
-            ? 'http://localhost:5000/api/users/forgot-password'
-            : 'http://localhost:5000/api/users/register';
-
-        const res = await fetch(endpoint, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email })
-        });
-
-        const data = await res.json();
-        showMessage(data.message || 'OTP resent', 'success');
-
-      } catch (err) {
-        console.error(err);
-        showMessage('Failed to resend OTP', 'error');
-      }
-    });
+        const script = document.createElement('script');
+        script.src = 'js/header.js';
+        document.body.appendChild(script);
+      });
   </script>
 
-<script src="js/preloader.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/otp.js"></script>
+  <script src="js/preloader.js"></script>
 
 </body>
 </html>

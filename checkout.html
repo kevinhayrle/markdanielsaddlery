@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Checkout | Mark Daniel Saddlery</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- ✅ PAYPAL SDK (REQUIRED) -->
+  <script src="https://www.paypal.com/sdk/js?client-id=AdSToXRolxhCYg3hiXVNlawTSeWdco6d_LWMk3HUnN8hDGE2HFong_D758R8Y2i0d8ikXCaJ2dbI0wA-&currency=USD"></script>
+
+  <link rel="icon" href="assets/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="css/checkout.css" />
+  <link rel="stylesheet" href="css/header.css">
+  <link rel="stylesheet" href="css/preloader.css" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+
+<body>
+
+<!-- PRELOADER -->
+<div id="preloader">
+  <img src="assets/blacklogo.png" alt="Mark Daniel Saddlery" class="preloader-logo">
+</div>
+
+<!-- ✅ REQUIRED FOR GLOBAL HEADER -->
+<div id="header-placeholder"></div>
+
+<!-- CHECKOUT -->
+<div class="checkout-container">
+  <h1>CHECKOUT</h1>
+
+  <form id="checkout-form">
+    <input type="text" id="name" placeholder="Name" required />
+    <input type="email" id="email" placeholder="Email" required />
+    <input type="tel" id="phone" placeholder="Phone Number" required />
+    <textarea id="address" placeholder="Address" required></textarea>
+
+    <div id="cart-summary">
+      <h2>Cart Summary</h2>
+      <ul id="cart-items"></ul>
+      <p><strong>Total:</strong> $<span id="total-amount">0</span></p>
+    </div>
+
+    <!-- PAYPAL -->
+    <div id="paypal-button-container"></div>
+  </form>
+</div>
+
+<!-- HEADER LOADER -->
+<script>
+  fetch('header.html')
+    .then(res => res.text())
+    .then(data => {
+      document.getElementById('header-placeholder').innerHTML = data;
+      const header = document.querySelector('.site-header');
+      window.addEventListener('scroll', () => {
+        header.classList.toggle('scrolled', window.scrollY > 40);
+      });
+      const script = document.createElement('script');
+      script.src = 'js/header.js';
+      document.body.appendChild(script);
+    });
+</script>
+
+<script src="js/config.js"></script>
+<script src="js/preloader.js"></script>
+<script src="js/checkout.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,171 @@
+/* ===============================
+   MARK DANIEL SADDLERY – PRODUCT
+   Luxury • Minimal • Timeless
+================================ */
+
+/* RESET */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* BASE */
+body {
+  font-family: 'Playfair Display', serif;
+  background: #ffffff;
+  color: #111;
+  line-height: 1.6;
+}
+
+/* MAIN LAYOUT */
+.product-detail-container {
+  max-width: 1200px;
+  margin: 140px auto 80px;
+  padding: 0 24px;
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: 80px;
+}
+
+/* LEFT COLUMN */
+.left-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.main-product-image {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  background: #f4f4f4;
+  border-radius: 2px;
+}
+
+/* EXTRA IMAGES */
+.extra-images {
+  display: flex;
+  gap: 14px;
+  margin-top: 18px;
+}
+
+.extra-images img {
+  width: 70px;
+  height: 90px;
+  object-fit: cover;
+  cursor: pointer;
+  opacity: 0.75;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.extra-images img:hover {
+  opacity: 1;
+  transform: translateY(-2px);
+}
+
+/* RIGHT COLUMN */
+.right-column {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* PRODUCT NAME */
+#product-name {
+  font-size: 2.2rem;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  margin-bottom: 16px;
+}
+
+/* PRICE */
+.product-detail-price {
+  font-size: 1.3rem;
+  margin-bottom: 22px;
+}
+
+.old-price {
+  text-decoration: line-through;
+  color: #999;
+  margin-right: 10px;
+  font-size: 1.05rem;
+}
+
+.new-price {
+  font-weight: 600;
+  color: #000;
+}
+
+/* DESCRIPTION */
+#product-description {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.95rem;
+  color: #444;
+  max-width: 420px;
+  margin-bottom: 28px;
+}
+
+/* SIZE SECTION */
+.size-section {
+  margin-bottom: 26px;
+}
+
+.size-section label {
+  display: block;
+  font-size: 0.8rem;
+  letter-spacing: 1.2px;
+  margin-bottom: 6px;
+  text-transform: uppercase;
+}
+
+#sizeSelect {
+  width: 200px;
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  background: #fff;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9rem;
+  border-radius: 0;
+  cursor: pointer;
+}
+
+#sizeSelect:focus {
+  outline: none;
+  border-color: #000;
+}
+
+/* ADD TO CART */
+.add-to-cart {
+  width: 260px;
+  padding: 14px 0;
+  background: #000;
+  color: #fff;
+  border: none;
+  font-size: 0.85rem;
+  letter-spacing: 2px;
+  cursor: pointer;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.add-to-cart:hover {
+  background: #fff;
+  color: #000;
+  border: 1px solid #000;
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  .product-detail-container {
+    grid-template-columns: 1fr;
+    gap: 50px;
+    margin-top: 120px;
+  }
+
+  #product-name {
+    font-size: 1.9rem;
+  }
+
+  .add-to-cart {
+    width: 100%;
+  }
+}

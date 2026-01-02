@@ -22,8 +22,6 @@
     document.body.classList.add(isScrolled ? 'sidebar-left' : 'sidebar-right');
   };
 
-  /* ================= OPEN / CLOSE ================= */
-
   const openSidebar = () => {
     setSidebarSide();
     sidebar.classList.add('active');
@@ -45,14 +43,12 @@
   overlay.addEventListener('click', closeSidebar);
 
   /* ================= SCROLL LISTENER ================= */
-  // ❗ ONLY change side when sidebar is CLOSED
+  
   window.addEventListener('scroll', () => {
     if (!sidebar.classList.contains('active')) {
       setSidebarSide();
     }
   });
-
-  /* ================= REDIRECTS ================= */
 
   if (logoWrap) {
     logoWrap.style.cursor = 'pointer';

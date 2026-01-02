@@ -1,0 +1,123 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Playfair Display', serif;
+  background: #f6f4f1;
+  display: flex;
+  min-height: 100vh;
+  color: #111;
+}
+
+/* SIDEBAR */
+.sidebar {
+  width: 220px;
+  background: #0b0b0b;
+  color: #fff;
+  padding: 1.5rem 1rem;
+  position: fixed;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.sidebar h2 {
+  text-align: center;
+  letter-spacing: 3px;
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+}
+
+.logout-btn {
+  padding: 0.7rem;
+  background: #a00000;
+  border: none;
+  border-radius: 6px;
+  color: white;
+  cursor: pointer;
+  letter-spacing: 1px;
+}
+
+.logout-btn:hover {
+  background: #c00000;
+}
+
+/* MAIN */
+.main {
+  margin-left: 220px;
+  padding: 2.5rem;
+  width: calc(100% - 220px);
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 2rem;
+  letter-spacing: 2px;
+}
+
+.container {
+  background: #fff;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+}
+
+.container h2 {
+  margin-bottom: 1.2rem;
+  font-size: 1.2rem;
+  letter-spacing: 1px;
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+input, select {
+  width: 100%;
+  padding: 0.7rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+input:focus, select:focus {
+  outline: none;
+  border-color: #000;
+}
+
+.btn {
+  padding: 0.7rem 1.5rem;
+  background: #000;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background: #1a1a1a;
+}
+
+.product {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem 0;
+  border-bottom: 1px solid #ddd;
+  cursor: grab;
+}
+
+.product.dragging {
+  opacity: 0.4;
+}
+
+.edit-btn {
+  background: #1f4fd8;
+}
+
+.delete-btn {
+  background: #b00020;
+}
