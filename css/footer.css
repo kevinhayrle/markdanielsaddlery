@@ -107,7 +107,9 @@
 
 /* ================= PHONE ================= */
 
-@media (max-width: 600px) {
+@media 
+  (hover: none) and (pointer: coarse),
+  (max-width: 768px) {
 
   .site-footer {
     padding: 30px 0 70px;

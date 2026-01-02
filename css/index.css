@@ -318,7 +318,10 @@ body {
 
 /* =================== PHONE ========================= */
 
-@media (hover: none) and (pointer: coarse) {
+@media 
+  (hover: none) and (pointer: coarse),
+  (max-width: 768px) {
+
 
   /*================ VIDEO ============= */
 
