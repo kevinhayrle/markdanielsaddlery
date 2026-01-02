@@ -1,12 +1,16 @@
 /* ================ DIMENSION SWITCH ================= */
 
 const heroVideo = document.getElementById('heroVideo');
-const phoneQuery = window.matchMedia(
-  '(hover: none) and (pointer: coarse)'
-);
+
+function isMobileDevice() {
+  return (
+    window.matchMedia('(hover: none) and (pointer: coarse)').matches ||
+    window.innerWidth <= 768
+  );
+}
 
 function setHeroVideo() {
-  const isPhone = phoneQuery.matches;
+  const isPhone = isMobileDevice();
 
   const newSrc = isPhone
     ? 'assets/banner1mobile.mp4'
@@ -27,7 +31,7 @@ function setHeroVideo() {
 }
 
 setHeroVideo();
-phoneQuery.addEventListener('change', setHeroVideo);
+window.addEventListener('resize', setHeroVideo);
 
 /* ================ SLIDES ================= */
 
