@@ -1,12 +1,17 @@
 document.addEventListener('DOMContentLoaded', () => {
 
+  const preloader = document.getElementById('preloader');
+  if (preloader) preloader.style.display = 'none';
+
   const container = document.getElementById('cart-container');
   const grandTotalEl = document.getElementById('grand-total');
   const checkoutBtn = document.getElementById('checkout-btn');
-
   const couponInput = document.getElementById('coupon-input');
   const couponMessage = document.getElementById('coupon-message');
   const applyCouponBtn = document.getElementById('apply-coupon-btn');
+
+  const availableCouponsWrapper =
+    document.getElementById('available-coupons');
 
   let cart = JSON.parse(localStorage.getItem('cart')) || [];
   let originalTotal = 0;
@@ -24,42 +29,80 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     cart.forEach(product => {
-      originalTotal += parseFloat(product.price);
+      const qty = product.quantity || 1;
+      const price = parseFloat(product.price);
+
+      originalTotal += price * qty;
 
       const item = document.createElement('div');
       item.className = 'cart-item';
+      item.dataset.id = product.id;
+
       item.innerHTML = `
-        <img src="${product.image_url}" />
+        <img src="${product.imageUrl}" alt="${product.name}">
         <div class="cart-details">
           <h3>${product.name}</h3>
-          <p>$${product.price}</p>
+          <p>Size: ${product.size || '-'}</p>
+          <p>Qty: ${qty}</p>
+          <p>$${(price * qty).toLocaleString()}</p>
           <button class="remove-btn">Remove</button>
         </div>
       `;
+
       container.appendChild(item);
     });
 
     finalTotal = originalTotal;
-    grandTotalEl.textContent = `Grand Total: $${originalTotal}`;
+    grandTotalEl.textContent =
+      `Grand Total: $${originalTotal.toLocaleString()}`;
     checkoutBtn.style.display = 'block';
   }
 
-  updateCartUI();
+  async function loadAvailableCoupons() {
+    if (!availableCouponsWrapper) return;
 
-  /* REMOVE ITEM (UNCHANGED) */
+    try {
+      const res = await fetch(`${API_BASE}/coupons`);
+      const coupons = await res.json();
+
+      availableCouponsWrapper.innerHTML = '';
+      if (!Array.isArray(coupons) || coupons.length === 0) return;
+
+      const today = new Date();
+
+      coupons.forEach(c => {
+        if (!c.isActive) return;
+        if (c.expiryDate && new Date(c.expiryDate) < today) return;
+
+        const chip = document.createElement('div');
+        chip.className = 'coupon-chip';
+        chip.textContent = c.couponCode;
+
+        chip.onclick = () => {
+          couponInput.value = c.couponCode;
+          applyCouponBtn.click(); 
+        };
+
+        availableCouponsWrapper.appendChild(chip);
+      });
+
+    } catch (err) {
+      console.error('Failed to load coupons', err);
+    }
+  }
+
   container.addEventListener('click', (e) => {
     if (e.target.classList.contains('remove-btn')) {
-      const index = [...container.children].indexOf(
-        e.target.closest('.cart-item')
-      );
+      const itemEl = e.target.closest('.cart-item');
+      const id = itemEl.dataset.id;
 
-      cart.splice(index, 1);
+      cart = cart.filter(item => item.id !== id);
       localStorage.setItem('cart', JSON.stringify(cart));
+
       updateCartUI();
     }
   });
 
-  /* APPLY COUPON (ONLY BASE URL CHANGED) */
   applyCouponBtn.addEventListener('click', async () => {
     const code = couponInput.value.trim();
     if (!code) return;
@@ -83,20 +126,39 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       finalTotal = data.final_total;
-      couponMessage.style.color = 'green';
-      couponMessage.textContent = `Coupon Applied! You saved $${data.discount}`;
 
-      grandTotalEl.textContent = `Grand Total: $${finalTotal}`;
+      couponMessage.style.color = 'green';
+      couponMessage.textContent =
+        `Coupon applied! You saved $${data.discount}`;
+
+      grandTotalEl.textContent =
+        `Grand Total: $${finalTotal.toLocaleString()}`;
+
+      localStorage.setItem('appliedCoupon', code);
+      localStorage.setItem('finalAmount', finalTotal);
+
     } catch (err) {
       couponMessage.style.color = 'red';
       couponMessage.textContent = 'Failed to apply coupon';
     }
   });
 
-  /* CHECKOUT (UNCHANGED) */
-  checkoutBtn.addEventListener('click', () => {
-    localStorage.setItem('finalAmount', finalTotal);
-    window.location.href = 'checkout.html';
-  });
+checkoutBtn.addEventListener('click', () => {
+
+  const userToken = localStorage.getItem('authToken');
+
+  localStorage.setItem('finalAmount', finalTotal);
+
+  if (!userToken) {
+    localStorage.setItem('redirectAfterLogin', 'checkout.html');
+    window.location.href = 'signup.html';
+    return;
+  }
+
+  window.location.href = 'checkout.html';
+});
+
+  updateCartUI();
+  loadAvailableCoupons();
 
 });

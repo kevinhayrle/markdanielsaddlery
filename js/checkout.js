@@ -1,4 +1,41 @@
+/* -------------------- AUTH GUARD -------------------- */
+
+const token = localStorage.getItem('authToken');
+
+if (!token) {
+  localStorage.setItem('redirectAfterLogin', 'checkout.html');
+  window.location.href = 'login.html';
+  throw new Error("Not authenticated");
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+
+/* -------------------- AUTOFILL USER DETAILS -------------------- */
+
+const user = JSON.parse(localStorage.getItem('user'));
+
+if (user) {
+  const setField = (id, value) => {
+    const el = document.getElementById(id);
+    if (!el) return;
+
+    if ('value' in el) {
+      el.value = value || '';
+      el.readOnly = true;
+    } else {
+      el.textContent = value || '';
+    }
+  };
+
+  setField('name', user.name);
+  setField('email', user.email);
+  setField('phone', user.phone);
+}
+
+});
+
 /* -------------------- CART & TOTAL -------------------- */
+
 const cart = JSON.parse(localStorage.getItem('cart') || '[]');
 const finalAmount = localStorage.getItem('finalAmount');
 
@@ -21,9 +58,9 @@ if (finalAmount) {
 totalAmountEl.textContent = total.toFixed(2);
 
 /* -------------------- PAYPAL INTEGRATION -------------------- */
+
 paypal.Buttons({
 
-  /* STEP 1: CREATE ORDER */
   createOrder: async () => {
 
     const name = document.getElementById('name').value.trim();
@@ -49,7 +86,6 @@ paypal.Buttons({
     return data.orderID;
   },
 
-  /* STEP 2: CAPTURE PAYMENT */
   onApprove: async (data) => {
 
     const captureRes = await fetch(
@@ -63,7 +99,6 @@ paypal.Buttons({
 
     const captureData = await captureRes.json();
 
-    /* STEP 3: SAVE ORDER IN DB */
     const finalOrder = {
       name: document.getElementById('name').value,
       email: document.getElementById('email').value,

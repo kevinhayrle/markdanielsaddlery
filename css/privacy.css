@@ -1,0 +1,126 @@
+/* =============== FONTS ==================== */
+
+@font-face {
+  font-family: 'sf';
+  src: url('../fonts/sf.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'Playfair Display';
+  src: url('../fonts/PlayfairDisplay.ttf') format('opentype');
+}
+
+/* =============== PC ==================== */
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'sf';
+      background: #f5f5f5;
+      color: #111;
+    line-height: 1.8;
+    }
+
+.policy-container {
+  max-width: 760px;             
+  margin: 180px auto 140px;      
+  padding: 0 24px;
+  margin-left: 100px;
+}
+
+.policy-container h1 {
+  font-size: 1.1rem;
+  letter-spacing: 5px;
+  
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.policy-container .updated {
+  font-size: 0.75rem;
+  color: #666;
+  margin-bottom: 60px;
+}
+
+.policy-container section {
+  margin-bottom:80px;
+}
+
+.policy-container h2 {
+  font-size: 0.75rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 18px;
+  color: #111;
+}
+
+.policy-container p {
+  font-size: 0.95rem;
+  color: #222;
+}
+
+.policy-container ul {
+  margin-top: 16px;
+  padding-left: 20px;
+}
+
+.policy-container li {
+  font-size: 0.95rem;
+  margin-bottom: 10px;
+  color: #222;
+}
+
+.policy-container .contact {
+  margin-top: 14px;
+  font-size: 0.95rem;
+}
+
+/*================ PHONE ================*/
+
+@media (max-width: 768px) {
+
+  .policy-container {
+    margin: 120px 18px 80px;
+    padding: 0;
+  }
+
+  .policy-container h1 {
+    font-size: 1.6rem;
+    letter-spacing: 1px;
+    margin-bottom: 12px;
+  }
+
+  .policy-container .updated {
+    font-size: 0.75rem;
+    margin-bottom: 32px;
+  }
+
+  .policy-container h2 {
+    font-size: 1.1rem;
+    margin-top: 42px;
+    margin-bottom: 14px;
+    letter-spacing: 0.5px;
+  }
+
+  .policy-container p {
+    font-size: 0.95rem;
+    line-height: 1.7;
+  }
+
+  .policy-container ul {
+    padding-left: 18px;
+    margin-top: 14px;
+  }
+
+  .policy-container li {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: 10px;
+  }
+
+}
+

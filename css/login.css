@@ -1,12 +1,26 @@
+/* =============== FONTS ====================*/
 
-    @font-face {
-    font-family: 'sf';
-    src: url('../fonts/sf.otf') format('opentype');
-    font-weight: normal;
-    font-style: normal;
-    }
-    
-/* ================= PC ================= */
+@font-face {
+  font-family: 'horizon';
+  src: url('../fonts/horizon.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'horizonoutlined';
+  src: url('../fonts/horizon_outlined.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'sf';
+  src: url('../fonts/sf.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'Playfair Display';
+  src: url('../fonts/PlayfairDisplay.ttf') format('opentype');
+}
+
+/* =============== PC ====================*/
 
     * {
       margin: 0;
@@ -20,17 +34,6 @@
       color: #111;
       padding-top: 100px;
     }
-
-    @media (hover: none) and (pointer: coarse) {
-       * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      padding-top: 33px;
-    }}
     
     .login-wrapper {
       min-height: calc(100vh - 120px);
@@ -146,5 +149,9 @@
 
     body {
       padding-top: 45px;
+    }
+    
+    body {
+      padding-top: 33px;
     }}
 

@@ -2,6 +2,7 @@ const API = API_BASE;
 const token = localStorage.getItem("adminToken");
 
 /* ================= AUTO LOGOUT ================= */
+
 const MAX_SESSION_TIME = 2 * 60 * 60 * 1000;
 const loginTime = localStorage.getItem("adminLoginTime");
 
@@ -11,9 +12,11 @@ if (!token || !loginTime || Date.now() - loginTime > MAX_SESSION_TIME) {
 }
 
 /* ================= GLOBALS ================= */
+
 let draggedItem = null;
 
 /* ================= DRAG & DROP ================= */
+
 document.addEventListener("dragstart", (e) => {
   if (e.target.classList.contains("product")) {
     draggedItem = e.target;
@@ -38,6 +41,7 @@ document.addEventListener("dragover", (e) => {
 });
 
 /* ================= FETCH PRODUCTS ================= */
+
 async function fetchProducts() {
   const res = await fetch(`${API}/admin/products`, {
     headers: { Authorization: `Bearer ${token}` }
@@ -86,6 +90,7 @@ async function fetchProducts() {
 }
 
 /* ================= SAVE ORDER ================= */
+
 async function saveOrder() {
   const items = [...document.querySelectorAll(".product")];
 
@@ -105,6 +110,7 @@ async function saveOrder() {
 }
 
 /* ================= ADD / UPDATE PRODUCT ================= */
+
 document
   .getElementById("productForm")
   .addEventListener("submit", async (e) => {
@@ -151,6 +157,7 @@ document
   });
 
 /* ================= EDIT PRODUCT ================= */
+
 function editProduct(
   id,
   name,
@@ -183,6 +190,7 @@ function editProduct(
 }
 
 /* ================= DELETE PRODUCT ================= */
+
 async function deleteProduct(id) {
   if (!confirm("Delete this product?")) return;
 
@@ -197,10 +205,106 @@ async function deleteProduct(id) {
 }
 
 /* ================= LOGOUT ================= */
+
 function logout() {
   localStorage.clear();
   window.location.href = "admin-login.html";
 }
 
-/* ================= INIT ================= */
 fetchProducts();
+
+/* ================= COUPON MANAGEMENT ================= */
+
+document
+  .getElementById("couponForm")
+  .addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const payload = {
+      coupon_code: document.getElementById("coupon_code").value.trim(),
+      discount_type: document.getElementById("discount_type").value,
+      discount_value: Number(
+        document.getElementById("discount_value").value
+      ),
+      min_cart_value: Number(
+        document.getElementById("min_cart_value").value
+      ) || 0,
+      max_discount: document.getElementById("max_discount").value
+        ? Number(document.getElementById("max_discount").value)
+        : null,
+      expiry_date: document.getElementById("expiry_date").value
+    };
+
+    if (!payload.coupon_code || !payload.discount_value || !payload.expiry_date) {
+      alert("Coupon code, discount value and expiry date are required");
+      return;
+    }
+
+    const res = await fetch(`${API}/admin/coupons/add`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`
+      },
+      body: JSON.stringify(payload)
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      alert(data.error || "Failed to add coupon");
+      return;
+    }
+
+    document.getElementById("couponForm").reset();
+    fetchCoupons();
+  });
+
+/* ================= FETCH COUPONS ================= */
+
+async function fetchCoupons() {
+  const res = await fetch(`${API}/admin/coupons`, {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  });
+
+  const coupons = await res.json();
+  const list = document.getElementById("couponList");
+  list.innerHTML = "";
+
+  coupons.forEach((c) => {
+    const div = document.createElement("div");
+    div.className = "coupon-item";
+
+    div.innerHTML = `
+      <div>
+        <b>${c.couponCode}</b><br>
+        ${c.discountType === "percentage"
+          ? `${c.discountValue}% OFF`
+          : `₹${c.discountValue} OFF`}
+      </div>
+      <button onclick="deleteCoupon('${c._id}')">Delete</button>
+    `;
+
+    list.appendChild(div);
+  });
+}
+
+/* ================= DELETE COUPON ================= */
+
+async function deleteCoupon(id) {
+  if (!confirm("Delete this coupon?")) return;
+
+  await fetch(`${API}/admin/coupons/delete/${id}`, {
+    method: "DELETE",
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  });
+
+  fetchCoupons();
+}
+
+fetchCoupons();
+

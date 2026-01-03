@@ -9,26 +9,36 @@
   <link rel="icon" href="assets/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="css/otp.css" />
   <link rel="stylesheet" href="css/header.css">
+  <link rel="stylesheet" href="css/footer.css">
   <link rel="stylesheet" href="css/preloader.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
 </head>
 
 <body>
 
+  <!---------------------------------------------------->
+
+  <!-- PRELOADER -->
+
   <div id="preloader">
     <img src="assets/blacklogo.png" alt="Mark Daniel Saddlery" class="preloader-logo">
   </div>
 
+  <!-- HEADER -->
+
   <div id="header-placeholder"></div>
+
+  <!---------------------------------------------------->
+
+  <!-- OTP -->
 
   <main class="otp-wrapper">
     <section class="otp-card">
       <h1>Verify OTP</h1>
 
       <p class="subtitle" id="subtitleText">
-        Enter the 6-digit verification code sent to your email
+        OTP sent successfully. Please check your spam folder
       </p>
 
       <div id="formMessage" class="form-message"></div>
@@ -51,19 +61,35 @@
     </section>
   </main>
 
-  <script>
-    fetch('header.html')
-      .then(res => res.text())
-      .then(data => {
-        document.getElementById('header-placeholder').innerHTML = data;
-        const header = document.querySelector('.site-header');
-        window.addEventListener('scroll', () => {
-          header.classList.toggle('scrolled', window.scrollY > 40);
-        });
-        const script = document.createElement('script');
-        script.src = 'js/header.js';
-        document.body.appendChild(script);
+<!---------------------------------------------------->
+
+<!-- FOOTER -->
+
+  <div id="footer-placeholder"></div>
+
+<!---------------------------------------------------->
+
+   <script>
+  fetch('header.html')
+    .then(res => res.text())
+    .then(data => {
+      document.getElementById('header-placeholder').innerHTML = data;
+      const header = document.querySelector('.site-header');
+      window.addEventListener('scroll', () => {
+        header.classList.toggle('scrolled', window.scrollY > 40);
       });
+      const script = document.createElement('script');
+      script.src = 'js/header.js';
+      document.body.appendChild(script);
+    });
+  </script>
+
+    <script>
+  fetch('footer.html')
+  .then(res => res.text())
+  .then(data => {
+    document.getElementById('footer-placeholder').innerHTML = data;
+   });
   </script>
 
   <script src="js/config.js"></script>

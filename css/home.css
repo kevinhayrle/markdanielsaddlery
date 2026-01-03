@@ -55,11 +55,11 @@ body {
 }
 
 .hero-editorial {
-  height: 110vh;
+  height: 92vh;
   position: relative;
   background-image:
     linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.25)),
-    url("../assets/k.jpg");
+    url("../assets/background2.jpg");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -84,6 +84,7 @@ body {
   font-size: clamp(1.8rem, 3vw, 2.4rem);
   margin-top: 10px;
   font-family: 'horizon';
+  margin-left: -2px;
 }
 
 /* ================= PROMO STRAP ================= */

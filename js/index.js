@@ -1,3 +1,24 @@
+/* ================ PREFETCH PRODUCTS ================= */
+
+if (!sessionStorage.getItem("products_cache")) {
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 7000);
+
+  fetch(`${API_BASE}/products`, { signal: controller.signal })
+    .then(res => res.json())
+    .then(products => {
+      sessionStorage.setItem(
+        "products_cache",
+        JSON.stringify(products)
+      );
+    })
+    .catch(() => {
+    })
+    .finally(() => {
+      clearTimeout(timeout);
+    });
+}
+
 /* ================ DIMENSION SWITCH ================= */
 
 const heroVideo = document.getElementById('heroVideo');
@@ -124,3 +145,4 @@ slidesContainer.addEventListener('touchend', e => {
 });
 
 startAutoSlide();
+

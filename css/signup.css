@@ -1,12 +1,26 @@
+ /* =============== FONTS ====================*/
 
-    @font-face {
-    font-family: 'sf';
-    src: url('../fonts/sf.otf') format('opentype');
-    font-weight: normal;
-    font-style: normal;
-    }
-    
-    /* ================= PC ================= */
+@font-face {
+  font-family: 'horizon';
+  src: url('../fonts/horizon.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'horizonoutlined';
+  src: url('../fonts/horizon_outlined.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'sf';
+  src: url('../fonts/sf.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'Playfair Display';
+  src: url('../fonts/PlayfairDisplay.ttf') format('opentype');
+}
+
+/* =============== PC ====================*/
 
     * {
       margin: 0;

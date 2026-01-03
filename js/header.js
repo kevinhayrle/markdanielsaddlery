@@ -71,3 +71,22 @@
     });
   }
 })();
+
+/* ================= ACCOUNT LOGIC ================= */
+
+const accountLink = document.getElementById('account-link');
+
+if (accountLink) {
+  accountLink.addEventListener('click', (e) => {
+    e.preventDefault();
+
+    const token = localStorage.getItem('authToken');
+
+    if (token) {
+      window.location.href = 'profile.html';
+    } else {
+      localStorage.setItem('redirectAfterLogin', 'profile.html');
+      window.location.href = 'login.html';
+    }
+  });
+}

@@ -1,3 +1,10 @@
+const params = new URLSearchParams(window.location.search);
+const redirectParam = params.get('redirect');
+
+if (redirectParam) {
+  localStorage.setItem('redirectAfterLogin', redirectParam);
+}
+
 const form = document.getElementById('loginForm');
 const messageBox = document.getElementById('formMessage');
 
@@ -32,12 +39,27 @@ form.addEventListener('submit', async (e) => {
       return;
     }
 
-    localStorage.setItem('authToken', data.token);
+localStorage.setItem('authToken', data.token);
+
+if (data.user) {
+  localStorage.setItem('user', JSON.stringify({
+    name: data.user.name || '',
+    email: data.user.email || '',
+    phone: data.user.phone || ''
+  }));
+}
     showMessage('Login successful', 'success');
 
-    setTimeout(() => {
-      window.location.href = 'profile.html';
-    }, 800);
+ setTimeout(() => {
+  const redirect = localStorage.getItem('redirectAfterLogin');
+
+  if (redirect) {
+    localStorage.removeItem('redirectAfterLogin');
+    window.location.href = redirect;
+  } else {
+    window.location.href = 'profile.html';
+  }
+}, 800);
 
   } catch (err) {
     console.error(err);

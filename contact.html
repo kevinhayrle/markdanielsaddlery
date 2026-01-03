@@ -3,14 +3,14 @@
 <head>
 
   <meta charset="UTF-8" />
+  <title>Contact Us | Mark Daniel Saddlery</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Forgot Password | Mark Daniel Saddlery</title>
 
   <link rel="icon" href="assets/favicon.ico" type="image/x-icon">
-  <link rel="stylesheet" href="css/forgotpassword.css" />
+  <link rel="stylesheet" href="css/contact.css">
   <link rel="stylesheet" href="css/header.css">
   <link rel="stylesheet" href="css/footer.css">
-  <link rel="stylesheet" href="css/preloader.css" />
+  <link rel="stylesheet" href="css/preloader.css">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
 </head>
@@ -31,31 +31,46 @@
 
   <!---------------------------------------------------->
 
-  <!-- FORGOT PASSWORD -->
+  <!-- CONTACT -->
 
-  <main class="forgot-wrapper">
-    <section class="forgot-card">
-      <h1>Forgot Password</h1>
-      <p class="subtitle">
-        Enter your registered email address. We’ll send you an OTP to reset your password.
-      </p>
+<section class="contact-wrapper">
 
-      <form id="forgotForm">
-        <div class="field">
-          <label>Email</label>
-          <input id="email" type="email" placeholder="Enter your email" />
-        </div>
-        <button type="submit" class="send-btn">SEND OTP</button>
-      </form>
+  <div class="contact-left">
+    <h1>CONTACT</h1>
 
-      <div id="formMessage" class="form-message"></div>
+    <p class="contact-intro">
+      For product inquiries, custom orders, or support, please reach out to us.
+      Our team will respond within 24–48 hours.
+    </p>
 
-      <p class="back-link">
-        Remember your password?
-        <a href="login.html">Back to Sign in</a>
-      </p>
-    </section>
-  </main>
+    <div class="contact-details">
+      <div>
+        <span>Email</span>
+        <p>markdanielsaddlery@gmail.com</p>
+      </div>
+
+      <div>
+        <span>Phone</span>
+        <p>+1 (437) 215 9464</p>
+      </div>
+
+      <div>
+        <span>Location</span>
+        <p>Toronto, Canada</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="contact-right">
+    <form id="contact-form">
+      <input type="text" placeholder="Full Name" required>
+      <input type="email" placeholder="Email Address" required>
+      <textarea placeholder="Your Message" required></textarea>
+      <button type="submit">SEND MESSAGE</button>
+    </form>
+  </div>
+
+</section>
 
 <!---------------------------------------------------->
 
@@ -88,9 +103,7 @@
    });
   </script>
 
-  <script src="js/config.js"></script>
-  <script src="js/forgotpassword.js"></script>
-  <script src="js/preloader.js"></script>
+<script src="js/preloader.js"></script>
 
 </body>
 </html>

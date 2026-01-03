@@ -1,171 +1,413 @@
-/* ===============================
-   MARK DANIEL SADDLERY – PRODUCT
-   Luxury • Minimal • Timeless
-================================ */
+/* =============== FONTS ==================== */
 
-/* RESET */
+@font-face {
+  font-family: 'sf';
+  src: url('../fonts/sf.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'Playfair Display';
+  src: url('../fonts/PlayfairDisplay.ttf') format('opentype');
+}
+
+/* =============== PC ==================== */
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-/* BASE */
+html,
 body {
-  font-family: 'Playfair Display', serif;
-  background: #ffffff;
+  width: 100%;
+  overflow-x: hidden;
+  font-family: 'sf';
+}
+
+body {
+  background: #f3f1ed;
   color: #111;
-  line-height: 1.6;
+  padding-top: 100px;
 }
 
-/* MAIN LAYOUT */
+/* ============ PRODUCT LAYOUT ============= */
+
 .product-detail-container {
-  max-width: 1200px;
-  margin: 140px auto 80px;
-  padding: 0 24px;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 50px 6vw 120px;
   display: grid;
-  grid-template-columns: 1.05fr 0.95fr;
-  gap: 80px;
+  grid-template-columns: 1.1fr 0.9fr;
+ column-gap: 40px; 
 }
 
-/* LEFT COLUMN */
-.left-column {
-  display: flex;
-  flex-direction: column;
-}
+/* ============== LEFT COLUMN ==================== */
 
 .main-product-image {
   width: 100%;
-  aspect-ratio: 4 / 5;
-  object-fit: cover;
-  background: #f4f4f4;
-  border-radius: 2px;
+  max-height: 70vh;
+  object-fit: contain;
+  margin-left: -40px;
 }
 
-/* EXTRA IMAGES */
-.extra-images {
-  display: flex;
-  gap: 14px;
-  margin-top: 18px;
-}
+/* =============== RIGHT COLUMN =============== */
 
-.extra-images img {
-  width: 70px;
-  height: 90px;
-  object-fit: cover;
-  cursor: pointer;
-  opacity: 0.75;
-  transition: opacity 0.25s ease, transform 0.25s ease;
-}
-
-.extra-images img:hover {
-  opacity: 1;
-  transform: translateY(-2px);
-}
-
-/* RIGHT COLUMN */
 .right-column {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  padding-left: 20px;
 }
 
-/* PRODUCT NAME */
+/* =============== PRODUCT INFO ======================== */
+
 #product-name {
-  font-size: 2.2rem;
-  font-weight: 600;
-  letter-spacing: 1.5px;
+  font-family: 'Playfair Display';
+  font-size: 2.3rem;
+  font-weight: 400;
   margin-bottom: 16px;
 }
 
-/* PRICE */
 .product-detail-price {
-  font-size: 1.3rem;
-  margin-bottom: 22px;
-}
-
-.old-price {
-  text-decoration: line-through;
-  color: #999;
-  margin-right: 10px;
-  font-size: 1.05rem;
-}
-
-.new-price {
-  font-weight: 600;
-  color: #000;
-}
-
-/* DESCRIPTION */
-#product-description {
-  font-family: 'Inter', sans-serif;
   font-size: 0.95rem;
-  color: #444;
-  max-width: 420px;
   margin-bottom: 28px;
 }
 
-/* SIZE SECTION */
-.size-section {
-  margin-bottom: 26px;
-}
-
-.size-section label {
+.product-detail-price::after {
+  content: " (incl. of all taxes)";
   display: block;
-  font-size: 0.8rem;
-  letter-spacing: 1.2px;
-  margin-bottom: 6px;
-  text-transform: uppercase;
+  font-size: 0.65rem;
+  color: #777;
+  margin-top: 6px;
 }
 
-#sizeSelect {
-  width: 200px;
-  padding: 10px 12px;
-  border: 1px solid #ccc;
-  background: #fff;
-  font-family: 'Inter', sans-serif;
-  font-size: 0.9rem;
-  border-radius: 0;
+.old-price {
+  color: #999;
+  margin-right: 10px;
+  position: relative;
+  font-size: 0.85rem;
+}
+
+.old-price::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 100%;
+  height: 1px;
+  background: #999;
+  transform: translateY(-50%);
+}
+
+.new-price {
+  color: #111;
+  font-size: 1.1rem;   
+  font-weight: 500;    
+}
+
+.size-section {
+  margin: 0px 0 40px;
+}
+
+.size-label {
+  font-size: 0.75rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.size-options {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 12px;
+}
+
+.size-options button {
+  min-width: 48px;
+  padding: 10px 0;
+  background: transparent;
+  border: 1px solid rgba(0,0,0,0.25);
+  font-size: 0.75rem;
+  letter-spacing: 1px;
   cursor: pointer;
 }
 
-#sizeSelect:focus {
-  outline: none;
-  border-color: #000;
+.size-options button.active {
+  background: #111;
+  color: #fff;
+  border-color: #111;
 }
 
-/* ADD TO CART */
+.size-options button:hover {
+  border-color: #111;
+}
+
+.size-error {
+  display: none;
+  margin-top: 10px;
+  font-size: 0.7rem;
+  color: #7b1c1c; /* muted luxury red */
+  letter-spacing: 1px;
+}
+
 .add-to-cart {
-  width: 260px;
-  padding: 14px 0;
+  width: 100%;
+  max-width: 360px;
+  padding: 18px 0;
   background: #000;
   color: #fff;
+  border-radius: 999px;
   border: none;
+  letter-spacing: 3px;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  margin-bottom: 28px;
+}
+
+.concierge-note {
+  font-size: 0.8rem;
+  color: #777;
+  max-width: 420px;
+  margin-bottom: 36px;
+}
+
+.concierge-note a {
+  color: #111;
+  text-decoration: underline;
+}
+
+.product-description {
+  max-width: 420px;
+  position: relative;
+}
+
+#read-more-toggle {
+  display: none;
+}
+
+.product-text {
   font-size: 0.85rem;
-  letter-spacing: 2px;
+  line-height: 1.9;
+  color: #444;
+}
+
+.text-mask {
+  position: relative;
+  max-height: 120px;
+  overflow: hidden;
+  transition: max-height 0.4s ease;
+}
+
+#read-more-toggle:checked ~ .text-mask {
+  max-height: 1000px;
+}
+
+.text-mask::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 56px;
+  background: linear-gradient(
+    to bottom,
+    rgba(243,241,237,0),
+    rgba(243,241,237,1)
+  );
+  pointer-events: none;
+}
+
+#read-more-toggle:checked ~ .text-mask::after {
+  display: none;
+}
+
+.read-more {
+  display: inline-block;
+  margin-top: 12px;
+  font-size: 0.75rem;
+  text-decoration: underline;
   cursor: pointer;
-  transition: background 0.3s ease, color 0.3s ease;
 }
 
-.add-to-cart:hover {
-  background: #fff;
-  color: #000;
-  border: 1px solid #000;
+/* ============= ACCORDIONS ======================= */
+
+.accordion {
+  margin-top: 48px;
+  border-top: 1px solid #ddd;
 }
 
-/* RESPONSIVE */
-@media (max-width: 900px) {
+details {
+  border-bottom: 1px solid #ddd;
+  padding: 18px 0;
+}
+
+summary {
+  list-style: none;
+  cursor: pointer;
+  font-size: 0.85rem;
+  letter-spacing: 1px;
+  position: relative;
+}
+
+summary::after {
+  content: "+";
+  position: absolute;
+  right: 0;
+}
+
+details[open] summary::after {
+  content: "–";
+}
+
+details p {
+  margin-top: 16px;
+  font-size: 0.8rem;
+  color: #555;
+  line-height: 1.7;
+}
+
+/* ================== PHONE ============================== */
+
+@media (hover: none) and (pointer: coarse),
+       (max-width: 768px) {
+
+  body {
+    padding-top: 50px;
+  }
+
+  /* ================= PRODUCT LAYOUT ================= */
+
   .product-detail-container {
     grid-template-columns: 1fr;
-    gap: 50px;
-    margin-top: 120px;
+    padding: 65px 6vw 80px;
+    row-gap: 48px;
   }
 
-  #product-name {
-    font-size: 1.9rem;
-  }
+  /* ================= IMAGE ================= */
 
-  .add-to-cart {
+  .main-product-image {
+    margin-left: 0;
+    max-height: 50vh;
     width: 100%;
   }
+
+  /* ================= RIGHT COLUMN ================= */
+
+  .right-column {
+    padding-left: 0;
+  }
+
+  /* ================= PRODUCT INFO ================= */
+
+  #product-name {
+    font-size: 1.2rem;
+    margin-bottom: 12px;
+  }
+
+  .product-detail-price {
+    font-size: 0.9rem;
+    margin-bottom: 22px;
+    margin-top: -7px;
+  }
+
+  .old-price {
+    font-size: 0.75rem;
+  }
+
+  .new-price {
+    font-size: 1rem;
+  }
+
+  
+.size-section {
+  margin: 0px 0 40px;
 }
+
+.size-label {
+  font-size: 0.75rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.size-options {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 12px;
+}
+
+.size-options button {
+  min-width: 48px;
+  padding: 10px 0;
+  background: transparent;
+  border: 1px solid rgba(0,0,0,0.25);
+  font-size: 0.75rem;
+  letter-spacing: 1px;
+  cursor: pointer;
+  margin-bottom: -10px;
+}
+
+.size-options button.active {
+  background: #111;
+  color: #fff;
+  border-color: #111;
+}
+
+.size-options button:hover {
+  border-color: #111;
+}
+
+.size-error {
+  display: none;
+  margin-top: 10px;
+  font-size: 0.7rem;
+  color: #7b1c1c; /* muted luxury red */
+  letter-spacing: 1px;
+}
+  .add-to-cart {
+    max-width: 100%;
+    padding: 16px 0;
+    font-size: 0.65rem;
+    letter-spacing: 2.5px;
+    margin-bottom: 30px;
+  }
+
+  .concierge-note {
+    font-size: 0.75rem;
+    margin-bottom: 28px;
+  }
+
+  .product-description {
+    max-width: 100%;
+  }
+
+  .product-text {
+    font-size: 0.82rem;
+    line-height: 1.8;
+  }
+
+  .text-mask {
+    max-height: 104px;
+  }
+
+  .read-more {
+    font-size: 0.7rem;
+  }
+
+  /* ================= ACCORDIONS ================= */
+
+  .accordion {
+    margin-top: 40px;
+  }
+
+  summary {
+    font-size: 0.8rem;
+  }
+
+  details p {
+    font-size: 0.75rem;
+  }
+}
+

@@ -1,132 +1,189 @@
-/* =========================
-   MARK DANIEL SADDLERY
-   CHECKOUT – LUXURY THEME
-========================= */
+/* =============== FONTS ====================*/
 
-/* RESET */
+@font-face {
+  font-family: 'horizon';
+  src: url('../fonts/horizon.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'horizonoutlined';
+  src: url('../fonts/horizon_outlined.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'sf';
+  src: url('../fonts/sf.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'Playfair Display';
+  src: url('../fonts/PlayfairDisplay.ttf') format('opentype');
+}
+
+/* =============== PC ====================*/
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-/* BODY */
 body {
-  background: #f6f4f1;
-  color: #111;
-  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont;
-  padding-top: 90px; /* space for fixed header */
-}
-
-/* CONTAINER */
-.checkout-container {
-  max-width: 420px;
-  margin: 40px auto;
-  background: #ffffff;
-  padding: 32px 28px;
-  border-radius: 18px;
-  box-shadow:
-    0 30px 80px rgba(0, 0, 0, 0.08),
-    inset 0 1px 0 rgba(255, 255, 255, 0.6);
-}
-
-/* TITLE */
-.checkout-container h1 {
-  text-align: center;
-  font-family: 'Playfair Display', serif;
-  letter-spacing: 3px;
-  font-size: 1.4rem;
-  margin-bottom: 26px;
-  color: #0f0f0f;
-}
-
-/* FORM */
-#checkout-form {
-  display: flex;
-  flex-direction: column;
-}
-
-/* INPUTS */
-#checkout-form input,
-#checkout-form textarea {
-  width: 100%;
-  padding: 14px 14px;
-  margin-bottom: 14px;
-  border-radius: 10px;
-  border: 1px solid #ccc;
-  font-size: 0.9rem;
+  font-family: 'sf';
   background: #fff;
-  transition: border 0.3s ease, box-shadow 0.3s ease;
+  color: #111;
 }
 
-#checkout-form textarea {
-  resize: none;
-  min-height: 90px;
+/* ================= LAYOUT ================= */
+
+.checkout-wrapper {
+  max-width: 1200px;
+  margin: 140px auto 120px;
+  padding: 0 32px;
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 80px;
 }
 
-/* FOCUS STATE */
-#checkout-form input:focus,
-#checkout-form textarea:focus {
-  outline: none;
-  border-color: #000;
-  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.08);
+/* ================= LEFT ================= */
+
+.checkout-left h1 {
+  font-size: 1.2rem;
+  letter-spacing: 6px;
+  text-transform: uppercase;
+  margin-bottom: 60px;
 }
 
-/* CART SUMMARY */
-#cart-summary {
-  margin-top: 18px;
-  padding: 18px;
-  background: #f2f2f2;
-  border-radius: 14px;
+.checkout-block {
+  margin-bottom: 60px;
 }
 
-/* CART TITLE */
-#cart-summary h2 {
-  font-family: 'Playfair Display', serif;
-  font-size: 1rem;
+.checkout-block h2 {
+  font-size: 0.7rem;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  margin-bottom: 24px;
+  opacity: 0.7;
+}
+
+.static-field {
+  margin-bottom: 18px;
+}
+
+.static-field span {
+  font-size: 0.65rem;
   letter-spacing: 2px;
-  margin-bottom: 12px;
+  text-transform: uppercase;
+  opacity: 0.5;
 }
 
-/* CART ITEMS */
+.static-field p {
+  font-size: 0.95rem;
+  margin-top: 4px;
+}
+
+#address {
+  width: 100%;
+  border: none;
+  border-bottom: 1.5px solid #000;
+  padding: 10px 0;
+  font-size: 0.95rem;
+  font-family: 'sf';
+  resize: none;
+  outline: none;
+}
+
+#address::placeholder {
+  font-size: 1 rem;
+  opacity: 0.5;
+}
+
+/* ================= RIGHT ================= */
+
+.checkout-right {
+  border-left: 1px solid #e5e5e5;
+  padding-left: 48px;
+}
+
+.checkout-right h2 {
+  font-size: 0.75rem;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  margin-bottom: 30px;
+}
+
 #cart-items {
   list-style: none;
-  margin-bottom: 12px;
+  margin-bottom: 30px;
 }
 
 #cart-items li {
+  display: flex;
+  justify-content: space-between;
   font-size: 0.85rem;
-  padding: 6px 0;
-  border-bottom: 1px solid #ddd;
+  padding: 12px 0;
+  border-bottom: 1px solid #eee;
 }
 
-/* TOTAL */
-#cart-summary p {
-  text-align: right;
-  font-weight: 600;
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 24px;
   font-size: 0.95rem;
 }
 
-#total-amount {
-  font-family: 'Playfair Display', serif;
+.summary-row.total {
+  font-weight: 500;
   letter-spacing: 1px;
 }
 
-/* PAYPAL BUTTON */
 #paypal-button-container {
-  margin-top: 22px;
+  margin-top: 40px;
 }
 
-/* PAYPAL OVERRIDE (SUBTLE) */
-.paypal-buttons {
-  border-radius: 10px !important;
-  overflow: hidden;
-}
+/* ================= PHONE ================= */
 
-/* MOBILE */
-@media (max-width: 520px) {
-  .checkout-container {
-    margin: 20px;
-    padding: 26px 22px;
+@media (max-width: 900px) {
+ 
+  .checkout-wrapper {
+    grid-template-columns: 1fr;
+    gap: 60px;
   }
+
+.checkout-left h1 {
+  font-size: 1.2rem;
+  letter-spacing: 6px;
+  text-transform: uppercase;
+  margin-top: -40px;
+  margin-bottom: 50px;
+}
+
+#address {
+  width: 100%;
+  border: none;
+  border-bottom: 1.5px solid #000;
+  padding: 10px 0;
+  font-size: 0.95rem;
+  font-family: 'sf';
+  resize: none;
+  outline: none;
+  bottom: -140px;
+}
+
+#address::placeholder {
+  font-size: 1 rem;
+  opacity: 0.5;
+}
+
+  .checkout-right {
+    border-left: none;
+    padding-left: 0;
+    border-top: 1px solid #e5e5e5;
+    margin-top: -90px;
+  }
+
+  #paypal-button-container {
+  margin-bottom: -70px;
+}
+
 }
