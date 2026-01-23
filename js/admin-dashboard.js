@@ -11,35 +11,6 @@ if (!token || !loginTime || Date.now() - loginTime > MAX_SESSION_TIME) {
   window.location.href = "admin-login.html";
 }
 
-/* ================= GLOBALS ================= */
-
-let draggedItem = null;
-
-/* ================= DRAG & DROP ================= */
-
-document.addEventListener("dragstart", (e) => {
-  if (e.target.classList.contains("product")) {
-    draggedItem = e.target;
-    e.target.classList.add("dragging");
-  }
-});
-
-document.addEventListener("dragend", (e) => {
-  if (e.target.classList.contains("product")) {
-    e.target.classList.remove("dragging");
-    saveOrder();
-  }
-});
-
-document.addEventListener("dragover", (e) => {
-  e.preventDefault();
-  const target = e.target.closest(".product");
-  if (!target || target === draggedItem) return;
-
-  const list = document.getElementById("productList");
-  list.insertBefore(draggedItem, target);
-});
-
 /* ================= FETCH PRODUCTS ================= */
 
 async function fetchProducts() {
@@ -73,7 +44,6 @@ async function fetchProducts() {
           '${p.price}',
           '${p.discountedPrice || ""}',
           '${p.category || ""}',
-          '${p.sortOrder || 0}',
           '${p.imageUrl || ""}',
           '${p.description || ""}',
           '${p.sizes || ""}',
@@ -89,26 +59,6 @@ async function fetchProducts() {
   });
 }
 
-/* ================= SAVE ORDER ================= */
-
-async function saveOrder() {
-  const items = [...document.querySelectorAll(".product")];
-
-  const payload = items.map((item, index) => ({
-    id: item.dataset.id,
-    sort_order: index + 1
-  }));
-
-  await fetch(`${API}/admin/products/reorder`, {
-    method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`
-    },
-    body: JSON.stringify(payload)
-  });
-}
-
 /* ================= ADD / UPDATE PRODUCT ================= */
 
 document
@@ -121,7 +71,6 @@ document
       price: Number(document.getElementById("price").value),
       discounted_price:
         document.getElementById("discounted_price").value || null,
-      sort_order: Number(document.getElementById("sort_order").value) || 0,
       category: document.getElementById("category").value,
       description: document.getElementById("description").value,
       image_url: document.getElementById("image").value,
@@ -164,7 +113,6 @@ function editProduct(
   price,
   discountedPrice,
   category,
-  sortOrder,
   imageUrl,
   description,
   sizes,
@@ -175,7 +123,6 @@ function editProduct(
   document.getElementById("price").value = price || "";
   document.getElementById("discounted_price").value =
     discountedPrice || "";
-  document.getElementById("sort_order").value = sortOrder || 0;
   document.getElementById("category").value = category || "";
   document.getElementById("description").value = description || "";
   document.getElementById("image").value = imageUrl || "";

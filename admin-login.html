@@ -9,7 +9,6 @@
    <link rel="icon" href="assets/favicon.ico" type="image/x-icon">
    <link rel="stylesheet" href="css/admin-login.css" />
    <link rel="stylesheet" href="css/header.css">
-   <link rel="stylesheet" href="css/footer.css">
    <link rel="stylesheet" href="css/preloader.css" />
    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
@@ -52,12 +51,6 @@
 
   <!---------------------------------------------------->
 
-  <!-- FOOTER -->
-
-  <div id="footer-placeholder"></div>
-
-  <!---------------------------------------------------->
-
    <script>
   fetch('header.html')
     .then(res => res.text())
@@ -71,14 +64,6 @@
       script.src = 'js/header.js';
       document.body.appendChild(script);
     });
-  </script>
-
-    <script>
-  fetch('footer.html')
-  .then(res => res.text())
-  .then(data => {
-    document.getElementById('footer-placeholder').innerHTML = data;
-   });
   </script>
 
   <script src="js/config.js"></script>

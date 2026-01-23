@@ -9,7 +9,6 @@
   <link rel="icon" href="assets/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="css/admin-dashboard.css" />
   <link rel="stylesheet" href="css/header.css">
-  <link rel="stylesheet" href="css/footer.css">
   <link rel="stylesheet" href="css/preloader.css" />
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
@@ -53,8 +52,15 @@
       <div class="form-group"><input id="name" placeholder="Product Name"></div>
       <div class="form-group"><input id="price" type="number" placeholder="Price"></div>
       <div class="form-group"><input id="discounted_price" type="number" placeholder="Discounted Price"></div>
-      <div class="form-group"><input id="sort_order" type="number" placeholder="Sort Order"></div>
-      <div class="form-group"><input id="category" placeholder="Category"></div>
+      <select id="category" required>
+      <option value="">Select Category</option>
+      <option value="breezing">Breezing Collection</option>
+      <option value="racing">Racing Collection</option>
+      <option value="galloping">Galloping Collection</option>
+      <option value="paddock">Paddock Collection</option>
+      <option value="saddles">Saddles</option>
+      <option value="blankets">Blankets</option>
+      </select>
       <div class="form-group"><input id="description" placeholder="Description"></div>
       <div class="form-group"><input id="image" placeholder="Main Image URL"></div>
       <div class="form-group"><input id="sizes" placeholder="Sizes (S,M,L)"></div>
@@ -65,7 +71,7 @@
   </div>
 
   <div class="container">
-    <h2>All Products (Drag to Reorder)</h2>
+    <h2>All Products</h2>
     <div id="productList"></div>
   </div>
 
@@ -94,12 +100,6 @@
   </div>
 </div>
 
-<!---------------------------------------------------->
-
-  <!-- FOOTER -->
-
-  <div id="footer-placeholder"></div>
-
   <!---------------------------------------------------->
 
    <script>
@@ -115,14 +115,6 @@
       script.src = 'js/header.js';
       document.body.appendChild(script);
     });
-  </script>
-
-    <script>
-  fetch('footer.html')
-  .then(res => res.text())
-  .then(data => {
-    document.getElementById('footer-placeholder').innerHTML = data;
-   });
   </script>
 
 <script src="js/config.js"></script>
