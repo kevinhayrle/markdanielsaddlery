@@ -99,7 +99,7 @@ document
       },
       body: JSON.stringify(payload)
     });
-
+    sessionStorage.removeItem("products_cache");
     document.getElementById("productForm").reset();
     document.getElementById("editingId").value = "";
     fetchProducts();
@@ -121,8 +121,7 @@ function editProduct(
   document.getElementById("editingId").value = id;
   document.getElementById("name").value = name || "";
   document.getElementById("price").value = price || "";
-  document.getElementById("discounted_price").value =
-    discountedPrice || "";
+  document.getElementById("discounted_price").value = discountedPrice || "";
   document.getElementById("category").value = category || "";
   document.getElementById("description").value = description || "";
   document.getElementById("image").value = imageUrl || "";
@@ -147,7 +146,7 @@ async function deleteProduct(id) {
       Authorization: `Bearer ${token}`
     }
   });
-
+  sessionStorage.removeItem("products_cache");
   fetchProducts();
 }
 

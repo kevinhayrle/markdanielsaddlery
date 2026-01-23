@@ -65,14 +65,16 @@ document.addEventListener('DOMContentLoaded', () => {
         `${product.category}-products`
       );
 
-      if (!container) return; // safety check
+      if (!container) return;
 
       const card = createProductCard(product);
       container.appendChild(card);
     });
   }
 
-  /* ================= CACHE FIRST (SAFE) ================= */
+  /* ================= CACHE ================= */
+
+  let usedCache = false;
 
   if (cached) {
     try {
@@ -80,11 +82,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
       if (Array.isArray(data) && data.length > 0) {
         renderProductsByCategory(data);
-        return;
+        usedCache = true;
       } else {
         sessionStorage.removeItem('products_cache');
       }
-    } catch (e) {
+    } catch {
       sessionStorage.removeItem('products_cache');
     }
   }
@@ -93,7 +95,9 @@ document.addEventListener('DOMContentLoaded', () => {
     .then(res => res.json())
     .then(products => {
       if (Array.isArray(products) && products.length > 0) {
-        renderProductsByCategory(products);
+        if (!usedCache) {
+          renderProductsByCategory(products);
+        }
         sessionStorage.setItem(
           'products_cache',
           JSON.stringify(products)
