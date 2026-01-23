@@ -8,7 +8,6 @@
 
   <link rel="icon" href="assets/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="css/admin-dashboard.css" />
-  <link rel="stylesheet" href="css/header.css">
   <link rel="stylesheet" href="css/preloader.css" />
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
@@ -101,21 +100,6 @@
 </div>
 
   <!---------------------------------------------------->
-
-   <script>
-  fetch('header.html')
-    .then(res => res.text())
-    .then(data => {
-      document.getElementById('header-placeholder').innerHTML = data;
-      const header = document.querySelector('.site-header');
-      window.addEventListener('scroll', () => {
-        header.classList.toggle('scrolled', window.scrollY > 40);
-      });
-      const script = document.createElement('script');
-      script.src = 'js/header.js';
-      document.body.appendChild(script);
-    });
-  </script>
 
 <script src="js/config.js"></script>
 <script src="js/admin-dashboard.js"></script>
