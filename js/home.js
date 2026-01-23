@@ -72,22 +72,35 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  /* ================= CACHE FIRST ================= */
+  /* ================= CACHE FIRST (SAFE) ================= */
 
   if (cached) {
-    renderProductsByCategory(JSON.parse(cached));
-  } else {
-    fetch(`${API_BASE}/products`)
-      .then(res => res.json())
-      .then(products => {
+    try {
+      const data = JSON.parse(cached);
+
+      if (Array.isArray(data) && data.length > 0) {
+        renderProductsByCategory(data);
+        return;
+      } else {
+        sessionStorage.removeItem('products_cache');
+      }
+    } catch (e) {
+      sessionStorage.removeItem('products_cache');
+    }
+  }
+
+  fetch(`${API_BASE}/products`)
+    .then(res => res.json())
+    .then(products => {
+      if (Array.isArray(products) && products.length > 0) {
         renderProductsByCategory(products);
         sessionStorage.setItem(
           'products_cache',
           JSON.stringify(products)
         );
-      })
-      .catch(err => {
-        console.error('Product fetch failed:', err);
-      });
-  }
+      }
+    })
+    .catch(err => {
+      console.error('Product fetch failed:', err);
+    });
 });
