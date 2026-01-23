@@ -44,7 +44,7 @@ const totalAmountEl = document.getElementById('total-amount');
 
 cart.forEach(item => {
   const li = document.createElement('li');
-  li.textContent = `${item.name} | Qty: ${item.quantity} | $${item.price * item.quantity}`;
+  li.textContent = `${item.name} | Qty: ${item.quantity} | Size: ${item.size} | $${item.price * item.quantity}`;
   cartItemsContainer.appendChild(li);
 });
 
