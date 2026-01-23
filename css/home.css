@@ -103,7 +103,7 @@ body {
 /* ================= PRODUCTS ================= */
 
 #products-section {
-  padding: 120px 6vw;
+  padding: 140px 6vw;
 }
 
 .category-section {
@@ -255,9 +255,8 @@ body {
 
   /* ================= PRODUCTS ================= */
 
-
 .category-section {
-  margin-top: 80px;
+  margin-top: 50px;
   margin-bottom: 70px;
   padding-inline: 6vw;
   text-align: center;
