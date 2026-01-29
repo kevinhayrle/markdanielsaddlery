@@ -34,8 +34,8 @@ function setHeroVideo() {
   const isPhone = isMobileDevice();
 
   const newSrc = isPhone
-    ? 'assets/banner1mobile.mp4'
-    : 'assets/banner1.mp4';
+    ? '/assets/banner1mobile.mp4'
+    : '/assets/banner1.mp4';
 
   if (heroVideo.dataset.src === newSrc) return;
 
@@ -146,3 +146,73 @@ slidesContainer.addEventListener('touchend', e => {
 
 startAutoSlide();
 
+/* ================ POP UPS ================= */
+
+document.addEventListener("DOMContentLoaded", () => {
+  const toast = document.getElementById("sp-toast");
+  if (!toast) return;
+
+  const REDIRECT_URL = "home.html";
+
+  const notifications = [
+    { name: "Alex", city: "Sydney", product: "Racing Boots" },
+    { name: "Rahul", city: "Bangalore", product: "galloping Boots" },
+    { name: "Emma", city: "London", product: "Breeze Boots" },
+    { name: "Daniel", city: "Toronto", product: "Jockey Boots" },
+    { name: "Aarav", city: "Mumbai", product: "Racing Boots" },
+    { name: "Eva", city: "Sydney", product: "Racing Boots" },
+    { name: "Dhruv", city: "Delhi", product: "galloping Boots" },
+    { name: "Watson", city: "Texas", product: "Breeze Boots" },
+    { name: "Kim Joon", city: "Seoul", product: "Jockey Boots" },
+    { name: "Beatrix", city: "Rio de Janeiro", product: "Racing Boots" },
+    { name: "Louis", city: "Paris", product: "Racing Boots" },
+    { name: "Anton", city: "Melbourne", product: "galloping Boots" },
+    { name: "Sherly", city: "Venice", product: "Breeze Boots" },
+    { name: "Kevin", city: "Berlin", product: "Jockey Boots" },
+    { name: "Jonas", city: "Denmark", product: "Racing Boots" }
+  ];
+
+  let isClosedManually = false;
+
+  const FIRST_DELAY = 5000;
+  const INTERVAL = 20000;
+  const AUTO_HIDE = 15000;
+
+  function showToast() {
+    if (isClosedManually) {
+      isClosedManually = false;
+      return;
+    }
+
+    const item =
+      notifications[Math.floor(Math.random() * notifications.length)];
+
+    toast.innerHTML = `
+      <span>${item.name} from ${item.city} has ordered ${item.product} <br>Order yours now!</br></span>
+      <span class="sp-close">&times;</span>
+    `;
+
+    toast.classList.remove("sp-hidden");
+    toast.classList.add("sp-show");
+
+    setTimeout(() => {
+      toast.classList.remove("sp-show");
+      toast.classList.add("sp-hidden");
+    }, AUTO_HIDE);
+  }
+
+  toast.addEventListener("click", (e) => {
+    if (e.target.classList.contains("sp-close")) {
+      isClosedManually = true;
+      toast.classList.remove("sp-show");
+      toast.classList.add("sp-hidden");
+      return;
+    }
+    window.location.href = REDIRECT_URL;
+  });
+
+  setTimeout(() => {
+    showToast();
+    setInterval(showToast, INTERVAL);
+  }, FIRST_DELAY);
+});

@@ -6,11 +6,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Mark Daniel Saddlery</title>
 
-  <link rel="icon" href="assets/favicon.ico" type="image/x-icon">
-  <link rel="stylesheet" href="css/index.css" />
-  <link rel="stylesheet" href="css/header.css">
-  <link rel="stylesheet" href="css/footer.css">
-  <link rel="stylesheet" href="css/preloader.css" />
+  <link rel="icon" href="/assets/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="/css/index.css" />
+  <link rel="stylesheet" href="/css/header.css">
+  <link rel="stylesheet" href="/css/footer.css">
+  <link rel="stylesheet" href="/css/preloader.css" />
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
 </head>
@@ -22,7 +22,7 @@
   <!-- PRELOADER -->
 
   <div id="preloader">
-    <img src="assets/blacklogo.png" alt="Mark Daniel Saddlery" class="preloader-logo">
+    <img src="/assets/blacklogo.png" alt="Mark Daniel Saddlery" class="preloader-logo">
   </div>
 
   <!-- HEADER -->
@@ -48,7 +48,7 @@
       <div class="hero-overlay">
         <h1 class="hero-subtitle">CRAFTED FOR THE RIDE</h1>
         <h1 class="hero-title">MARK DANIEL SADDLERY</h1>
-         <a href="home.html" class="lux-btn1">SHOP NOW</a>
+         <a href="/html/home.html" class="lux-btn1">SHOP NOW</a>
       </div>
 
     </div>
@@ -60,44 +60,44 @@
   <div class="slides">
 
     <div class="slide active">
-      <img src="assets/stack1.jpg" alt="">
+      <img src="/assets/stack1.jpg" alt="">
       <div class="slide-content">
         <h2 class="slide-slogan">Handcrafted for the Ride</h2>
-        <a href="home.html" class="lux-btn">DISCOVER</a>
+        <a href="/html/home.html" class="lux-btn">DISCOVER</a>
       </div>
     </div>
 
     <div class="slide">
-      <img src="assets/stack2.jpg" alt="">
+      <img src="/assets/stack2.jpg" alt="">
       <div class="slide-content">
         <h2 class="slide-slogan">
           Where Leather Meets Legacy
         </h2>
-        <a href="home.html" class="lux-btn">SHOP NOW</a>
+        <a href="/html/home.html" class="lux-btn">SHOP NOW</a>
       </div>
     </div>
 
     <div class="slide">
-      <img src="assets/stack3.jpg" alt="">
+      <img src="/assets/stack3.jpg" alt="">
       <div class="slide-content">
         <h2 class="slide-slogan">The Art of Saddlery</h2>
-        <a href="home.html" class="lux-btn">EXPLORE</a>
+        <a href="/html/home.html" class="lux-btn">EXPLORE</a>
       </div>
     </div>
 
     <div class="slide">
-      <img src="assets/stack4.jpg" alt="">
+      <img src="/assets/stack4.jpg" alt="">
       <div class="slide-content">
         <h2 class="slide-slogan">Made for the Rider’s Bond</h2>
-        <a href="home.html" class="lux-btn">SHOP THE COLLECTION</a>
+        <a href="/html/home.html" class="lux-btn">SHOP THE COLLECTION</a>
       </div>
     </div>
 
     <div class="slide">
-      <img src="assets/stack5.jpg" alt="">
+      <img src="/assets/stack5.jpg" alt="">
       <div class="slide-content">
         <h2 class="slide-slogan">Precision. Power. Prestige.</h2>
-        <a href="home.html" class="lux-btn">EXPLORE</a>
+        <a href="/html/home.html" class="lux-btn">EXPLORE</a>
       </div>
     </div>
   </div>
@@ -109,28 +109,31 @@
 <!-- EDITORIAL ICONS -->
 
 <section class="editorial-stack">
-  <img src="assets/background1.jpg" class="editorial-bg" alt="">
+  <img src="/assets/background1.jpg" class="editorial-bg" alt="">
 
   <div class="editorial-strip">
-    <img src="assets/icon1.jpg" />
-    <img src="assets/icon2.png" />
-    <img src="assets/icon3.png" />
-    <img src="assets/icon4.png" />
-     <img src="assets/icon5.png" />
-    <img src="assets/icon6.png" />
+    <img src="/assets/icon1.jpg" />
+    <img src="/assets/icon2.png" />
+    <img src="/assets/icon3.png" />
+    <img src="/assets/icon4.png" />
+     <img src="/assets/icon5.png" />
+    <img src="/assets/icon6.png" />
   </div>
 
   <div class="editorial-text">
     <h2>Heritage Icons</h2>
-    <a href="home.html">DISCOVER</a>
+    <a href="/html/home.html">DISCOVER</a>
   </div>
 </section>
 
 <section class="home-redirect">
-  <a href="home.html" class="home-redirect-link">
+  <a href="/html/home.html" class="home-redirect-link">
     <span>View the Collection on Home</span>
   </a>
 </section>
+
+<!--  FLOATING POPUP -->        
+<div id="sp-toast" class="sp-toast sp-hidden"></div>
 
 <!---------------------------------------------------->
 
@@ -141,7 +144,7 @@
 <!---------------------------------------------------->
 
   <script>
-  fetch('header.html')
+  fetch('/html/header.html')
     .then(res => res.text())
     .then(data => {
       document.getElementById('header-placeholder').innerHTML = data;
@@ -150,22 +153,22 @@
         header.classList.toggle('scrolled', window.scrollY > 40);
       });
       const script = document.createElement('script');
-      script.src = 'js/header.js';
+      script.src = '/js/header.js';
       document.body.appendChild(script);
     });
   </script>
 
   <script>
-  fetch('footer.html')
+  fetch('/html/footer.html')
   .then(res => res.text())
   .then(data => {
     document.getElementById('footer-placeholder').innerHTML = data;
    });
   </script>
 
-<script src="js/config.js"></script>
-<script defer src="js/index.js"></script>
-<script src="js/preloader.js"></script>
+<script src="/js/config.js"></script>
+<script defer src="/js/index.js"></script>
+<script src="/js/preloader.js"></script>
 
 </body>
 </html>

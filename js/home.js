@@ -72,25 +72,55 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-/* ================= CACHE ================= */
+/* ================= CACHE FALLBACK RENDER ================= */
 
-fetch(`${API_BASE}/products`)
-  .then(res => res.json())
-  .then(products => {
-    if (!Array.isArray(products)) return;
+const cachedProducts = sessionStorage.getItem('products_cache');
+
+if (cachedProducts) {
+  try {
+    const products = JSON.parse(cachedProducts);
+
     document.querySelectorAll('.product-grid').forEach(grid => {
       grid.innerHTML = '';
     });
 
     renderProductsByCategory(products);
+  } catch (e) {
+    console.warn('Cached products corrupted');
+  }
+}
 
-    sessionStorage.setItem(
-      'products_cache',
-      JSON.stringify(products)
-    );
-  })
-  .catch(err => {
-    console.error('Product fetch failed:', err);
-  });
+
+function fetchProductsWithRetry(retries = 3) {
+  fetch(`${API_BASE}/products`)
+    .then(res => {
+      if (!res.ok) throw new Error('Bad response');
+      return res.json();
+    })
+    .then(products => {
+      if (!Array.isArray(products)) return;
+
+      document.querySelectorAll('.product-grid').forEach(grid => {
+        grid.innerHTML = '';
+      });
+
+      renderProductsByCategory(products);
+
+      sessionStorage.setItem(
+        'products_cache',
+        JSON.stringify(products)
+      );
+    })
+    .catch(err => {
+      if (retries > 0) {
+        console.warn('Backend waking up… retrying');
+        setTimeout(() => fetchProductsWithRetry(retries - 1), 3000);
+      } else {
+        console.error('Product fetch failed permanently:', err);
+      }
+    });
+}
+
+fetchProductsWithRetry();
 
 });

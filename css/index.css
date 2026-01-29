@@ -334,6 +334,58 @@ body {
   color: #fff;
 }
 
+  /*================ POP UP ============= */
+
+.sp-toast {
+  position: fixed;
+  right: 24px;
+  bottom: 28px;
+  max-width: 420px;
+
+  background: rgba(0, 0, 0, 0.88);
+  color: #ffffff;
+
+  padding: 18px 48px 18px 22px;
+  border-radius: 14px;
+
+  font-size: 14.5px;
+  line-height: 1.7;
+  letter-spacing: 0.5px;
+  font-family: inherit;
+
+  z-index: 99999;
+  cursor: pointer;
+
+  box-shadow: 0 14px 40px rgba(0,0,0,0.45);
+
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+
+.sp-hidden {
+  opacity: 0;
+  transform: translateY(18px);
+  pointer-events: none;
+}
+
+.sp-show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.sp-close {
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  font-size: 14px;
+  color: rgba(255,255,255,0.6);
+  cursor: pointer;
+  user-select: none;
+}
+
+.sp-close:hover {
+  color: #ffffff;
+}
+
 /* =================== PHONE ========================= */
 
 @media 
@@ -533,6 +585,16 @@ body {
     background: #111;
     color: #fff;
   }
+
+    .sp-toast {
+    left: 80px;
+    right: 17px;
+    bottom: 18px;
+    max-width: 300px;
+    text-align: left;
+    font-size: 8px;
+  }
+
 }
 
 

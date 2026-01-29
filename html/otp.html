@@ -6,11 +6,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>OTP Verification | Mark Daniel Saddlery</title>
 
-  <link rel="icon" href="assets/favicon.ico" type="image/x-icon">
-  <link rel="stylesheet" href="css/otp.css" />
-  <link rel="stylesheet" href="css/header.css">
-  <link rel="stylesheet" href="css/footer.css">
-  <link rel="stylesheet" href="css/preloader.css" />
+  <link rel="icon" href="/assets/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="/css/otp.css" />
+  <link rel="stylesheet" href="/css/header.css">
+  <link rel="stylesheet" href="/css/footer.css">
+  <link rel="stylesheet" href="/css/preloader.css" />
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
 </head>
@@ -22,7 +22,7 @@
   <!-- PRELOADER -->
 
   <div id="preloader">
-    <img src="assets/blacklogo.png" alt="Mark Daniel Saddlery" class="preloader-logo">
+    <img src="/assets/blacklogo.png" alt="Mark Daniel Saddlery" class="preloader-logo">
   </div>
 
   <!-- HEADER -->
@@ -70,7 +70,7 @@
 <!---------------------------------------------------->
 
    <script>
-  fetch('header.html')
+  fetch('/html/header.html')
     .then(res => res.text())
     .then(data => {
       document.getElementById('header-placeholder').innerHTML = data;
@@ -79,22 +79,22 @@
         header.classList.toggle('scrolled', window.scrollY > 40);
       });
       const script = document.createElement('script');
-      script.src = 'js/header.js';
+      script.src = '/js/header.js';
       document.body.appendChild(script);
     });
   </script>
 
     <script>
-  fetch('footer.html')
+  fetch('/html/footer.html')
   .then(res => res.text())
   .then(data => {
     document.getElementById('footer-placeholder').innerHTML = data;
    });
   </script>
 
-  <script src="js/config.js"></script>
-  <script src="js/otp.js"></script>
-  <script src="js/preloader.js"></script>
+  <script src="/js/config.js"></script>
+  <script src="/js/otp.js"></script>
+  <script src="/js/preloader.js"></script>
 
 </body>
 </html>
