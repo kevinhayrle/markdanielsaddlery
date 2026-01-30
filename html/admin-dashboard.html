@@ -31,15 +31,14 @@
 
   <!-- DASHBOARD -->
 
-  <div class="sidebar">
-  <div>
-    <h2>ADMIN</h2>
-  </div>
+<!-- SIDEBAR -->
+<div class="sidebar">
+  <h2>ADMIN</h2>
   <button class="logout-btn" onclick="logout()">Logout</button>
- </div>
+</div>
 
-  <!-- MAIN -->
-  <div class="main">
+<!-- MAIN -->
+<div class="main">
   <h1>MARK DANIEL SADDLERY</h1>
 
   <!-- PRODUCT FORM -->
@@ -51,42 +50,50 @@
       <div class="form-group"><input id="name" placeholder="Product Name"></div>
       <div class="form-group"><input id="price" type="number" placeholder="Price"></div>
       <div class="form-group"><input id="discounted_price" type="number" placeholder="Discounted Price"></div>
-      <select id="category" required>
-      <option value="">Select Category</option>
-      <option value="galloping">The Galloping Collection</option>
-      <option value="racing">The Racing Collection</option>
-      <option value="breezing">The Breezing Collection</option>
-      <option value="paddock">The Paddock Collection</option>
-      <option value="saddles">The Saddle Collection</option>
-      <option value="blankets">The Blanket Collection</option>
-      </select>
+
+      <div class="form-group">
+        <select id="category" required>
+          <option value="">Select Category</option>
+          <option value="galloping">The Galloping Collection</option>
+          <option value="racing">The Racing Collection</option>
+          <option value="breezing">The Breezing Collection</option>
+          <option value="paddock">The Paddock Collection</option>
+          <option value="saddles">The Saddle Collection</option>
+          <option value="blankets">The Blanket Collection</option>
+        </select>
+      </div>
+
       <div class="form-group"><input id="description" placeholder="Description"></div>
       <div class="form-group"><input id="image" placeholder="Main Image URL"></div>
-      <div class="form-group"><input id="sizes" placeholder="Sizes (S,M,L)"></div>
-      <div class="form-group"><input id="extraImages" placeholder="Extra Image URLs"></div>
+      <div class="form-group"><input id="sizes" placeholder="Sizes (comma separated)"></div>
+      <div class="form-group"><input id="extraImages" placeholder="Extra Image URLs (comma separated)"></div>
 
       <button class="btn" type="submit">Save Product</button>
     </form>
   </div>
 
+  <!-- PRODUCTS -->
   <div class="container">
     <h2>All Products</h2>
     <div id="productList"></div>
   </div>
 
+  <!-- COUPONS -->
   <div class="container">
     <h2>Coupon Management</h2>
     <form id="couponForm">
       <div class="form-group"><input id="coupon_code" placeholder="Coupon Code"></div>
+
       <div class="form-group">
         <select id="discount_type">
           <option value="percentage">Percentage</option>
           <option value="flat">Flat</option>
         </select>
       </div>
+
       <div class="form-group"><input id="discount_value" type="number" placeholder="Discount Value"></div>
       <div class="form-group"><input id="min_cart_value" type="number" placeholder="Minimum Cart Value"></div>
-      <div class="form-group"><input id="max_discount" type="number" placeholder="Max Discount"></div>
+      <div class="form-group"><input id="max_discount" type="number" placeholder="Max Discount (do not enter the value if PERCENTAGE is selected) "></div>
       <div class="form-group"><input id="expiry_date" type="date"></div>
 
       <button class="btn" type="submit">Add Coupon</button>

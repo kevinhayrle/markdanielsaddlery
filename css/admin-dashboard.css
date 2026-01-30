@@ -2,25 +2,20 @@
 
 @font-face {
   font-family: 'horizon';
-  src: url('../fonts/horizon.otf') format('opentype');
+  src: url('/fonts/horizon.otf') format('opentype');
 }
 
 @font-face {
   font-family: 'horizonoutlined';
-  src: url('../fonts/horizon_outlined.otf') format('opentype');
+  src: url('/fonts/horizon_outlined.otf') format('opentype');
 }
 
 @font-face {
   font-family: 'sf';
-  src: url('../fonts/sf.otf') format('opentype');
+  src: url('/fonts/sf.otf') format('opentype');
 }
 
-@font-face {
-  font-family: 'Playfair Display';
-  src: url('../fonts/PlayfairDisplay.ttf') format('opentype');
-}
-
-/* =============== PC ====================*/
+/* ===== PC ===== */
 
 * {
   margin: 0;
@@ -29,73 +24,80 @@
 }
 
 body {
-  font-family: 'Playfair Display', serif;
-  background: #f6f4f1;
+  font-family: 'sf';
+  background: #f6f6f6;
+  color: #111;
   display: flex;
   min-height: 100vh;
-  color: #111;
 }
 
-/* SIDEBAR */
+/* ===== SIDEBAR ===== */
+
 .sidebar {
   width: 220px;
-  background: #0b0b0b;
+  background: #000;
   color: #fff;
-  padding: 1.5rem 1rem;
-  position: fixed;
   height: 100vh;
+  position: fixed;
+  padding: 2rem 1.2rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 }
 
 .sidebar h2 {
+  font-family: 'horizon';
+  font-weight: lighter;
+  letter-spacing: 4px;
   text-align: center;
-  letter-spacing: 3px;
-  font-size: 1.1rem;
   margin-bottom: 2rem;
+  font-size: 20px;
 }
 
 .logout-btn {
-  padding: 0.7rem;
-  background: #a00000;
-  border: none;
-  border-radius: 6px;
-  color: white;
+  padding: 12px;
+  border-radius: 999px;
+  border: 1px solid #fff;
+  background: transparent;
+  color: #fff;
+  font-weight: 600;
   cursor: pointer;
-  letter-spacing: 1px;
 }
 
-.logout-btn:hover {
-  background: #c00000;
-}
+/* ===== MAIN ===== */
 
-/* MAIN */
 .main {
   margin-left: 220px;
-  padding: 2.5rem;
   width: calc(100% - 220px);
+  padding: 2rem;
 }
 
 h1 {
+  font-family: 'horizon';
   text-align: center;
+  font-size: 20px;
   margin-bottom: 2rem;
-  letter-spacing: 2px;
 }
+
+/* ===== CONTAINERS ===== */
 
 .container {
   background: #fff;
+  border-radius: 18px;
   padding: 2rem;
-  margin-bottom: 2rem;
-  border-radius: 12px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+  margin: 1.5rem auto;
+  max-width: 1000px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.08);
 }
 
 .container h2 {
-  margin-bottom: 1.2rem;
-  font-size: 1.2rem;
-  letter-spacing: 1px;
+  font-size: 20px;
+  text-align: center;
+  color: #000;
+  margin-bottom: 1.5rem;
 }
+
+/* ===== FORM ===== */
 
 .form-group {
   margin-bottom: 1rem;
@@ -103,45 +105,115 @@ h1 {
 
 input, select {
   width: 100%;
-  padding: 0.7rem;
-  border-radius: 6px;
+  padding: 14px;
+  border-radius: 12px;
   border: 1px solid #ccc;
+  font-size: 14px;
+  outline: none;
 }
 
 input:focus, select:focus {
-  outline: none;
   border-color: #000;
 }
 
 .btn {
-  padding: 0.7rem 1.5rem;
+  margin-top: 1rem;
+  padding: 14px 32px;
   background: #000;
   color: #fff;
   border: none;
-  border-radius: 6px;
+  border-radius: 999px;
   cursor: pointer;
 }
 
-.btn:hover {
-  background: #1a1a1a;
-}
+/* ===== PRODUCT LIST ===== */
 
 .product {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   padding: 1rem 0;
-  border-bottom: 1px solid #ddd;
-  cursor: grab;
-}
-
-.product.dragging {
-  opacity: 0.4;
+  border-bottom: 1px solid #eee;
+  flex-wrap: wrap;
+  gap: 10px;
 }
 
 .edit-btn {
-  background: #1f4fd8;
+  background: #000;
+  color: #fff;
+  border: none;
+  padding: 6px 16px;
+  border-radius: 999px;
+  cursor: pointer;
+  margin-right: 6px;
 }
 
 .delete-btn {
-  background: #b00020;
+  background: transparent;
+  border: 1px solid #000;
+  color: #000;
+  padding: 6px 16px;
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+/* ===== COUPON LIST ALIGNMENT ===== */
+
+#couponList > div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; 
+  padding: 0.8rem 0;
+  border-bottom: 1px solid #eee;
+}
+
+#couponList b {
+  font-size: 15px;
+}
+
+#couponList button {
+  background: transparent;
+  border: 1px solid #000;
+  color: #000;
+  padding: 6px 16px;
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+#couponList button:hover {
+  background: #000;
+  color: #fff;
+}
+
+/* ===== PHONE ===== */
+
+@media (max-width: 768px) {
+  body {
+    flex-direction: column;
+  }
+
+  .sidebar h2 {
+  font-family: 'horizon';
+  font-weight: lighter;
+  letter-spacing: 4px;
+  text-align: center;
+  margin-bottom: -2px;
+  font-size: 20px;
+}
+
+  .sidebar {
+    position: relative;
+    width: 100%;
+    height: auto;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 1.2rem;
+  }
+
+  .main {
+    margin-left: 0;
+    width: 100%;
+    padding: 1.2rem;
+  }
 }

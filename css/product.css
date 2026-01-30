@@ -51,12 +51,65 @@ body {
   margin-left: -40px;
 }
 
+/* ================= LEFT COLUMN FIX ================= */
+
+.left-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* ===== EXTRA IMAGE GALLERY ===== */
+
+.extra-images {
+  display: flex;
+  gap: 14px;
+  margin-top: 18px;
+  justify-content: center;
+  max-width: 420px;
+  margin-right: 180px;
+}
+
+.extra-image {
+  width: 72px;
+  height: 72px;
+  object-fit: contain;
+  background: #fff;
+  padding: 6px;
+  cursor: zoom-in;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.extra-image:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(0,0,0,0.15);
+}
+
 /* =============== RIGHT COLUMN =============== */
 
 .right-column {
   display: flex;
   flex-direction: column;
   padding-left: 20px;
+}
+
+/* ================= IMAGE ZOOM OVERLAY (CRITICAL) ================= */
+
+.image-zoom-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.92);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 99999;
+}
+
+.image-zoomed {
+  max-width: 90vw;
+  max-height: 90vh;
+  object-fit: contain;
+  cursor: zoom-out;
 }
 
 /* =============== PRODUCT INFO ======================== */
@@ -342,6 +395,32 @@ details p {
   .right-column {
     padding-left: 0;
   }
+
+  /* ===== EXTRA IMAGE GALLERY ===== */
+
+.extra-images {
+  display: flex;
+  gap: 14px;
+  margin-top: 18px;
+  justify-content: center;
+  max-width: 420px;
+  margin-right: 65px;
+}
+
+.extra-image {
+  width: 72px;
+  height: 72px;
+  object-fit: contain;
+  background: #fff;
+  padding: 6px;
+  cursor: zoom-in;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.extra-image:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(0,0,0,0.15);
+}
 
   /* ================= PRODUCT INFO ================= */
 

@@ -228,7 +228,7 @@ async function fetchCoupons() {
         <b>${c.couponCode}</b><br>
         ${c.discountType === "percentage"
           ? `${c.discountValue}% OFF`
-          : `₹${c.discountValue} OFF`}
+          : `$${c.discountValue} OFF`}
       </div>
       <button onclick="deleteCoupon('${c._id}')">Delete</button>
     `;

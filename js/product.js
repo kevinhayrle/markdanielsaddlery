@@ -25,7 +25,11 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function hydrateProduct(product) {
-  document.getElementById('product-image').src = product.imageUrl;
+  const mainImage = document.getElementById('product-image');
+mainImage.src = product.imageUrl;
+mainImage.style.cursor = 'zoom-in';
+mainImage.onclick = () => openFullscreenImage(mainImage.src);
+
   document.getElementById('product-name').textContent = product.name;
   document.getElementById('product-description').textContent = product.description;
 
@@ -42,7 +46,11 @@ function hydrateProduct(product) {
     const img = document.createElement('img');
     img.src = url;
     img.className = 'extra-image';
-    img.onclick = () => openFullscreenImage(url);
+    img.onclick = () => {
+    mainImage.src = url;         
+    openFullscreenImage(url);    
+};
+
     extraImages.appendChild(img);
   });
 
@@ -109,21 +117,16 @@ if (imageInput && statusText) {
 
 function openFullscreenImage(url) {
   const overlay = document.createElement('div');
-  overlay.style.cssText = `
-    position:fixed;inset:0;
-    background:rgba(0,0,0,.9);
-    display:flex;align-items:center;justify-content:center;
-    z-index:1000;
-  `;
+  overlay.className = 'image-zoom-overlay';
 
   const img = document.createElement('img');
   img.src = url;
-  img.style.maxWidth = '90%';
-  img.style.maxHeight = '90%';
+  img.className = 'image-zoomed';
 
-  overlay.onclick = () => overlay.remove();
   overlay.appendChild(img);
   document.body.appendChild(overlay);
+
+  overlay.onclick = () => overlay.remove();
 }
 
 function readFileAsBase64(file) {

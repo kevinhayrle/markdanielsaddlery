@@ -1,26 +1,12 @@
-/* =============== FONTS ====================*/
-
 @font-face {
   font-family: 'horizon';
-  src: url('../fonts/horizon.otf') format('opentype');
-}
-
-@font-face {
-  font-family: 'horizonoutlined';
-  src: url('../fonts/horizon_outlined.otf') format('opentype');
+  src: url('/fonts/horizon.otf') format('opentype');
 }
 
 @font-face {
   font-family: 'sf';
-  src: url('../fonts/sf.otf') format('opentype');
+  src: url('/fonts/sf.otf') format('opentype');
 }
-
-@font-face {
-  font-family: 'Playfair Display';
-  src: url('../fonts/PlayfairDisplay.ttf') format('opentype');
-}
-
-/* =============== PC ====================*/
 
 * {
   margin: 0;
@@ -30,81 +16,112 @@
 
 body {
   min-height: 100vh;
-  background: linear-gradient(135deg, #0a0a0a, #151515);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: 'Playfair Display', serif;
+  background: radial-gradient(circle at top, #ffffff, #e9e9e9);
+  font-family: 'sf';
 }
 
+/* ===== PRELOADER ===== */
+#preloader {
+  position: fixed;
+  inset: 0;
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  transition: opacity 0.6s ease;
+}
+
+/* ===== LOGIN CARD ===== */
 .login-container {
-  background: #f7f5f2;
   width: 100%;
   max-width: 420px;
-  padding: 3rem 2.5rem;
-  border-radius: 14px;
-  box-shadow:
-    0 30px 60px rgba(0, 0, 0, 0.35),
-    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  background: #ffffff;
+  padding: 2.8rem 2.6rem;
+  border-radius: 20px;
+  box-shadow: 0 30px 60px rgba(0,0,0,0.18);
   text-align: center;
 }
 
-.brand {
-  font-size: 1.4rem;
-  letter-spacing: 2px;
-  margin-bottom: 0.3rem;
+/* ===== TITLE ===== */
+h1 {
+  font-family:'horizon';
+  font-size: 30px;
+  letter-spacing: 4px;
+  color: #000;
+  font-weight: lighter;
+  margin-bottom: 0.4rem;
 }
 
-.brand-sub {
-  font-size: 0.75rem;
-  letter-spacing: 3px;
-  color: #777;
+.subtitle {
+  font-family: 'horizon';
+  font-size: 15px;
+  color: black;
   margin-bottom: 2.2rem;
 }
 
-h1 {
-  font-size: 1.6rem;
-  margin-bottom: 1.6rem;
-}
-
+/* ===== INPUTS ===== */
 input {
   width: 100%;
-  padding: 0.85rem;
+  padding: 14px 16px;
   margin-bottom: 1rem;
-  border-radius: 8px;
-  border: 1px solid #ccc;
+  border-radius: 12px;
+  border: 1px solid #e0e0e0;
+  font-size: 14px;
+  outline: none;
+  transition: 0.25s;
 }
 
 input:focus {
-  outline: none;
   border-color: #000;
+  box-shadow: 0 0 0 2px rgba(0,0,0,0.12);
 }
 
+/* ===== BUTTON ===== */
 button {
   width: 100%;
-  padding: 0.85rem;
-  border-radius: 8px;
+  padding: 14px;
+  margin-top: 0.8rem;
+  border-radius: 999px;
   border: none;
   background: #000;
   color: #fff;
-  letter-spacing: 1px;
+  font-size: 14px;
+  letter-spacing: 3px;
+  font-weight: 600;
   cursor: pointer;
+  transition: background 0.3s, transform 0.1s;
 }
 
 button:hover {
-  background: #1b1b1b;
+  background: #333;
+}
+
+button:active {
+  transform: scale(0.98);
+}
+
+/* ===== FOOTER ===== */
+.footer-text {
+  margin-top: 2.2rem;
+  font-size: 12px;
+  color: #aaa;
+  letter-spacing: 1px;
 }
 
 .error {
   margin-top: 0.8rem;
-  font-size: 0.85rem;
-  color: #b00020;
-  min-height: 1em;
+  color: #c0392b;
+  font-size: 13px;
 }
 
-.footer-text {
-  margin-top: 2rem;
-  font-size: 0.65rem;
-  letter-spacing: 1.5px;
-  color: #999;
+/* ===== MOBILE ===== */
+@media (max-width: 480px) {
+  .login-container {
+    margin: 1rem;
+    padding: 2.2rem;
+  }
 }
