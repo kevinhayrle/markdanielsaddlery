@@ -1,3 +1,10 @@
+/* ================= GLOBAL STATE ================= */
+
+let uploadedImageUrl = null;
+let isUploading = false;
+
+/* ================= DOM READY ================= */
+
 document.addEventListener('DOMContentLoaded', () => {
   const params = new URLSearchParams(window.location.search);
   const productId = params.get('id');
@@ -7,45 +14,38 @@ document.addEventListener('DOMContentLoaded', () => {
     return;
   }
 
-  const cached = sessionStorage.getItem('products_cache');
-
-  if (cached) {
-    const products = JSON.parse(cached);
-    const product = products.find(p => p._id === productId);
-    if (product) {
-      hydrateProduct(product);
-      return;
-    }
-  }
-
   fetch(`${API_BASE}/products/${productId}`)
     .then(res => res.json())
     .then(product => hydrateProduct(product))
     .catch(err => console.error(err));
 });
 
+/* ================= HYDRATE PRODUCT ================= */
+
 function hydrateProduct(product) {
-  /* ================= MAIN IMAGE ================= */
+
+  /* ---------- MAIN IMAGE ---------- */
 
   const mainImage = document.getElementById('product-image');
   mainImage.src = product.imageUrl;
   mainImage.style.cursor = 'zoom-in';
-  mainImage.addEventListener('click', () =>
-    openFullscreenImage(mainImage.src)
-  );
+
+  mainImage.addEventListener('click', () => {
+    openFullscreenImage(mainImage.src);
+  });
 
   document.getElementById('product-name').textContent = product.name;
   document.getElementById('product-description').textContent = product.description;
 
-  /* ================= PRICE ================= */
+  /* ---------- PRICE ---------- */
 
   const priceEl = document.getElementById('product-price');
   priceEl.innerHTML = product.discountedPrice
-    ? `<span class="old-price">$${product.price}</span>
-       <span class="new-price">$${product.discountedPrice}</span>`
-    : `<span class="new-price">$${product.price}</span>`;
+    ? `<span class="old-price">₹${product.price}</span>
+       <span class="new-price">₹${product.discountedPrice}</span>`
+    : `<span class="new-price">₹${product.price}</span>`;
 
-  /* ================= EXTRA IMAGES ================= */
+  /* ---------- EXTRA IMAGES ---------- */
 
   const extraImages = document.getElementById('extra-images');
   extraImages.innerHTML = '';
@@ -63,7 +63,7 @@ function hydrateProduct(product) {
     extraImages.appendChild(img);
   });
 
-  /* ================= SIZES ================= */
+  /* ---------- SIZE SELECTION (MANDATORY) ---------- */
 
   const sizeContainer = document.getElementById('size-options');
   const sizeError = document.getElementById('size-error');
@@ -88,22 +88,53 @@ function hydrateProduct(product) {
     sizeContainer.appendChild(btn);
   });
 
-  /* ================= ADD TO CART (SAFARI SAFE) ================= */
-const addToCartBtn = document.querySelector('.add-to-cart');
+  /* ---------- CUSTOM FIT IMAGE (OPTIONAL) ---------- */
 
-addToCartBtn.addEventListener('click', (e) => {
-  e.preventDefault();
-  e.stopPropagation();
+  const imageInput = document.getElementById('custom-fit-image');
+  const statusText = document.getElementById('custom-fit-status');
+  const loader = document.getElementById('upload-loader');
 
-  if (!selectedSize) {
-    sizeError.style.display = 'block';
-    return;
+  if (imageInput) {
+    imageInput.addEventListener('change', async () => {
+      const file = imageInput.files[0];
+      if (!file) return;
+
+      isUploading = true;
+      loader.style.display = 'block';
+      statusText.textContent = '';
+
+      try {
+        uploadedImageUrl = await uploadToCloudinary(file);
+        statusText.textContent = 'Image uploaded ✓';
+      } catch (err) {
+        console.error(err);
+        statusText.textContent = 'Image upload failed';
+        uploadedImageUrl = null;
+      }
+
+      isUploading = false;
+      loader.style.display = 'none';
+    });
   }
 
-  const note = document.getElementById('custom-fit-text')?.value.trim();
-  const file = document.getElementById('custom-fit-image')?.files[0];
+  /* ---------- ADD TO CART ---------- */
 
-  const proceed = (imageBase64 = null) => {
+  const addToCartBtn = document.querySelector('.add-to-cart');
+
+  addToCartBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+
+    if (!selectedSize) {
+      sizeError.style.display = 'block';
+      return;
+    }
+
+    if (isUploading) {
+      alert('Please wait for image upload to finish');
+      return;
+    }
+
+    const note = document.getElementById('custom-fit-text')?.value.trim();
     const cart = JSON.parse(localStorage.getItem('cart')) || [];
 
     cart.push({
@@ -116,43 +147,32 @@ addToCartBtn.addEventListener('click', (e) => {
       quantity: 1,
       customFit: {
         note: note || null,
-        image: imageBase64
+        image: uploadedImageUrl || null
       }
     });
 
     localStorage.setItem('cart', JSON.stringify(cart));
     window.location.href = 'cart.html';
-  };
+  });
+}
 
-  // 🔹 If no image → proceed immediately
-  if (!file) {
-    proceed(null);
-    return;
-  }
+/* ================= CLOUDINARY UPLOAD ================= */
 
-  // 🔹 Read image FIRST, then navigate
-  const reader = new FileReader();
-  reader.onload = () => {
-    proceed(reader.result);
-  };
-  reader.onerror = () => {
-    console.warn('Image read failed, proceeding without image');
-    proceed(null);
-  };
-  reader.readAsDataURL(file);
-});
+async function uploadToCloudinary(file) {
+  const formData = new FormData();
+  formData.append('file', file);
+  formData.append('upload_preset', 'markdanielsaddlery');
 
-  /* ================= IMAGE STATUS UI ================= */
+  const res = await fetch(
+    'https://api.cloudinary.com/v1_1/dl79csna5/image/upload',
+    {
+      method: 'POST',
+      body: formData
+    }
+  );
 
-  const imageInput = document.getElementById('custom-fit-image');
-  const statusText = document.getElementById('custom-fit-status');
-
-  if (imageInput && statusText) {
-    imageInput.addEventListener('change', () => {
-      statusText.textContent =
-        imageInput.files.length > 0 ? 'Image attached ✓' : '';
-    });
-  }
+  const data = await res.json();
+  return data.secure_url;
 }
 
 /* ================= FULLSCREEN IMAGE ================= */
@@ -180,5 +200,3 @@ function openFullscreenImage(url) {
     }
   });
 }
-
-
