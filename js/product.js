@@ -176,11 +176,33 @@ function openFullscreenImage(url) {
 /* ================= FILE READER ================= */
 
 function readFileAsBase64(file) {
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
     if (!file) return resolve(null);
+
+    const img = new Image();
     const reader = new FileReader();
-    reader.onload = () => resolve(reader.result);
-    reader.onerror = reject;
+
+    reader.onload = e => {
+      img.src = e.target.result;
+    };
+
+    img.onload = () => {
+      const canvas = document.createElement('canvas');
+
+      const MAX_WIDTH = 800;
+      const scale = MAX_WIDTH / img.width;
+
+      canvas.width = MAX_WIDTH;
+      canvas.height = img.height * scale;
+
+      const ctx = canvas.getContext('2d');
+      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+
+      const compressed = canvas.toDataURL('image/jpeg', 0.6);
+      resolve(compressed);
+    };
+
     reader.readAsDataURL(file);
   });
 }
+
