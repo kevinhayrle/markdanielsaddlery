@@ -89,60 +89,11 @@ function hydrateProduct(product) {
   });
 
   /* ================= ADD TO CART (SAFARI SAFE) ================= */
+const addToCartBtn = document.querySelector('.add-to-cart');
 
-  const addToCartBtn = document.querySelector('.add-to-cart');
-
-  addToCartBtn.addEventListener('click', async (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-
-    if (!selectedSize) {
-      sizeError.style.display = 'block';
-      return;
-    }
-
-    const note = document.getElementById('custom-fit-text')?.value.trim();
-    const file = document.getElementById('custom-fit-image')?.files[0];
-
-    let image = null;
-    try {
-      if (file) {
-        image = await readFileAsBase64(file);
-      }
-    } catch (err) {
-      console.warn('Image read failed on iOS, continuing without image');
-    }
-
-    const cart = JSON.parse(localStorage.getItem('cart')) || [];
-
-    cart.push({
-      id: product._id,
-      name: product.name,
-      price: product.discountedPrice || product.price,
-      imageUrl: product.imageUrl,
-      category: product.category,
-      size: selectedSize,
-      quantity: 1,
-      customFit: { note: note || null, image }
-    });
-
-localStorage.setItem('cart', JSON.stringify(cart));
-
-const fileInput = document.getElementById('custom-fit-image');
-
-// iOS Safari hard fix
-if (fileInput) {
-  fileInput.blur();
-  fileInput.value = '';
-  fileInput.remove();
-}
-
-// SAFARI-SAFE NAVIGATION (new event loop)
-setTimeout(() => {
-  window.location.replace('cart.html');
-}, 50);
-
-  });
+addToCartBtn.onclick = () => {
+  alert('ADD TO CART CLICKED');
+};
 
   /* ================= IMAGE STATUS UI ================= */
 
