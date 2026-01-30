@@ -127,8 +127,7 @@ function hydrateProduct(product) {
     });
 
     localStorage.setItem('cart', JSON.stringify(cart));
-
-    // 🔥 SAFARI-SAFE NAVIGATION
+document.getElementById('custom-fit-image')?.blur();
     setTimeout(() => {
       window.location.assign('cart.html');
     }, 0);
