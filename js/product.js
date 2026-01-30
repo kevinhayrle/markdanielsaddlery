@@ -90,7 +90,8 @@ function hydrateProduct(product) {
 
   /* ================= ADD TO CART (SAFARI SAFE) ================= */
 
-  const addToCartBtn = document.querySelector('.add-to-cart');
+const addToCartBtn = document.querySelector('.add-to-cart');
+
 addToCartBtn.addEventListener('click', (e) => {
   e.preventDefault();
   e.stopPropagation();
@@ -103,9 +104,13 @@ addToCartBtn.addEventListener('click', (e) => {
   const note = document.getElementById('custom-fit-text')?.value.trim();
   const file = document.getElementById('custom-fit-image')?.files[0];
 
+  let image = null;
+  if (file) {
+    image = URL.createObjectURL(file); 
+  }
+
   const cart = JSON.parse(localStorage.getItem('cart')) || [];
 
-  // push immediately (no await)
   cart.push({
     id: product._id,
     name: product.name,
@@ -114,21 +119,14 @@ addToCartBtn.addEventListener('click', (e) => {
     category: product.category,
     size: selectedSize,
     quantity: 1,
-    customFit: { note: note || null, image: null }
+    customFit: {
+      note: note || null,
+      image
+    }
   });
 
   localStorage.setItem('cart', JSON.stringify(cart));
 
-  // 👇 async image processing AFTER storage
-  if (file) {
-    readFileAsBase64(file).then(img => {
-      const updated = JSON.parse(localStorage.getItem('cart'));
-      updated[updated.length - 1].customFit.image = img;
-      localStorage.setItem('cart', JSON.stringify(updated));
-    });
-  }
-
-  // 👇 navigation happens immediately (iOS-safe)
   window.location.href = 'cart.html';
 });
 
@@ -171,14 +169,4 @@ function openFullscreenImage(url) {
   });
 }
 
-/* ================= FILE READER ================= */
 
-function readFileAsBase64(file) {
-  return new Promise((resolve, reject) => {
-    if (!file) return resolve(null);
-    const reader = new FileReader();
-    reader.onload = () => resolve(reader.result);
-    reader.onerror = reject;
-    reader.readAsDataURL(file);
-  });
-}

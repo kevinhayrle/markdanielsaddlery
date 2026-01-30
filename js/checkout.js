@@ -77,17 +77,16 @@ if (item.customFit.image) {
   img.style.width = '48px';
   img.style.height = '48px';
   img.style.objectFit = 'cover';
-  img.style.borderRadius = '4px';
+  img.style.borderRadius = '6px';
   img.style.marginTop = '6px';
-  img.style.cursor = 'pointer';
+  img.style.cursor = 'zoom-in';
 
-  img.onclick = () => {
-    window.open(item.customFit.image, '_blank');
-  };
+  img.addEventListener('click', () => {
+    openImageOverlay(item.customFit.image);
+  });
 
   customDiv.appendChild(img);
 }
-
 
     li.querySelector('.checkout-item-info').appendChild(customDiv);
   }
@@ -180,3 +179,27 @@ paypal.Buttons({
   }
 
 }).render('#paypal-button-container');
+
+function openImageOverlay(src) {
+  const overlay = document.createElement('div');
+  overlay.style.cssText = `
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+  `;
+
+  const img = document.createElement('img');
+  img.src = src;
+  img.style.maxWidth = '90%';
+  img.style.maxHeight = '90%';
+  img.style.borderRadius = '8px';
+
+  overlay.appendChild(img);
+  document.body.appendChild(overlay);
+
+  overlay.addEventListener('click', () => overlay.remove());
+}
