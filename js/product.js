@@ -142,6 +142,7 @@ setTimeout(() => {
   window.location.replace('cart.html');
 }, 50);
 
+  });
 
   /* ================= IMAGE STATUS UI ================= */
 
