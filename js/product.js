@@ -104,10 +104,49 @@ addToCartBtn.addEventListener('click', (e) => {
   const note = document.getElementById('custom-fit-text')?.value.trim();
   const file = document.getElementById('custom-fit-image')?.files[0];
 
-  let image = null;
-  if (file) {
-    image = URL.createObjectURL(file); 
+  const addToCartBtn = document.querySelector('.add-to-cart');
+
+addToCartBtn.addEventListener('click', (e) => {
+  e.preventDefault();
+  e.stopPropagation();
+
+  if (!selectedSize) {
+    sizeError.style.display = 'block';
+    return;
   }
+
+  const note = document.getElementById('custom-fit-text')?.value.trim();
+  const file = document.getElementById('custom-fit-image')?.files[0];
+
+  const cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+  const cartItem = {
+    id: product._id,
+    name: product.name,
+    price: product.discountedPrice || product.price,
+    imageUrl: product.imageUrl,
+    category: product.category,
+    size: selectedSize,
+    quantity: 1,
+    customFit: { note: note || null, image: null }
+  };
+
+  cart.push(cartItem);
+  localStorage.setItem('cart', JSON.stringify(cart));
+
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = () => {
+      const updatedCart = JSON.parse(localStorage.getItem('cart')) || [];
+      updatedCart[updatedCart.length - 1].customFit.image = reader.result;
+      localStorage.setItem('cart', JSON.stringify(updatedCart));
+    };
+    reader.readAsDataURL(file);
+  }
+
+  window.location.href = 'cart.html';
+});
+
 
   const cart = JSON.parse(localStorage.getItem('cart')) || [];
 
