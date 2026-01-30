@@ -89,11 +89,50 @@ function hydrateProduct(product) {
   });
 
   /* ================= ADD TO CART (SAFARI SAFE) ================= */
+
 const addToCartBtn = document.querySelector('.add-to-cart');
 
-addToCartBtn.onclick = () => {
-  alert('ADD TO CART CLICKED');
-};
+addToCartBtn.addEventListener('click', (e) => {
+  e.preventDefault();
+  e.stopPropagation();
+
+  if (!selectedSize) {
+    sizeError.style.display = 'block';
+    return;
+  }
+
+  const note = document.getElementById('custom-fit-text')?.value.trim();
+  const file = document.getElementById('custom-fit-image')?.files[0];
+
+  const cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+  const cartItem = {
+    id: product._id,
+    name: product.name,
+    price: product.discountedPrice || product.price,
+    imageUrl: product.imageUrl,
+    category: product.category,
+    size: selectedSize,
+    quantity: 1,
+    customFit: { note: note || null, image: null }
+  };
+
+  cart.push(cartItem);
+  localStorage.setItem('cart', JSON.stringify(cart));
+
+  window.location.href = 'cart.html';
+
+  if (file) {
+    readFileAsBase64(file)
+      .then(base64 => {
+        cartItem.customFit.image = base64;
+        localStorage.setItem('cart', JSON.stringify(cart));
+      })
+      .catch(() => {
+        console.warn('Image ignored on iOS');
+      });
+  }
+});
 
   /* ================= IMAGE STATUS UI ================= */
 
