@@ -125,6 +125,29 @@ body {
   border-bottom: 1px solid #eee;
 }
 
+.checkout-line {
+  font-size: 14px;
+  margin-top: 4px;
+  color: #333;
+}
+
+.custom-fit-summary {
+  margin-top: 10px;
+  margin-left: -3px;
+  padding: 6px 8px;
+  background: #f7f7f7;
+  border-radius: 6px;
+  font-size: 13px;
+}
+
+.custom-fit-thumb {
+  width: 32px;
+  height: 32px;
+  object-fit: cover;
+  border-radius: 4px;
+  margin-top: 4px;
+}
+
 .summary-row {
   display: flex;
   justify-content: space-between;

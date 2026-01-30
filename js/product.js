@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', () => {
-
   const params = new URLSearchParams(window.location.search);
   const productId = params.get('id');
 
@@ -13,7 +12,6 @@ document.addEventListener('DOMContentLoaded', () => {
   if (cached) {
     const products = JSON.parse(cached);
     const product = products.find(p => p._id === productId);
-
     if (product) {
       hydrateProduct(product);
       return;
@@ -23,40 +21,30 @@ document.addEventListener('DOMContentLoaded', () => {
   fetch(`${API_BASE}/products/${productId}`)
     .then(res => res.json())
     .then(product => hydrateProduct(product))
-    .catch(err => console.error('Error fetching product:', err));
+    .catch(err => console.error(err));
 });
 
 function hydrateProduct(product) {
-
   document.getElementById('product-image').src = product.imageUrl;
   document.getElementById('product-name').textContent = product.name;
   document.getElementById('product-description').textContent = product.description;
 
   const priceEl = document.getElementById('product-price');
+  priceEl.innerHTML = product.discountedPrice
+    ? `<span class="old-price">$${product.price}</span>
+       <span class="new-price">$${product.discountedPrice}</span>`
+    : `<span class="new-price">$${product.price}</span>`;
 
-  if (product.discountedPrice) {
-    priceEl.innerHTML = `
-      <span class="old-price">$${Number(product.price).toLocaleString()}</span>
-      <span class="new-price">$${Number(product.discountedPrice).toLocaleString()}</span>
-    `;
-  } else {
-    priceEl.innerHTML = `
-      <span class="new-price">$${Number(product.price).toLocaleString()}</span>
-    `;
-  }
+  const extraImages = document.getElementById('extra-images');
+  extraImages.innerHTML = '';
 
-  const extraImagesContainer = document.getElementById('extra-images');
-  extraImagesContainer.innerHTML = '';
-
-  if (Array.isArray(product.extra_images)) {
-    product.extra_images.forEach(url => {
-      const img = document.createElement('img');
-      img.src = url;
-      img.className = 'extra-image';
-      img.onclick = () => openFullscreenImage(url);
-      extraImagesContainer.appendChild(img);
-    });
-  }
+  (product.extra_images || []).forEach(url => {
+    const img = document.createElement('img');
+    img.src = url;
+    img.className = 'extra-image';
+    img.onclick = () => openFullscreenImage(url);
+    extraImages.appendChild(img);
+  });
 
   const sizeContainer = document.getElementById('size-options');
   const sizeError = document.getElementById('size-error');
@@ -73,23 +61,22 @@ function hydrateProduct(product) {
     btn.onclick = () => {
       selectedSize = size;
       sizeError.style.display = 'none';
-
-      [...sizeContainer.children].forEach(b =>
-        b.classList.remove('active')
-      );
+      [...sizeContainer.children].forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
     };
 
     sizeContainer.appendChild(btn);
   });
 
-  const addToCartBtn = document.querySelector('.add-to-cart');
-
-  addToCartBtn.onclick = () => {
+  document.querySelector('.add-to-cart').onclick = async () => {
     if (!selectedSize) {
       sizeError.style.display = 'block';
       return;
     }
+
+    const note = document.getElementById('custom-fit-text')?.value.trim();
+    const file = document.getElementById('custom-fit-image')?.files[0];
+    const image = await readFileAsBase64(file);
 
     const cart = JSON.parse(localStorage.getItem('cart')) || [];
 
@@ -100,35 +87,50 @@ function hydrateProduct(product) {
       imageUrl: product.imageUrl,
       category: product.category,
       size: selectedSize,
-      quantity: 1
+      quantity: 1,
+      customFit: { note: note || null, image }
     });
 
     localStorage.setItem('cart', JSON.stringify(cart));
     window.location.href = 'cart.html';
   };
+
+const imageInput = document.getElementById('custom-fit-image');
+const statusText = document.getElementById('custom-fit-status');
+
+if (imageInput && statusText) {
+  imageInput.addEventListener('change', () => {
+    statusText.textContent =
+      imageInput.files.length > 0 ? 'Image attached ✓' : '';
+  });
+}
+
 }
 
 function openFullscreenImage(url) {
   const overlay = document.createElement('div');
-
-  Object.assign(overlay.style, {
-    position: 'fixed',
-    inset: 0,
-    background: 'rgba(0,0,0,0.9)',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    zIndex: 1000
-  });
+  overlay.style.cssText = `
+    position:fixed;inset:0;
+    background:rgba(0,0,0,.9);
+    display:flex;align-items:center;justify-content:center;
+    z-index:1000;
+  `;
 
   const img = document.createElement('img');
   img.src = url;
   img.style.maxWidth = '90%';
   img.style.maxHeight = '90%';
-  img.style.borderRadius = '8px';
 
-  overlay.onclick = () => document.body.removeChild(overlay);
-
+  overlay.onclick = () => overlay.remove();
   overlay.appendChild(img);
   document.body.appendChild(overlay);
+}
+
+function readFileAsBase64(file) {
+  return new Promise(resolve => {
+    if (!file) return resolve(null);
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result);
+    reader.readAsDataURL(file);
+  });
 }

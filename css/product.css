@@ -147,8 +147,52 @@ body {
   display: none;
   margin-top: 10px;
   font-size: 0.7rem;
-  color: #7b1c1c; /* muted luxury red */
+  color: #7b1c1c;
   letter-spacing: 1px;
+}
+
+.custom-fit-section {
+  margin-top: -10px;
+}
+
+.custom-fit-title {
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+
+#custom-fit-text {
+  width: 100%;
+  background: #faf9f7;         
+  border: 1.5px solid #999;  
+  padding: 12px;
+  font-family: inherit;
+  font-size: 14px;
+  border-radius: 6px;
+  resize: none;
+}
+
+#custom-fit-text::placeholder {
+  color: #777;
+}
+
+#custom-fit-text:focus {
+  outline: none;
+  border-color: #000;
+}
+
+.custom-fit-upload {
+  display: inline-block;
+  margin-top: 10px;
+  margin-bottom: 30px;
+  font-size: 14px;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.custom-fit-status {
+  font-size: 13px;
+  margin-top: 6px;
+  color: #1c1c1c;
 }
 
 .add-to-cart {

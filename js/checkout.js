@@ -44,7 +44,54 @@ const totalAmountEl = document.getElementById('total-amount');
 
 cart.forEach(item => {
   const li = document.createElement('li');
-  li.textContent = `${item.name} | Qty: ${item.quantity} | Size: ${item.size} | $${item.price * item.quantity}`;
+  li.className = 'checkout-item';
+
+li.innerHTML = `
+  <div class="checkout-item-info">
+    <strong>${item.name}</strong>
+
+    <div class="checkout-line">
+      Size: ${item.size} |
+      Qty: ${item.quantity} |
+      Price: $${item.price * item.quantity}
+    </div>
+  </div>
+`;
+
+  // 🔧 SHOW CUSTOM FIT (ONLY IF EXISTS)
+  if (item.customFit?.note || item.customFit?.image) {
+    const customDiv = document.createElement('div');
+    customDiv.className = 'custom-fit-summary';
+
+    if (item.customFit.note) {
+      const note = document.createElement('p');
+      note.innerHTML = `<strong>Custom Fit Note:</strong> ${item.customFit.note}`;
+      customDiv.appendChild(note);
+    }
+
+if (item.customFit.image) {
+  const img = document.createElement('img');
+  img.src = item.customFit.image;
+  img.alt = 'Custom Fit Reference';
+
+  img.style.width = '48px';
+  img.style.height = '48px';
+  img.style.objectFit = 'cover';
+  img.style.borderRadius = '4px';
+  img.style.marginTop = '6px';
+  img.style.cursor = 'pointer';
+
+  img.onclick = () => {
+    window.open(item.customFit.image, '_blank');
+  };
+
+  customDiv.appendChild(img);
+}
+
+
+    li.querySelector('.checkout-item-info').appendChild(customDiv);
+  }
+
   cartItemsContainer.appendChild(li);
 });
 
