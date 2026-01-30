@@ -30,7 +30,9 @@ function hydrateProduct(product) {
   const mainImage = document.getElementById('product-image');
   mainImage.src = product.imageUrl;
   mainImage.style.cursor = 'zoom-in';
-  mainImage.onclick = () => openFullscreenImage(mainImage.src);
+  mainImage.addEventListener('click', () =>
+    openFullscreenImage(mainImage.src)
+  );
 
   document.getElementById('product-name').textContent = product.name;
   document.getElementById('product-description').textContent = product.description;
@@ -53,10 +55,10 @@ function hydrateProduct(product) {
     img.src = url;
     img.className = 'extra-image';
 
-    img.onclick = () => {
+    img.addEventListener('click', () => {
       mainImage.src = url;
       openFullscreenImage(url);
-    };
+    });
 
     extraImages.appendChild(img);
   });
@@ -72,22 +74,28 @@ function hydrateProduct(product) {
 
   (product.sizes || []).forEach(size => {
     const btn = document.createElement('button');
+    btn.type = 'button';
     btn.className = 'size-btn';
     btn.textContent = size;
 
-    btn.onclick = () => {
+    btn.addEventListener('click', () => {
       selectedSize = size;
       sizeError.style.display = 'none';
       [...sizeContainer.children].forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
-    };
+    });
 
     sizeContainer.appendChild(btn);
   });
 
-  /* ================= ADD TO CART ================= */
+  /* ================= ADD TO CART (SAFARI SAFE) ================= */
 
-  document.querySelector('.add-to-cart').onclick = async () => {
+  const addToCartBtn = document.querySelector('.add-to-cart');
+
+  addToCartBtn.addEventListener('click', async (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+
     if (!selectedSize) {
       sizeError.style.display = 'block';
       return;
@@ -102,7 +110,7 @@ function hydrateProduct(product) {
         image = await readFileAsBase64(file);
       }
     } catch (err) {
-      console.warn('Image read failed on this device, continuing without image', err);
+      console.warn('Image read failed on iOS, continuing without image');
     }
 
     const cart = JSON.parse(localStorage.getItem('cart')) || [];
@@ -119,10 +127,14 @@ function hydrateProduct(product) {
     });
 
     localStorage.setItem('cart', JSON.stringify(cart));
-    window.location.href = 'cart.html';
-  };
 
-  /* ================= IMAGE STATUS (UI ONLY) ================= */
+    // 🔥 SAFARI-SAFE NAVIGATION
+    setTimeout(() => {
+      window.location.assign('cart.html');
+    }, 0);
+  });
+
+  /* ================= IMAGE STATUS UI ================= */
 
   const imageInput = document.getElementById('custom-fit-image');
   const statusText = document.getElementById('custom-fit-status');
@@ -151,7 +163,7 @@ function openFullscreenImage(url) {
   overlay.appendChild(img);
   document.body.appendChild(overlay);
 
-  overlay.onclick = () => overlay.remove();
+  overlay.addEventListener('click', () => overlay.remove());
 
   document.addEventListener('keydown', function escHandler(e) {
     if (e.key === 'Escape') {
