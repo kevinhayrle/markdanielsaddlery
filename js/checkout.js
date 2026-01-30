@@ -59,43 +59,57 @@ document.addEventListener('DOMContentLoaded', () => {
         </div>
       </div>
     `;
+/* ---------- CUSTOM FIT ---------- */
 
-    /* ---------- CUSTOM FIT ---------- */
+if (item.customFit?.note || item.customFit?.image) {
+  const customDiv = document.createElement('div');
+  customDiv.className = 'custom-fit-summary';
 
-    if (item.customFit?.note || item.customFit?.image) {
-      const customDiv = document.createElement('div');
-      customDiv.className = 'custom-fit-summary';
+  // NOTE
+  if (item.customFit.note) {
+    const note = document.createElement('p');
+    note.innerHTML = `<strong>Custom Fit Note:</strong> ${item.customFit.note}`;
+    customDiv.appendChild(note);
+  }
 
-      if (item.customFit.note) {
-        const note = document.createElement('p');
-        note.innerHTML = `<strong>Custom Fit Note:</strong> ${item.customFit.note}`;
-        customDiv.appendChild(note);
-      }
+  // IMAGE
+  if (item.customFit.image) {
+    const img = document.createElement('img');
+    img.src = item.customFit.image;
+    img.alt = 'Custom Fit Reference';
 
-      if (item.customFit.image) {
-        const img = document.createElement('img');
-        img.src = item.customFit.image;
-        img.alt = 'Custom Fit Reference';
+    /* 🔑 ANDROID SAFE */
+    img.crossOrigin = 'anonymous';
+    img.referrerPolicy = 'no-referrer';
+    img.loading = 'lazy';
 
-        img.style.width = '48px';
-        img.style.height = '48px';
-        img.style.objectFit = 'cover';
-        img.style.borderRadius = '6px';
-        img.style.marginTop = '6px';
-        img.style.cursor = 'zoom-in';
+    img.style.width = '48px';
+    img.style.height = '48px';
+    img.style.objectFit = 'cover';
+    img.style.borderRadius = '6px';
+    img.style.marginTop = '6px';
+    img.style.cursor = 'zoom-in';
 
-        img.addEventListener('click', () => {
-          openImageOverlay(item.customFit.image);
-        });
+    img.addEventListener('click', () => {
+      openImageOverlay(item.customFit.image);
+    });
 
-        customDiv.appendChild(img);
-      }
+    img.onerror = () => {
+      img.style.display = 'none';
 
-      li.querySelector('.checkout-item-info').appendChild(customDiv);
-    }
+      const fallback = document.createElement('span');
+      fallback.textContent = 'Custom fit image attached';
+      fallback.style.fontSize = '12px';
+      fallback.style.color = '#666';
 
-    cartItemsContainer.appendChild(li);
-  });
+      customDiv.appendChild(fallback);
+    };
+
+    customDiv.appendChild(img);
+  }
+
+  li.querySelector('.checkout-item-info').appendChild(customDiv);
+}
 
   /* -------------------- TOTAL -------------------- */
 
