@@ -191,7 +191,8 @@ body {
 
 .custom-fit-status {
   font-size: 13px;
-  margin-top: 6px;
+  margin-top: -20px;
+  margin-bottom: 20px;
   color: #1c1c1c;
 }
 
