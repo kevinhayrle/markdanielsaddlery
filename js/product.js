@@ -25,19 +25,25 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function hydrateProduct(product) {
+  /* ================= MAIN IMAGE ================= */
+
   const mainImage = document.getElementById('product-image');
-mainImage.src = product.imageUrl;
-mainImage.style.cursor = 'zoom-in';
-mainImage.onclick = () => openFullscreenImage(mainImage.src);
+  mainImage.src = product.imageUrl;
+  mainImage.style.cursor = 'zoom-in';
+  mainImage.onclick = () => openFullscreenImage(mainImage.src);
 
   document.getElementById('product-name').textContent = product.name;
   document.getElementById('product-description').textContent = product.description;
+
+  /* ================= PRICE ================= */
 
   const priceEl = document.getElementById('product-price');
   priceEl.innerHTML = product.discountedPrice
     ? `<span class="old-price">$${product.price}</span>
        <span class="new-price">$${product.discountedPrice}</span>`
     : `<span class="new-price">$${product.price}</span>`;
+
+  /* ================= EXTRA IMAGES ================= */
 
   const extraImages = document.getElementById('extra-images');
   extraImages.innerHTML = '';
@@ -46,13 +52,16 @@ mainImage.onclick = () => openFullscreenImage(mainImage.src);
     const img = document.createElement('img');
     img.src = url;
     img.className = 'extra-image';
+
     img.onclick = () => {
-    mainImage.src = url;         
-    openFullscreenImage(url);    
-};
+      mainImage.src = url;
+      openFullscreenImage(url);
+    };
 
     extraImages.appendChild(img);
   });
+
+  /* ================= SIZES ================= */
 
   const sizeContainer = document.getElementById('size-options');
   const sizeError = document.getElementById('size-error');
@@ -76,6 +85,8 @@ mainImage.onclick = () => openFullscreenImage(mainImage.src);
     sizeContainer.appendChild(btn);
   });
 
+  /* ================= ADD TO CART ================= */
+
   document.querySelector('.add-to-cart').onclick = async () => {
     if (!selectedSize) {
       sizeError.style.display = 'block';
@@ -84,7 +95,15 @@ mainImage.onclick = () => openFullscreenImage(mainImage.src);
 
     const note = document.getElementById('custom-fit-text')?.value.trim();
     const file = document.getElementById('custom-fit-image')?.files[0];
-    const image = await readFileAsBase64(file);
+
+    let image = null;
+    try {
+      if (file) {
+        image = await readFileAsBase64(file);
+      }
+    } catch (err) {
+      console.warn('Image read failed on this device, continuing without image', err);
+    }
 
     const cart = JSON.parse(localStorage.getItem('cart')) || [];
 
@@ -103,19 +122,25 @@ mainImage.onclick = () => openFullscreenImage(mainImage.src);
     window.location.href = 'cart.html';
   };
 
-const imageInput = document.getElementById('custom-fit-image');
-const statusText = document.getElementById('custom-fit-status');
+  /* ================= IMAGE STATUS (UI ONLY) ================= */
 
-if (imageInput && statusText) {
-  imageInput.addEventListener('change', () => {
-    statusText.textContent =
-      imageInput.files.length > 0 ? 'Image attached ✓' : '';
-  });
+  const imageInput = document.getElementById('custom-fit-image');
+  const statusText = document.getElementById('custom-fit-status');
+
+  if (imageInput && statusText) {
+    imageInput.addEventListener('change', () => {
+      statusText.textContent =
+        imageInput.files.length > 0 ? 'Image attached ✓' : '';
+    });
+  }
 }
 
-}
+/* ================= FULLSCREEN IMAGE ================= */
 
 function openFullscreenImage(url) {
+  const existing = document.querySelector('.image-zoom-overlay');
+  if (existing) existing.remove();
+
   const overlay = document.createElement('div');
   overlay.className = 'image-zoom-overlay';
 
@@ -127,13 +152,23 @@ function openFullscreenImage(url) {
   document.body.appendChild(overlay);
 
   overlay.onclick = () => overlay.remove();
+
+  document.addEventListener('keydown', function escHandler(e) {
+    if (e.key === 'Escape') {
+      overlay.remove();
+      document.removeEventListener('keydown', escHandler);
+    }
+  });
 }
 
+/* ================= FILE READER ================= */
+
 function readFileAsBase64(file) {
-  return new Promise(resolve => {
+  return new Promise((resolve, reject) => {
     if (!file) return resolve(null);
     const reader = new FileReader();
     reader.onload = () => resolve(reader.result);
+    reader.onerror = reject;
     reader.readAsDataURL(file);
   });
 }
