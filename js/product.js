@@ -90,8 +90,7 @@ function hydrateProduct(product) {
 
   /* ================= ADD TO CART (SAFARI SAFE) ================= */
 
-const addToCartBtn = document.querySelector('.add-to-cart');
-
+  const addToCartBtn = document.querySelector('.add-to-cart');
 addToCartBtn.addEventListener('click', (e) => {
   e.preventDefault();
   e.stopPropagation();
@@ -106,7 +105,8 @@ addToCartBtn.addEventListener('click', (e) => {
 
   const cart = JSON.parse(localStorage.getItem('cart')) || [];
 
-  const cartItem = {
+  // push immediately (no await)
+  cart.push({
     id: product._id,
     name: product.name,
     price: product.discountedPrice || product.price,
@@ -115,23 +115,21 @@ addToCartBtn.addEventListener('click', (e) => {
     size: selectedSize,
     quantity: 1,
     customFit: { note: note || null, image: null }
-  };
+  });
 
-  cart.push(cartItem);
   localStorage.setItem('cart', JSON.stringify(cart));
 
-  window.location.href = 'cart.html';
-
+  // 👇 async image processing AFTER storage
   if (file) {
-    readFileAsBase64(file)
-      .then(base64 => {
-        cartItem.customFit.image = base64;
-        localStorage.setItem('cart', JSON.stringify(cart));
-      })
-      .catch(() => {
-        console.warn('Image ignored on iOS');
-      });
+    readFileAsBase64(file).then(img => {
+      const updated = JSON.parse(localStorage.getItem('cart'));
+      updated[updated.length - 1].customFit.image = img;
+      localStorage.setItem('cart', JSON.stringify(updated));
+    });
   }
+
+  // 👇 navigation happens immediately (iOS-safe)
+  window.location.href = 'cart.html';
 });
 
   /* ================= IMAGE STATUS UI ================= */
@@ -176,33 +174,11 @@ function openFullscreenImage(url) {
 /* ================= FILE READER ================= */
 
 function readFileAsBase64(file) {
-  return new Promise((resolve) => {
+  return new Promise((resolve, reject) => {
     if (!file) return resolve(null);
-
-    const img = new Image();
     const reader = new FileReader();
-
-    reader.onload = e => {
-      img.src = e.target.result;
-    };
-
-    img.onload = () => {
-      const canvas = document.createElement('canvas');
-
-      const MAX_WIDTH = 800;
-      const scale = MAX_WIDTH / img.width;
-
-      canvas.width = MAX_WIDTH;
-      canvas.height = img.height * scale;
-
-      const ctx = canvas.getContext('2d');
-      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-
-      const compressed = canvas.toDataURL('image/jpeg', 0.6);
-      resolve(compressed);
-    };
-
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = reject;
     reader.readAsDataURL(file);
   });
 }
-
