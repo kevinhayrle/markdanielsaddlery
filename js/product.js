@@ -89,7 +89,6 @@ function hydrateProduct(product) {
   });
 
   /* ================= ADD TO CART (SAFARI SAFE) ================= */
-
 const addToCartBtn = document.querySelector('.add-to-cart');
 
 addToCartBtn.addEventListener('click', (e) => {
@@ -104,69 +103,43 @@ addToCartBtn.addEventListener('click', (e) => {
   const note = document.getElementById('custom-fit-text')?.value.trim();
   const file = document.getElementById('custom-fit-image')?.files[0];
 
-  const addToCartBtn = document.querySelector('.add-to-cart');
+  const proceed = (imageBase64 = null) => {
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
 
-addToCartBtn.addEventListener('click', (e) => {
-  e.preventDefault();
-  e.stopPropagation();
+    cart.push({
+      id: product._id,
+      name: product.name,
+      price: product.discountedPrice || product.price,
+      imageUrl: product.imageUrl,
+      category: product.category,
+      size: selectedSize,
+      quantity: 1,
+      customFit: {
+        note: note || null,
+        image: imageBase64
+      }
+    });
 
-  if (!selectedSize) {
-    sizeError.style.display = 'block';
+    localStorage.setItem('cart', JSON.stringify(cart));
+    window.location.href = 'cart.html';
+  };
+
+  // 🔹 If no image → proceed immediately
+  if (!file) {
+    proceed(null);
     return;
   }
 
-  const note = document.getElementById('custom-fit-text')?.value.trim();
-  const file = document.getElementById('custom-fit-image')?.files[0];
-
-  const cart = JSON.parse(localStorage.getItem('cart')) || [];
-
-  const cartItem = {
-    id: product._id,
-    name: product.name,
-    price: product.discountedPrice || product.price,
-    imageUrl: product.imageUrl,
-    category: product.category,
-    size: selectedSize,
-    quantity: 1,
-    customFit: { note: note || null, image: null }
+  // 🔹 Read image FIRST, then navigate
+  const reader = new FileReader();
+  reader.onload = () => {
+    proceed(reader.result);
   };
-
-  cart.push(cartItem);
-  localStorage.setItem('cart', JSON.stringify(cart));
-
-  if (file) {
-    const reader = new FileReader();
-    reader.onload = () => {
-      const updatedCart = JSON.parse(localStorage.getItem('cart')) || [];
-      updatedCart[updatedCart.length - 1].customFit.image = reader.result;
-      localStorage.setItem('cart', JSON.stringify(updatedCart));
-    };
-    reader.readAsDataURL(file);
-  }
-
-  window.location.href = 'cart.html';
-});
-
-
-  const cart = JSON.parse(localStorage.getItem('cart')) || [];
-
-  cart.push({
-    id: product._id,
-    name: product.name,
-    price: product.discountedPrice || product.price,
-    imageUrl: product.imageUrl,
-    category: product.category,
-    size: selectedSize,
-    quantity: 1,
-    customFit: {
-      note: note || null,
-      image
-    }
-  });
-
-  localStorage.setItem('cart', JSON.stringify(cart));
-
-  window.location.href = 'cart.html';
+  reader.onerror = () => {
+    console.warn('Image read failed, proceeding without image');
+    proceed(null);
+  };
+  reader.readAsDataURL(file);
 });
 
   /* ================= IMAGE STATUS UI ================= */
