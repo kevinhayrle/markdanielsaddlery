@@ -152,7 +152,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const toast = document.getElementById("sp-toast");
   if (!toast) return;
 
-  const REDIRECT_URL = "home.html";
+  const REDIRECT_URL = "/html/home.html";
 
   const notifications = [
     { name: "Alex", city: "Sydney", product: "Racing Boots" },

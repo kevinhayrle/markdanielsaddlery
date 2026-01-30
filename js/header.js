@@ -53,21 +53,21 @@
   if (logoWrap) {
     logoWrap.style.cursor = 'pointer';
     logoWrap.addEventListener('click', () => {
-      window.location.href = 'index.html';
+      window.location.href = '/';
     });
   }
 
   if (brandCenter) {
     brandCenter.style.cursor = 'pointer';
     brandCenter.addEventListener('click', () => {
-      window.location.href = 'index.html';
+      window.location.href = '/';
     });
   }
 
   if (cartBtn) {
     cartBtn.style.cursor = 'pointer';
     cartBtn.addEventListener('click', () => {
-      window.location.href = 'cart.html';
+      window.location.href = '/html/cart.html';
     });
   }
 })();
@@ -83,10 +83,10 @@ if (accountLink) {
     const token = localStorage.getItem('authToken');
 
     if (token) {
-      window.location.href = 'profile.html';
+      window.location.href = '/html/profile.html';
     } else {
-      localStorage.setItem('redirectAfterLogin', 'profile.html');
-      window.location.href = 'login.html';
+      localStorage.setItem('redirectAfterLogin', '/html/profile.html');
+      window.location.href = '/html/login.html';
     }
   });
 }
