@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
     setField('phone', user.phone);
   }
 
-  /* -------------------- CART & TOTAL -------------------- */
+  /* -------------------- CART -------------------- */
 
   const cart = JSON.parse(localStorage.getItem('cart') || '[]');
   const finalAmount = localStorage.getItem('finalAmount');
@@ -51,65 +51,63 @@ document.addEventListener('DOMContentLoaded', () => {
     li.innerHTML = `
       <div class="checkout-item-info">
         <strong>${item.name}</strong>
-
         <div class="checkout-line">
           Size: ${item.size || '-'} |
           Qty: ${item.quantity || 1} |
-          Price: $${item.price * (item.quantity || 1)}
+          Price: $${(item.price * (item.quantity || 1)).toFixed(2)}
         </div>
       </div>
     `;
-/* ---------- CUSTOM FIT ---------- */
 
-if (item.customFit?.note || item.customFit?.image) {
-  const customDiv = document.createElement('div');
-  customDiv.className = 'custom-fit-summary';
+    /* ---------- CUSTOM FIT ---------- */
 
-  // NOTE
-  if (item.customFit.note) {
-    const note = document.createElement('p');
-    note.innerHTML = `<strong>Custom Fit Note:</strong> ${item.customFit.note}`;
-    customDiv.appendChild(note);
-  }
+    if (item.customFit?.note || item.customFit?.image) {
+      const customDiv = document.createElement('div');
+      customDiv.className = 'custom-fit-summary';
 
-  // IMAGE
-  if (item.customFit.image) {
-    const img = document.createElement('img');
-    img.src = item.customFit.image;
-    img.alt = 'Custom Fit Reference';
+      if (item.customFit.note) {
+        const note = document.createElement('p');
+        note.innerHTML = `<strong>Custom Fit Note:</strong> ${item.customFit.note}`;
+        customDiv.appendChild(note);
+      }
 
-    /* 🔑 ANDROID SAFE */
-    img.crossOrigin = 'anonymous';
-    img.referrerPolicy = 'no-referrer';
-    img.loading = 'lazy';
+      if (item.customFit.image) {
+        const img = document.createElement('img');
+        img.src = item.customFit.image;
+        img.alt = 'Custom Fit Reference';
 
-    img.style.width = '48px';
-    img.style.height = '48px';
-    img.style.objectFit = 'cover';
-    img.style.borderRadius = '6px';
-    img.style.marginTop = '6px';
-    img.style.cursor = 'zoom-in';
+        img.crossOrigin = 'anonymous';
+        img.referrerPolicy = 'no-referrer';
+        img.loading = 'lazy';
 
-    img.addEventListener('click', () => {
-      openImageOverlay(item.customFit.image);
-    });
+        img.style.width = '48px';
+        img.style.height = '48px';
+        img.style.objectFit = 'cover';
+        img.style.borderRadius = '6px';
+        img.style.marginTop = '6px';
+        img.style.cursor = 'zoom-in';
 
-    img.onerror = () => {
-      img.style.display = 'none';
+        img.addEventListener('click', () => {
+          openImageOverlay(item.customFit.image);
+        });
 
-      const fallback = document.createElement('span');
-      fallback.textContent = 'Custom fit image attached';
-      fallback.style.fontSize = '12px';
-      fallback.style.color = '#666';
+        img.onerror = () => {
+          img.style.display = 'none';
+          const fallback = document.createElement('span');
+          fallback.textContent = 'Custom fit image attached';
+          fallback.style.fontSize = '12px';
+          fallback.style.color = '#666';
+          customDiv.appendChild(fallback);
+        };
 
-      customDiv.appendChild(fallback);
-    };
+        customDiv.appendChild(img);
+      }
 
-    customDiv.appendChild(img);
-  }
+      li.querySelector('.checkout-item-info').appendChild(customDiv);
+    }
 
-  li.querySelector('.checkout-item-info').appendChild(customDiv);
-}
+    cartItemsContainer.appendChild(li);
+  });
 
   /* -------------------- TOTAL -------------------- */
 
@@ -140,14 +138,11 @@ if (item.customFit?.note || item.customFit?.image) {
         throw new Error('Form validation failed');
       }
 
-      const res = await fetch(
-        `${API_BASE}/checkout/paypal/create-order`,
-        {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ amount: total })
-        }
-      );
+      const res = await fetch(`${API_BASE}/checkout/paypal/create-order`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ amount: total })
+      });
 
       const data = await res.json();
       return data.orderID;
@@ -155,14 +150,11 @@ if (item.customFit?.note || item.customFit?.image) {
 
     onApprove: async (data) => {
 
-      const captureRes = await fetch(
-        `${API_BASE}/checkout/paypal/capture-order`,
-        {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ orderID: data.orderID })
-        }
-      );
+      const captureRes = await fetch(`${API_BASE}/checkout/paypal/capture-order`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ orderID: data.orderID })
+      });
 
       const captureData = await captureRes.json();
 
