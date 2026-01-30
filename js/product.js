@@ -126,12 +126,22 @@ function hydrateProduct(product) {
       customFit: { note: note || null, image }
     });
 
-    localStorage.setItem('cart', JSON.stringify(cart));
-document.getElementById('custom-fit-image')?.blur();
-    setTimeout(() => {
-      window.location.assign('cart.html');
-    }, 0);
-  });
+localStorage.setItem('cart', JSON.stringify(cart));
+
+const fileInput = document.getElementById('custom-fit-image');
+
+// iOS Safari hard fix
+if (fileInput) {
+  fileInput.blur();
+  fileInput.value = '';
+  fileInput.remove();
+}
+
+// SAFARI-SAFE NAVIGATION (new event loop)
+setTimeout(() => {
+  window.location.replace('cart.html');
+}, 50);
+
 
   /* ================= IMAGE STATUS UI ================= */
 
