@@ -1,21 +1,9 @@
-document.addEventListener("DOMContentLoaded", () => {
+window.addEventListener("load", () => {
   const loader = document.getElementById("preloader");
-  if (!loader) return;
-
-  const MAX_WAIT = 5000;
-  let loaderHidden = false;
-
-  function hidePreloader() {
-    if (loaderHidden) return;
-    loaderHidden = true;
-
+  setTimeout(() => {
     loader.style.opacity = "0";
-
     setTimeout(() => {
-      loader.remove();
+      loader.style.display = "none";
     }, 600);
-  }
-
-  window.addEventListener("load", hidePreloader);
-  setTimeout(hidePreloader, MAX_WAIT);
+  }, 1000);
 });
