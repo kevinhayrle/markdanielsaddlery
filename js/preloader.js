@@ -1,13 +1,21 @@
-document.addEventListener('DOMContentLoaded', () => {
-  const preloader = document.getElementById('preloader');
-  if (!preloader) return;
+document.addEventListener("DOMContentLoaded", () => {
+  const loader = document.getElementById("preloader");
+  if (!loader) return;
 
-  setTimeout(() => {
-    preloader.style.opacity = '0';
-    preloader.style.pointerEvents = 'none';
+  const MAX_WAIT = 5000;
+  let loaderHidden = false;
+
+  function hidePreloader() {
+    if (loaderHidden) return;
+    loaderHidden = true;
+
+    loader.style.opacity = "0";
 
     setTimeout(() => {
-      preloader.remove();
+      loader.remove();
     }, 600);
-  }, 1200);
+  }
+
+  window.addEventListener("load", hidePreloader);
+  setTimeout(hidePreloader, MAX_WAIT);
 });
